@@ -6,6 +6,7 @@
   "author": "Edson Dewes <edson_dewes@hotmail.com>",
   "license": "MIT",
   "scripts": {
+    "build": "webpack --mode production --config webpack.config.prod.js",
     "start": "webpack-dev-server --mode development"
   },
   "devDependencies": {
@@ -14,6 +15,8 @@
     "@babel/preset-react": "7.0.0-beta.40",
     "babel-eslint": "8.2.2",
     "babel-loader": "8.0.0-beta.2",
+    "clean-webpack-plugin": "0.1.18",
+    "copy-webpack-plugin": "4.5.0",
     "eslint": "4.18.1",
     "eslint-loader": "2.0.0",
     "eslint-plugin-react": "7.7.0",
@@ -23,5 +26,9 @@
     "webpack": "4.0.1",
     "webpack-cli": "2.0.9",
     "webpack-dev-server": "3.1.0"
+  },
+  "dependencies": {
+    "compression": "1.7.2",
+    "express": "4.16.2"
   }
 }
