@@ -1,0 +1,43 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch Messaging API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-messaging-api",
+      "program":
+        "${workspaceFolder}/MessageBoard.Messaging.Api/bin/Debug/netcoreapp2.0/MessageBoard.Messaging.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/MessageBoard.Messaging.Api",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://*:5000"
+      }
+    },
+    {
+      "name": "Launch Voting API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-voting-api",
+      "program":
+        "${workspaceFolder}/MessageBoard.Voting.Api/bin/Debug/netcoreapp2.0/MessageBoard.Voting.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/MessageBoard.Voting.Api",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://*:5001"
+      }
+    },
+    {
+      "name": ".NET Core Attach",
+      "type": "coreclr",
+      "request": "attach",
+      "processId": "${command:pickProcess}"
+    }
+  ]
+}
