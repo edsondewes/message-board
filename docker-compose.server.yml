@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  redis:
+    image: redis:alpine
+  
+  messaging-api:
+    build: ./server/messaging/
+    image: "edsondewes/messaging-api:latest"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Redis: redis
+    ports:
+      - 5000:80
+
+  voting-api:
+    build: ./server/voting/
+    image: "edsondewes/voting-api:latest"
+    environment:
+      ASPNETCORE_ENVIRONMENT: Development
+      Redis: redis
+    ports:
+      - 5001:80

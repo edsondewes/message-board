@@ -18,7 +18,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/MessageBoard.Messaging.Api/MessageBoard.Messaging.Api.csproj"
+        "${workspaceFolder}/messaging/MessageBoard.Messaging.Api/MessageBoard.Messaging.Api.csproj"
       ],
       "problemMatcher": "$msCompile",
       "group": "build"
@@ -29,7 +29,7 @@
       "type": "process",
       "args": [
         "build",
-        "${workspaceFolder}/MessageBoard.Voting.Api/MessageBoard.Voting.Api.csproj"
+        "${workspaceFolder}/voting/MessageBoard.Voting.Api/MessageBoard.Voting.Api.csproj"
       ],
       "problemMatcher": "$msCompile",
       "group": "build"

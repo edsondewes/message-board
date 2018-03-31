@@ -3,17 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Core", "MessageBoard.Messaging.Core\MessageBoard.Messaging.Core.csproj", "{0A677F44-EC74-4AEE-9387-09177BA73616}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Core", "messaging\MessageBoard.Messaging.Core\MessageBoard.Messaging.Core.csproj", "{0A677F44-EC74-4AEE-9387-09177BA73616}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Api", "MessageBoard.Messaging.Api\MessageBoard.Messaging.Api.csproj", "{BFD14360-F7DC-4E08-9EB5-D305D6E2B14D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Api", "messaging\MessageBoard.Messaging.Api\MessageBoard.Messaging.Api.csproj", "{BFD14360-F7DC-4E08-9EB5-D305D6E2B14D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Redis", "MessageBoard.Messaging.Redis\MessageBoard.Messaging.Redis.csproj", "{732DE7C4-ECD9-4742-B671-2705182D050A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Redis", "messaging\MessageBoard.Messaging.Redis\MessageBoard.Messaging.Redis.csproj", "{732DE7C4-ECD9-4742-B671-2705182D050A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Core", "MessageBoard.Voting.Core\MessageBoard.Voting.Core.csproj", "{F8BD0044-AB5F-4E01-8E8C-926CED15F964}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Core", "voting\MessageBoard.Voting.Core\MessageBoard.Voting.Core.csproj", "{F8BD0044-AB5F-4E01-8E8C-926CED15F964}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Redis", "MessageBoard.Voting.Redis\MessageBoard.Voting.Redis.csproj", "{127A862E-A0D9-41E9-BB59-383AEC190F50}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Redis", "voting\MessageBoard.Voting.Redis\MessageBoard.Voting.Redis.csproj", "{127A862E-A0D9-41E9-BB59-383AEC190F50}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Api", "MessageBoard.Voting.Api\MessageBoard.Voting.Api.csproj", "{3CA058CD-A19B-4FFC-B9BC-021397AAC0D8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Api", "voting\MessageBoard.Voting.Api\MessageBoard.Voting.Api.csproj", "{3CA058CD-A19B-4FFC-B9BC-021397AAC0D8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
