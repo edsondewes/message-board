@@ -25,7 +25,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __MESSAGE_API_URL__: JSON.stringify("http://localhost:5000/api/messages"),
+      __API_URL__: JSON.stringify("http://localhost:9090/api"),
     }),
   ],
   devServer: {

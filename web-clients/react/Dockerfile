@@ -7,7 +7,9 @@ RUN yarn install
 
 # copy everything else and build
 COPY . .
-RUN yarn build
+
+ARG apiurl
+RUN yarn build --env.API_URL=$apiurl
 
 # build runtime image
 FROM node:9-alpine

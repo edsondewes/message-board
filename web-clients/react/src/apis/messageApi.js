@@ -1,5 +1,5 @@
-/* global __MESSAGE_API_URL__ */
-const apiUrl = __MESSAGE_API_URL__;
+/* global __API_URL__ */
+const apiUrl = `${__API_URL__}/messages`;
 
 export function get(from) {
   return fetch(`${apiUrl}?from=${from || ""}`).then(function(response) {
