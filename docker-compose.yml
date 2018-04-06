@@ -3,8 +3,11 @@ version: '3'
 services:
   redis:
     image: redis:alpine
+    command: redis-server --appendonly yes
     labels:
       - "traefik.enable=false"
+    volumes:
+      - redis-data:/data
   
   messaging-api:
     build: ./server/messaging/
@@ -47,3 +50,6 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      
+volumes:
+  redis-data:
