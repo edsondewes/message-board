@@ -9,7 +9,7 @@ namespace MessageBoard.Messaging.Redis
     public class MessageRepositoryRedis : IMessageRepository
     {
         private const string IdKey = "message:id";
-        private const string MessageListKey= "messages";
+        private const string MessageListKey = "messages";
 
         private const string CreatedEntry = "created";
         private const string TextEntry = "text";
@@ -39,14 +39,14 @@ namespace MessageBoard.Messaging.Redis
             return newId;
         }
 
-        public async Task<IEnumerable<Message>> List(uint? from = null, uint pageSize = 3)
+        public async Task<IEnumerable<Message>> List(uint? from = null, uint pageSize = 10)
         {
             var ids = await _db.SortedSetRangeByScoreAsync(MessageListKey,
                 stop: from ?? double.PositiveInfinity,
                 exclude: from.HasValue ? Exclude.Stop : Exclude.None,
                 order: Order.Descending,
                 take: pageSize);
-            
+
             var list = new List<Message>();
             foreach (var id in ids)
             {
