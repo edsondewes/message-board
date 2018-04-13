@@ -1,6 +1,7 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import Message from "./Message";
+import VoteContainer from "./VoteContainer";
 import { get as getMessages } from "./apis/messageApi";
 
 class MessageList extends React.Component {
@@ -41,8 +42,11 @@ class MessageList extends React.Component {
         hasMore={this.state.from !== undefined}
         loadMore={this.loadNextPage}
       >
-        {this.state.messages.map((m, index) => (
-          <Message key={index} created={m.created} text={m.text} />
+        {this.state.messages.map(m => (
+          <React.Fragment key={m.id}>
+            <Message created={m.created} text={m.text} />
+            <VoteContainer subjectId={m.id} />
+          </React.Fragment>
         ))}
       </InfiniteScroll>
     );
