@@ -1,4 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using MediatR;
 using MessageBoard.Voting.Api.Models;
 using MessageBoard.Voting.Core.Commands;
@@ -24,17 +26,20 @@ namespace MessageBoard.Voting.Api.Controllers
                 return BadRequest("Invalid subjectId");
 
             var result = await _mediator.Send(new VoteCountQuery(subjectId));
-            return Ok(result);
+            var view = ViewVote.From(result);
+
+            return Ok(view);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] AddVoteModel model)
+        public async Task<IActionResult> Post([FromBody]AddVoteModel model)
         {
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
             var result = await _mediator.Send(new AddVoteCommand(model.SubjectId, model.OptionName));
-            return Ok(result);
+            var view = ViewVote.From(result);
+            return Ok(view);
         }
     }
 }
