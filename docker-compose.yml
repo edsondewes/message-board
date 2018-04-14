@@ -1,6 +1,11 @@
 version: '3'
 
 services:
+  nats:
+    image: nats
+    labels:
+      - "traefik.enable=false"
+
   redis:
     image: redis:alpine
     command: redis-server --appendonly yes
@@ -10,6 +15,8 @@ services:
       - redis-data:/data
   
   messaging-api:
+    depends_on:
+      - redis
     build: ./server/messaging/
     image: edsondewes/messaging-api:latest
     environment:
@@ -19,10 +26,28 @@ services:
       - "traefik.frontend.rule=PathPrefix:/api/messages"
       - "traefik.port=80"
 
+  ranking-api:
+    depends_on:
+      - nats
+      - redis
+    build: ./server/ranking/
+    image: edsondewes/ranking-api:latest
+    environment:
+      Nats: nats://nats:4222
+      Redis: redis
+    labels:
+      - "traefik.backend=ranking-api"
+      - "traefik.frontend.rule=PathPrefix:/api/ranking"
+      - "traefik.port=80"
+
   voting-api:
+    depends_on:
+      - nats
+      - redis
     build: ./server/voting/
     image: edsondewes/voting-api:latest
     environment:
+      Nats: nats://nats:4222
       Redis: redis
     labels:
       - "traefik.backend=voting-api"

@@ -5,6 +5,7 @@ WORKDIR /app
 COPY *.sln .
 COPY MessageBoard.Voting.Api/*.csproj ./MessageBoard.Voting.Api/
 COPY MessageBoard.Voting.Core/*.csproj ./MessageBoard.Voting.Core/
+COPY MessageBoard.Voting.Nats/*.csproj ./MessageBoard.Voting.Nats/
 COPY MessageBoard.Voting.Redis/*.csproj ./MessageBoard.Voting.Redis/
 RUN dotnet restore
 
