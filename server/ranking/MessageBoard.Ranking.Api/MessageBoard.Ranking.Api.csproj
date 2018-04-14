@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MediatR" Version="4.1.0" />
+    <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="4.1.0" />
+    <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.6" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MessageBoard.Ranking.Core\MessageBoard.Ranking.Core.csproj" />
+    <ProjectReference Include="..\MessageBoard.Ranking.Nats\MessageBoard.Ranking.Nats.csproj" />
+    <ProjectReference Include="..\MessageBoard.Ranking.Redis\MessageBoard.Ranking.Redis.csproj" />
+  </ItemGroup>
+
+</Project>

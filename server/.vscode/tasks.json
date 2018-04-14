@@ -24,6 +24,17 @@
       "group": "build"
     },
     {
+      "label": "build-ranking-api",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/ranking/MessageBoard.Ranking.Api/MessageBoard.Ranking.Api.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
       "label": "build-voting-api",
       "command": "dotnet",
       "type": "process",

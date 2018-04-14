@@ -18,6 +18,22 @@
       }
     },
     {
+      "name": "Launch Ranking API",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ranking-api",
+      "program":
+        "${workspaceFolder}/ranking/MessageBoard.Ranking.Api/bin/Debug/netcoreapp2.0/MessageBoard.Ranking.Api.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/ranking/MessageBoard.Ranking.Api",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://*:5002"
+      }
+    },
+    {
       "name": "Launch Voting API",
       "type": "coreclr",
       "request": "launch",
