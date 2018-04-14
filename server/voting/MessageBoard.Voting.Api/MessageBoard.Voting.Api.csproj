@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MessageBoard.Voting.Core\MessageBoard.Voting.Core.csproj" />
+    <ProjectReference Include="..\MessageBoard.Voting.Nats\MessageBoard.Voting.Nats.csproj" />
     <ProjectReference Include="..\MessageBoard.Voting.Redis\MessageBoard.Voting.Redis.csproj" />
   </ItemGroup>
 

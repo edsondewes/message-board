@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using MessageBoard.Voting.Core;
+using MessageBoard.Voting.Nats;
 using MessageBoard.Voting.Redis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -25,7 +25,8 @@ namespace MessageBoard.Voting.Api
                 .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
-            services.AddMediatR(typeof(Vote).Assembly);
+            services.AddNats(Configuration.GetValue<string>("Nats"));
+            services.AddMediatR();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
