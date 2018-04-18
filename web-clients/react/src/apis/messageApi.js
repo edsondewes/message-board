@@ -7,6 +7,12 @@ export function get(from) {
   });
 }
 
+export function getById(id) {
+  return fetch(`${apiUrl}/${id}`).then(function(response) {
+    return response.json();
+  });
+}
+
 export function post(obj) {
   return fetch(`${apiUrl}`, {
     method: "POST",
