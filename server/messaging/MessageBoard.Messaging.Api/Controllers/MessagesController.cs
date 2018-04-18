@@ -26,6 +26,13 @@ namespace MessageBoard.Messaging.Api.Controllers
             return result;
         }
 
+        [HttpGet("{id}")]
+        public async Task<Message> GetId([FromRoute]long id)
+        {
+            var result = await _mediator.Send(new MessageByIdQuery(id));
+            return result;
+        }
+
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]CreateMessageModel model)
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MessageBoard.Messaging.Core;
 using StackExchange.Redis;
@@ -25,6 +26,19 @@ namespace MessageBoard.Messaging.Redis
             _db = connection.GetDatabase();
         }
 
+        public async Task<Message> Get(long id)
+        {
+            var entries = await _db.HashGetAllAsync(ItemKey(id));
+            var dictionary = entries.ToDictionary();
+
+            return new Message
+            {
+                Created = new DateTime((long)dictionary[CreatedEntry]),
+                Id = (long)id,
+                Text = dictionary[TextEntry]
+            };
+        }
+
         public async Task<long> Insert(Message obj)
         {
             var newId = await _db.StringIncrementAsync(IdKey);
@@ -47,19 +61,9 @@ namespace MessageBoard.Messaging.Redis
                 order: Order.Descending,
                 take: pageSize);
 
-            var list = new List<Message>();
-            foreach (var id in ids)
-            {
-                var entries = await _db.HashGetAllAsync(ItemKey(id));
-                var dictionary = entries.ToDictionary();
-
-                list.Add(new Message
-                {
-                    Created = new DateTime((long)dictionary[CreatedEntry]),
-                    Id = (long)id,
-                    Text = dictionary[TextEntry]
-                });
-            }
+            var list = await Task.WhenAll(
+                    ids.Select(id => Get((long)id))
+                );
 
             return list;
         }
