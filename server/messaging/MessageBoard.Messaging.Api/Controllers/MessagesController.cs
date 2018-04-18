@@ -20,7 +20,7 @@ namespace MessageBoard.Messaging.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Message>> Get([FromQuery]uint? from)
+        public async Task<IEnumerable<Message>> Get([FromQuery]long? from)
         {
             var result = await _mediator.Send(new PaginatedMessagesQuery(from));
             return result;

@@ -5,9 +5,9 @@ namespace MessageBoard.Messaging.Core.Queries
 {
     public class PaginatedMessagesQuery : IRequest<IEnumerable<Message>>
     {
-        public uint? From { get; }
+        public long? From { get; }
 
-        public PaginatedMessagesQuery(uint? from)
+        public PaginatedMessagesQuery(long? from)
         {
             From = from;
         }

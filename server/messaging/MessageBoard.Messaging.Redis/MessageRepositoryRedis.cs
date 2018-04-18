@@ -53,7 +53,7 @@ namespace MessageBoard.Messaging.Redis
             return newId;
         }
 
-        public async Task<IEnumerable<Message>> List(uint? from = null, uint pageSize = 10)
+        public async Task<IEnumerable<Message>> List(long? from = null, uint pageSize = 10)
         {
             var ids = await _db.SortedSetRangeByScoreAsync(MessageListKey,
                 stop: from ?? double.PositiveInfinity,

@@ -7,6 +7,6 @@ namespace MessageBoard.Messaging.Core
     {
         Task<Message> Get(long id);
         Task<long> Insert(Message obj);
-        Task<IEnumerable<Message>> List(uint? from = null, uint pageSize = 10);
+        Task<IEnumerable<Message>> List(long? from = null, uint pageSize = 10);
     }
 }
