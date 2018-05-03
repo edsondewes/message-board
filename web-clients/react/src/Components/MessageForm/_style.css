@@ -1,0 +1,57 @@
+.btn-submit {
+  background: #93a644;
+  border: 1px solid #92a64494;
+  color: white;
+  font-size: large;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.btn-submit:disabled {
+  background: #e6ecf0;
+  border-color: lightgray;
+  color: darkgray;
+  cursor: not-allowed;
+}
+
+.btn-submit:enabled:hover {
+  background: #a6bd4e;
+}
+
+.message-form {
+  background: #f4f6ec;
+  border-left: 1px solid #e6ecf0;
+  border-right: 1px solid #e6ecf0;
+  padding: 10px;
+}
+
+.message-form textarea {
+  border: 1px solid #e6ecf0;
+  border-radius: 5px;
+  box-sizing: border-box;
+  display: block;
+  font-size: x-large;
+  height: 43px;
+  margin-bottom: 10px;
+  padding: 10px;
+  resize: none;
+  width: 100%;
+}
+
+.message-form.expanded textarea {
+  height: 130px;
+}
+
+.message-form.expanded .options {
+  align-items: baseline;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.options {
+  display: none;
+}
+
+.options .btn-submit {
+  margin-left: 10px;
+}

@@ -1,0 +1,10 @@
+.top-bar {
+  background: white;
+  border-bottom: 1px solid lightgray;
+  padding: 10px 7px;
+}
+
+.top-bar h1 {
+  font-size: 14px;
+  margin: 0;
+}

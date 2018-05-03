@@ -2,6 +2,8 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = env => {
   if (!env || !env.API_URL) {
@@ -28,6 +30,16 @@ module.exports = env => {
           exclude: /node_modules/,
           loader: "babel-loader",
         },
+        {
+          test: /\.css$/,
+          use: [
+            MiniCssExtractPlugin.loader,
+            {
+              loader: "css-loader",
+              options: { minimize: true },
+            },
+          ],
+        },
       ],
     },
     plugins: [
@@ -36,6 +48,13 @@ module.exports = env => {
       }),
       new CleanWebpackPlugin(["dist"]),
       new CopyWebpackPlugin([{ from: "./public", to: "." }]),
+      new HtmlWebpackPlugin({
+        template: "./src/assets/index.html",
+      }),
+      new MiniCssExtractPlugin({
+        filename: "[name].css",
+        chunkFilename: "[id].css",
+      }),
     ],
   };
 };

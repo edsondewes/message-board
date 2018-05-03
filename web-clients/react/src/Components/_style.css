@@ -1,0 +1,21 @@
+body {
+  background: #e6ecf0;
+  margin: 0;
+}
+
+.content-container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(4, 1fr);
+
+  margin: 0 auto;
+  max-width: 1024px;
+}
+
+.main-container {
+  grid-column: 1 / 4;
+}
+
+.right-container {
+  grid-column: 4;
+}

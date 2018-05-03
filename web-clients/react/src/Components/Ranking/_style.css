@@ -1,0 +1,38 @@
+.ranking-container {
+  background: #fff;
+  padding: 10px;
+}
+
+.ranking-container h2 {
+  margin: 0 0 12px;
+}
+
+.ranking-list {
+  font-size: small;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ranking-list li {
+  align-items: flex-start;
+  border-bottom: 1px solid #f0f0f0;
+  display: flex;
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+}
+
+.ranking-list li:last-child {
+  border: 0;
+}
+
+.ranking-list span {
+  background: lightgray;
+  border-radius: 10px;
+  margin-right: 10px;
+  padding: 1px 5px;
+}
+
+.ranking-list p {
+  margin: 0;
+}

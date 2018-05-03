@@ -1,6 +1,7 @@
 import React from "react";
+import octicons from "octicons";
 import VoteButton from "./VoteButton";
-import { get as getVotes, post } from "./apis/voteApi";
+import { get as getVotes, post } from "../../apis/voteApi";
 
 class VoteOptions extends React.Component {
   constructor(props) {
@@ -30,14 +31,20 @@ class VoteOptions extends React.Component {
 
   render() {
     return (
-      <>
+      <div>
         <VoteButton onClick={this.submitLike}>
-          Like ({this.state.like || 0})
+          <span
+            dangerouslySetInnerHTML={{ __html: octicons.thumbsup.toSVG() }}
+          />
+          {this.state.like || 0}
         </VoteButton>
         <VoteButton onClick={this.submitDislike}>
-          Dislike ({this.state.dislike || 0})
+          <span
+            dangerouslySetInnerHTML={{ __html: octicons.thumbsdown.toSVG() }}
+          />
+          {this.state.dislike || 0}
         </VoteButton>
-      </>
+      </div>
     );
   }
 }
