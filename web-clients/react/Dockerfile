@@ -1,4 +1,4 @@
-FROM node:9 AS build-env
+FROM node:10 AS build-env
 WORKDIR /app
 
 # install app dependencies
@@ -9,14 +9,14 @@ RUN yarn install
 COPY . .
 
 ARG apiurl
-RUN yarn build --env.API_URL=$apiurl
+RUN API_URL=$apiurl yarn build
 
 # build runtime image
-FROM node:9-alpine
+FROM node:10-alpine
 WORKDIR /app
-COPY --from=build-env /app/package.json /app/yarn.lock /app/server.js ./
-COPY --from=build-env /app/dist ./dist
+COPY --from=build-env /app/package.json /app/yarn.lock ./
+COPY --from=build-env /app/dist ./
 RUN yarn install --prod
 
 EXPOSE 80
-ENTRYPOINT node server.js 80
+ENTRYPOINT node index.js 80

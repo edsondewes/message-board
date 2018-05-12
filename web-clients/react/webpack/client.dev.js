@@ -1,15 +1,18 @@
 const path = require("path");
 const webpack = require("webpack");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
+  mode: "development",
+  name: "client",
+  target: "web",
+  entry: path.join(__dirname, "../src/client.js"),
   output: {
     filename: "bundle.js",
-    path: path.resolve(__dirname, "public"),
+    path: path.resolve(__dirname, "../public"),
     publicPath: "/",
   },
-  devtool: "source-map",
+  devtool: "eval-source-map",
   module: {
     rules: [
       {
@@ -33,17 +36,9 @@ module.exports = {
     new webpack.DefinePlugin({
       __API_URL__: JSON.stringify("http://localhost:9090/api"),
     }),
-    new HtmlWebpackPlugin({
-      template: "./src/assets/index.html",
-    }),
     new MiniCssExtractPlugin({
       filename: "[name].css",
       chunkFilename: "[id].css",
     }),
   ],
-  devServer: {
-    contentBase: "./public",
-    historyApiFallback: true,
-    host: "0.0.0.0",
-  },
 };
