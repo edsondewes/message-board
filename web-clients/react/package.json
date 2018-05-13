@@ -8,7 +8,7 @@
   "scripts": {
     "start": "node ./src/index.dev",
     "build":
-      "rimraf ./dist && yarn build:client --env.API_URL=$API_URL && yarn build:server --env.API_URL=$API_URL",
+      "rimraf ./dist && yarn build:client --env.API_URL=$API_URL && yarn build:server --env.API_URL=$INTERNAL_API_URL",
     "build:client": "webpack --config ./webpack/client.prod.js",
     "build:server": "webpack --config ./webpack/server.prod.js"
   },
@@ -33,6 +33,7 @@
     "webpack-node-externals": "1.7.2"
   },
   "dependencies": {
+    "axios": "0.18.0",
     "compression": "1.7.2",
     "ejs": "2.6.1",
     "express": "4.16.3",

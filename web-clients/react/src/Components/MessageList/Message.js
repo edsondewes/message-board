@@ -2,7 +2,7 @@ import React from "react";
 import VoteContainer from "./VoteContainer";
 
 const Message = ({ id, created, text }) => {
-  const dt = new Date(created).toLocaleString();
+  const dt = new Date(created).toLocaleString("en-US");
 
   return (
     <article className="message">

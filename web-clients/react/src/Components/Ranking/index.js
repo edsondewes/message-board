@@ -5,8 +5,8 @@ import { getById as getMessage } from "../../apis/messageApi";
 import { get as getRanking } from "../../apis/rankingApi";
 
 class Ranking extends React.Component {
-  async componentDidMount() {
-    const ranking = await getRanking(this.props.optionName);
+  static async getInitialProps(optionName) {
+    const ranking = await getRanking(optionName);
 
     const messageRequests = ranking.map(rankingItem =>
       getMessage(rankingItem.subjectId).then(message => ({
@@ -17,19 +17,17 @@ class Ranking extends React.Component {
     );
 
     const messages = await Promise.all(messageRequests);
-    this.setState({
-      messages: messages,
-    });
+    return {
+      messages,
+    };
   }
 
   render() {
-    if (!this.state) return <div>Loading...</div>;
-
     return (
       <div className="ranking-container">
         <h2>Top messages</h2>
         <ol className="ranking-list">
-          {this.state.messages.map(message => (
+          {this.props.messages.map(message => (
             <RankingItem
               key={message.id}
               text={message.text}

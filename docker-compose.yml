@@ -59,6 +59,7 @@ services:
       context: ./web-clients/react/
       args:
         apiurl: "http://localhost:8080/api"
+        internal_apiurl: "http://proxy/api"
     image: edsondewes/message-board-react:latest
     environment:
       NODE_ENV: production

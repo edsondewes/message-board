@@ -1,24 +1,24 @@
 /* global __API_URL__ */
+import axios from "axios";
+
 const apiUrl = `${__API_URL__}/messages`;
 
 export function get(from) {
-  return fetch(`${apiUrl}?from=${from || ""}`).then(function(response) {
-    return response.json();
-  });
+  return axios
+    .get(apiUrl, {
+      params: {
+        from,
+      },
+    })
+    .then(response => response.data);
 }
 
 export function getById(id) {
-  return fetch(`${apiUrl}/${id}`).then(function(response) {
-    return response.json();
+  return axios.get(`${apiUrl}/${id}`).then(function(response) {
+    return response.data;
   });
 }
 
 export function post(obj) {
-  return fetch(`${apiUrl}`, {
-    method: "POST",
-    body: JSON.stringify(obj),
-    headers: {
-      "Content-Type": "application/json",
-    },
-  }).then(response => response.json());
+  return axios.post(`${apiUrl}`, obj).then(response => response.data);
 }

@@ -7,6 +7,18 @@ import MessageList from "./MessageList";
 import Ranking from "./Ranking";
 
 class App extends React.Component {
+  static async getInitialProps() {
+    const [messageList, ranking] = await Promise.all([
+      MessageList.getInitialProps(),
+      Ranking.getInitialProps("Like"),
+    ]);
+
+    return {
+      messageList,
+      ranking,
+    };
+  }
+
   render() {
     return (
       <>
@@ -14,10 +26,10 @@ class App extends React.Component {
         <div className="content-container">
           <main className="main-container">
             <MessageForm />
-            <MessageList />
+            <MessageList {...this.props.messageList} />
           </main>
           <aside className="right-container">
-            <Ranking optionName="Like" />
+            <Ranking {...this.props.ranking} />
           </aside>
         </div>
       </>

@@ -6,43 +6,39 @@ import Message from "./Message";
 import { get as getMessages } from "../../apis/messageApi";
 
 class MessageList extends React.Component {
+  static async getInitialProps() {
+    const messages = await getMessages();
+    return {
+      messages,
+    };
+  }
+
   constructor(props) {
     super(props);
 
     this.loadNextPage = this.loadNextPage.bind(this);
 
     this.state = {
-      messages: [],
+      hasMore: true,
+      messages: props.messages,
     };
   }
 
-  componentDidMount() {
-    this.loadNextPage();
-  }
+  async loadNextPage() {
+    const lastMessageId = this.state.messages.length
+      ? this.state.messages[this.state.messages.length - 1].id
+      : undefined;
 
-  loadNextPage() {
-    getMessages(this.state.from).then(result => {
-      const lastRecord = result.length
-        ? result[result.length - 1].id
-        : undefined;
-
-      this.setState(prevState => ({
-        messages: prevState.messages.concat(result),
-        from: lastRecord,
-      }));
-    });
+    const messages = await getMessages(lastMessageId);
+    this.setState(prevState => ({
+      hasMore: messages.length > 0,
+      messages: prevState.messages.concat(messages),
+    }));
   }
 
   render() {
-    if (!this.state.messages) {
-      return <div>Empty</div>;
-    }
-
     return (
-      <InfiniteScroll
-        hasMore={this.state.from !== undefined}
-        loadMore={this.loadNextPage}
-      >
+      <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadNextPage}>
         {this.state.messages.map(m => (
           <Message key={m.id} id={m.id} created={m.created} text={m.text} />
         ))}

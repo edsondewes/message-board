@@ -4,14 +4,21 @@ import flushChunks from "webpack-flush-chunks";
 
 import App from "./Components/App";
 
-export default ({ clientStats }) => (req, res) => {
-  const app = <App />;
-  const appString = ReactDOM.renderToString(app);
-  const { js, styles } = flushChunks(clientStats);
+export default ({ clientStats }) => async (req, res, next) => {
+  try {
+    const initialProps = await App.getInitialProps();
+    const app = <App {...initialProps} />;
+    const appString = ReactDOM.renderToString(app);
 
-  res.render("index", {
-    appString,
-    js,
-    styles,
-  });
+    const { js, styles } = flushChunks(clientStats);
+
+    res.render("index", {
+      appString,
+      state: JSON.stringify(initialProps),
+      js,
+      styles,
+    });
+  } catch (e) {
+    next(e);
+  }
 };
