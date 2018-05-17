@@ -49,7 +49,6 @@ module.exports = env => {
       new CopyWebpackPlugin([
         { from: "./src/index.prod.js", to: "./index.js" },
         { from: "./src/views", to: "./views" },
-        { from: "./public", to: "./static" },
       ]),
     ],
   };

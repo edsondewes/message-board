@@ -28,7 +28,7 @@ app.use(
 app.set("views", path.join(__dirname, "./views"));
 app.set("view engine", "ejs");
 
-const port = process.argv.length > 2 ? process.argv[2] : 8080;
+const port = process.argv.length > 2 ? process.argv[2] : 8090;
 app.listen(port, function() {
   console.log(`Server running: http://localhost:${port}`);
 });

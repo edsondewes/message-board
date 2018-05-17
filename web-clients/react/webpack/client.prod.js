@@ -1,7 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const StatsWebpackPlugin = require("stats-webpack-plugin");
+const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
 
 module.exports = env => {
   if (!env || !env.API_URL) {
@@ -50,7 +52,24 @@ module.exports = env => {
         filename: "[name].css",
         chunkFilename: "[id].css",
       }),
+      new CopyWebpackPlugin([{ from: "./public", to: "." }]),
       new StatsWebpackPlugin("../stats.json"),
+      new SWPrecacheWebpackPlugin({
+        cacheId: "message-board-react",
+        filename: "service-worker.js",
+        minify: false,
+        staticFileGlobsIgnorePatterns: [/\.map$/, /stats\.json$/],
+        runtimeCaching: [
+          {
+            urlPattern: /^http:\/\/localhost:8080\/$/,
+            handler: "networkFirst",
+          },
+          {
+            urlPattern: /\/api\//,
+            handler: "networkFirst",
+          },
+        ],
+      }),
     ],
   };
 };
