@@ -12,9 +12,19 @@ module.exports = env => {
 
   return {
     mode: "production",
-    entry: path.join(__dirname, "../src/client.js"),
+    entry: {
+      vendor: [
+        "axios",
+        "octicons",
+        "react",
+        "react-dom",
+        "react-infinite-scroller",
+      ],
+      main: path.join(__dirname, "../src/client.js"),
+    },
     output: {
-      filename: "bundle.js",
+      filename: "[name].[chunkhash].js",
+      chunkFilename: "[name].[chunkhash].chunk.js",
       path: path.resolve(__dirname, "../dist/static"),
       publicPath: "/",
     },
@@ -44,13 +54,25 @@ module.exports = env => {
         },
       ],
     },
+    optimization: {
+      splitChunks: {
+        cacheGroups: {
+          vendor: {
+            chunks: "initial",
+            name: "vendor",
+            test: "vendor",
+            enforce: true,
+          },
+        },
+      },
+    },
     plugins: [
       new webpack.DefinePlugin({
         __API_URL__: JSON.stringify(env.API_URL),
       }),
       new MiniCssExtractPlugin({
-        filename: "[name].css",
-        chunkFilename: "[id].css",
+        filename: "[name].[contenthash].css",
+        chunkFilename: "[id].[contenthash].css",
       }),
       new CopyWebpackPlugin([{ from: "./public", to: "." }]),
       new StatsWebpackPlugin("../stats.json"),
