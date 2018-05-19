@@ -1,7 +1,7 @@
 import React from "react";
 
-const VoteButton = ({ children, onClick }) => (
-  <button className="btn-vote" disabled={onClick ? false : true} onClick={onClick}>
+const VoteButton = ({ children, enabled, onClick }) => (
+  <button className="btn-vote" disabled={!enabled} onClick={onClick}>
     {children}
   </button>
 );
