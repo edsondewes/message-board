@@ -1,0 +1,15 @@
+.floating-panel {
+  background: khaki;
+  border-radius: 5px;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.4);
+  bottom: 10px;
+  font-size: 0.8em;
+  padding: 10px;
+  position: fixed;
+  right: 10px;
+}
+
+.floating-panel h1 {
+  font-size: 1.2em;
+  margin: 0;
+}
