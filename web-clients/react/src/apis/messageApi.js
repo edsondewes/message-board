@@ -1,7 +1,11 @@
 /* global __API_URL__ */
 import axios from "axios";
+import EventEmitter from "wolfy87-eventemitter";
 
 const apiUrl = `${__API_URL__}/messages`;
+
+export const MESSAGE_CREATED = "message.created";
+export const eventBus = new EventEmitter();
 
 export function get(from) {
   return axios
@@ -19,6 +23,11 @@ export function getById(id) {
   });
 }
 
-export function post(obj) {
-  return axios.post(`${apiUrl}`, obj).then(response => response.data);
+export async function post(obj) {
+  const response = await axios.post(`${apiUrl}`, obj);
+  const message = response.data;
+
+  eventBus.emit(MESSAGE_CREATED, message);
+
+  return message;
 }

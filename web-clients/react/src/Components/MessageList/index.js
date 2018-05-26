@@ -1,9 +1,12 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
 import "./_style.css";
-
 import Message from "./Message";
-import { get as getMessages } from "../../apis/messageApi";
+import {
+  MESSAGE_CREATED,
+  eventBus,
+  get as getMessages,
+} from "../../apis/messageApi";
 
 class MessageList extends React.Component {
   static async getInitialProps() {
@@ -17,11 +20,20 @@ class MessageList extends React.Component {
     super(props);
 
     this.loadNextPage = this.loadNextPage.bind(this);
+    this.reload = this.reload.bind(this);
 
     this.state = {
       hasMore: true,
       messages: props.messages,
     };
+  }
+
+  componentDidMount() {
+    eventBus.addListener(MESSAGE_CREATED, this.reload);
+  }
+
+  componentWillUnmount() {
+    eventBus.removeListener(MESSAGE_CREATED, this.reload);
   }
 
   async loadNextPage() {
@@ -34,6 +46,14 @@ class MessageList extends React.Component {
       hasMore: messages.length > 0,
       messages: prevState.messages.concat(messages),
     }));
+  }
+
+  async reload() {
+    const messages = await getMessages();
+    this.setState({
+      hasMore: true,
+      messages,
+    });
   }
 
   render() {
