@@ -1,5 +1,6 @@
-﻿using MessageBoard.Ranking.Core;
+﻿using System;
 using Microsoft.Extensions.DependencyInjection;
+using StackExchange.Redis;
 
 namespace MessageBoard.Ranking.Redis
 {
@@ -7,7 +8,12 @@ namespace MessageBoard.Ranking.Redis
     {
         public static IServiceCollection AddRedis(this IServiceCollection services, string host)
         {
-            services.AddSingleton<IRankingRepository>(provider => new RankingRepositoryRedis(host));
+            if (string.IsNullOrEmpty(host))
+                throw new ArgumentNullException(nameof(host));
+
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(host));
+            services.AddScoped<IDatabase>(provider => provider.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
+
             return services;
         }
     }

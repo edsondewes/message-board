@@ -1,8 +1,9 @@
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
+using MessageBoard.Voting.Core.Events;
 
-namespace MessageBoard.Voting.Core.Events
+namespace MessageBoard.Voting.Nats.Handlers
 {
     public class VoteCreatedHandler : INotificationHandler<VoteCreated>
     {
@@ -15,8 +16,7 @@ namespace MessageBoard.Voting.Core.Events
 
         public Task Handle(VoteCreated notification, CancellationToken cancellationToken)
         {
-            _eventBus.Publish(notification);
-            return Task.CompletedTask;
+            return _eventBus.Publish(notification);
         }
     }
 }

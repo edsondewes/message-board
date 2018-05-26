@@ -1,6 +1,6 @@
 using System.Threading.Tasks;
 
-namespace MessageBoard.Voting.Core
+namespace MessageBoard.Voting.Nats
 {
     public interface IEventBus
     {

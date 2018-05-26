@@ -1,5 +1,5 @@
-﻿using MessageBoard.Messaging.Core;
-using MessageBoard.Messaging.Redis;
+﻿using System;
+using StackExchange.Redis;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -7,7 +7,12 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddRedis(this IServiceCollection services, string host)
         {
-            services.AddSingleton<IMessageRepository>(provider => new MessageRepositoryRedis(host));
+            if (string.IsNullOrEmpty(host))
+                throw new ArgumentNullException(nameof(host));
+
+            services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(host));
+            services.AddScoped<IDatabase>(provider => provider.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
+
             return services;
         }
     }

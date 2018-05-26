@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using MediatR;
 using MessageBoard.Voting.Api.Models;
 using MessageBoard.Voting.Core.Commands;
+using MessageBoard.Voting.Core.Events;
 using MessageBoard.Voting.Core.Queries;
 using Microsoft.AspNetCore.Mvc;
 
@@ -38,6 +37,8 @@ namespace MessageBoard.Voting.Api.Controllers
                 return BadRequest(ModelState);
 
             var result = await _mediator.Send(new AddVoteCommand(model.SubjectId, model.OptionName));
+            await _mediator.Publish(VoteCreated.From(result));
+
             var view = ViewVote.From(result);
             return Ok(view);
         }

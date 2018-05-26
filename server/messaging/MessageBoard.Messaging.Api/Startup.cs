@@ -20,7 +20,7 @@ namespace MessageBoard.Messaging.Api
         {
             services.AddMvc();
             services.AddRedis(Configuration.GetValue<string>("Redis"));
-            services.AddMediatR(typeof(Message).Assembly);
+            services.AddMediatR();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
