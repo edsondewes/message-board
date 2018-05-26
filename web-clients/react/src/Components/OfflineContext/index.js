@@ -13,14 +13,17 @@ class OfflineProvider extends React.Component {
     super(props);
 
     this.state = {
-      online:
-        typeof window !== "undefined" ? navigator.onLine : DEFAULT_ONLINE_VALUE,
+      online: DEFAULT_ONLINE_VALUE,
     };
 
     this.updateOnlineStatus = this.updateOnlineStatus.bind(this);
   }
 
   componentDidMount() {
+    if (this.state.online !== navigator.onLine) {
+      this.updateOnlineStatus();
+    }
+
     window.addEventListener("online", this.updateOnlineStatus);
     window.addEventListener("offline", this.updateOnlineStatus);
   }
