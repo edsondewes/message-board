@@ -1,6 +1,5 @@
 import React from "react";
-import "./_style.css";
-import RankingItem from "./RankingItem";
+import style from "./_style.css";
 import { getById as getMessage } from "../../apis/messageApi";
 import { get as getRanking } from "../../apis/rankingApi";
 
@@ -24,15 +23,14 @@ class Ranking extends React.Component {
 
   render() {
     return (
-      <div className="ranking-container">
+      <div className={style.rankingContainer}>
         <h2>Top messages</h2>
-        <ol className="ranking-list">
+        <ol className={style.rankingList}>
           {this.props.messages.map(message => (
-            <RankingItem
-              key={message.id}
-              text={message.text}
-              count={message.count}
-            />
+            <li key={message.id}>
+              <span>{message.count}</span>
+              <p>{message.text}</p>
+            </li>
           ))}
         </ol>
       </div>

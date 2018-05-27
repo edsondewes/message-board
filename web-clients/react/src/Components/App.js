@@ -1,5 +1,5 @@
 import React from "react";
-import "./_style.css";
+import style from "./_style.css";
 
 import FloatingPanel from "./FloatingPanel";
 import Header from "./Header";
@@ -21,25 +21,55 @@ class App extends React.Component {
     };
   }
 
+  constructor(props) {
+    super(props);
+
+    this.changeMobileView = this.changeMobileView.bind(this);
+
+    this.state = {
+      mobileView: "messages",
+    };
+  }
+
+  changeMobileView(viewName) {
+    return () => {
+      if (viewName !== this.state.mobileView) {
+        this.setState({
+          mobileView: viewName,
+        });
+      }
+    };
+  }
+
+  getContainerClass(defaultClass, viewName) {
+    return this.state.mobileView === viewName
+      ? `${defaultClass} ${style.mobileVisible}`
+      : defaultClass;
+  }
+
   render() {
     return (
       <OfflineProvider>
-        <Header />
-        <div className="content-container">
-          <main className="main-container">
-            <MessageForm />
-            <MessageList {...this.props.messageList} />
-          </main>
-          <aside className="right-container">
-            <Ranking {...this.props.ranking} />
-          </aside>
-        </div>
+        <Header changeMobileView={this.changeMobileView} />
         <OfflinePanel>
           <FloatingPanel>
             <h1>Offline mode</h1>
             <p>You are working offline. Some features may not be available</p>
           </FloatingPanel>
         </OfflinePanel>
+        <div className={style.contentContainer}>
+          <main
+            className={this.getContainerClass(style.mainContainer, "messages")}
+          >
+            <MessageForm />
+            <MessageList {...this.props.messageList} />
+          </main>
+          <aside
+            className={this.getContainerClass(style.rightContainer, "ranking")}
+          >
+            <Ranking {...this.props.ranking} />
+          </aside>
+        </div>
       </OfflineProvider>
     );
   }

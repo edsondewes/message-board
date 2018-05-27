@@ -1,45 +1,48 @@
 .btn-submit {
-  background: #93a644;
-  border: 1px solid #92a64494;
-  color: white;
-  font-size: large;
-  padding: 5px 10px;
+  background: var(--primary-bg-color);
+  border: 1px solid var(--primary-border-color);
+  color: var(--primary-color);
+  font-size: 1rem;
+  padding: 1vh 1vw;
   cursor: pointer;
 }
 
 .btn-submit:disabled {
-  background: #e6ecf0;
-  border-color: lightgray;
-  color: darkgray;
+  background: var(--disabled-bg-color);
+  border-color: var(--disabled-border-color);
+  color: var(--disabled-color);
   cursor: not-allowed;
 }
 
 .btn-submit:enabled:hover {
-  background: #a6bd4e;
+  background: var(--primary-hover-color);
 }
 
 .message-form {
-  background: #f4f6ec;
-  border-left: 1px solid #e6ecf0;
-  border-right: 1px solid #e6ecf0;
-  padding: 10px;
+  background: var(--form-bg-color);
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  padding: 1vw;
 }
 
 .message-form textarea {
-  border: 1px solid #e6ecf0;
+  background: var(--content-bg-color);
+  border: 1px solid var(--border-color);
   border-radius: 5px;
   box-sizing: border-box;
+  color: var(--main-color);
   display: block;
-  font-size: x-large;
-  height: 43px;
-  margin-bottom: 10px;
-  padding: 10px;
+  font-size: 1.2rem;
+  overflow: hidden;
+  padding: 1.5vh;
   resize: none;
   width: 100%;
 }
 
 .message-form.expanded textarea {
-  height: 130px;
+  height: 15vh;
+  margin-bottom: 2vh;
+  overflow: auto;
 }
 
 .message-form.expanded .options {
@@ -53,5 +56,5 @@
 }
 
 .options .btn-submit {
-  margin-left: 10px;
+  margin-left: 1vw;
 }

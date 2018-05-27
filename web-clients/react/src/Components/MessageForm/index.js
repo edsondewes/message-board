@@ -1,6 +1,6 @@
 import React from "react";
 import { post as postMessage } from "../../apis/messageApi";
-import "./_style.css";
+import style from "./_style.css";
 
 const TextLengthLimit = 250;
 
@@ -54,7 +54,9 @@ class MessageForm extends React.Component {
     return (
       <form
         onSubmit={this.onSubmit}
-        className={`message-form ${this.state.expanded ? "expanded" : ""}`}
+        className={`${style.messageForm} ${
+          this.state.expanded ? style.expanded : ""
+        }`}
       >
         <textarea
           onBlur={this.onBlur}
@@ -62,14 +64,15 @@ class MessageForm extends React.Component {
           onFocus={this.onFocus}
           value={this.state.text}
           placeholder="What's in your mind?"
+          rows="1"
         />
-        <div className="options">
+        <div className={style.options}>
           <span>
             {this.state.text.length}/{TextLengthLimit}
           </span>
           <input
             {...(!this.state.canSubmit ? { disabled: true } : {})}
-            className="btn-submit"
+            className={style.btnSubmit}
             type="submit"
             value="Submit"
           />

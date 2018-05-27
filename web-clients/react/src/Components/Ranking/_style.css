@@ -1,14 +1,14 @@
 .ranking-container {
-  background: #fff;
-  padding: 10px;
+  background: var(--content-bg-color);
+  padding: 1vw;
 }
 
 .ranking-container h2 {
-  margin: 0 0 12px;
+  margin: 0 0 2vh;
 }
 
 .ranking-list {
-  font-size: small;
+  font-size: 0.9rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -16,10 +16,10 @@
 
 .ranking-list li {
   align-items: flex-start;
-  border-bottom: 1px solid #f0f0f0;
+  border-bottom: 1px solid var(--border-color);
   display: flex;
-  margin-bottom: 5px;
-  padding-bottom: 5px;
+  margin-bottom: 1vh;
+  padding-bottom: 1vh;
 }
 
 .ranking-list li:last-child {
@@ -27,10 +27,10 @@
 }
 
 .ranking-list span {
-  background: lightgray;
+  background: var(--secondary-color);
   border-radius: 10px;
-  margin-right: 10px;
-  padding: 1px 5px;
+  margin-right: 1vh;
+  padding: 0.2vh 1vh;
 }
 
 .ranking-list p {

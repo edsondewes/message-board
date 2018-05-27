@@ -1,15 +1,54 @@
+@font-face {
+  font-family: "Lato";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Lato Regular"), local("Lato-Regular"),
+    url(/fonts/lato.woff2) format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
+
+:root {
+  --base-hue: 210;
+  --main-color: hsl(var(--base-hue), 20%, 0%);
+  --secondary-color: hsl(var(--base-hue), 20%, 60%);
+
+  --border-color: hsl(var(--base-hue), 15%, 92%);
+  --content-bg-color: hsl(var(--base-hue), 0%, 100%);
+  --form-bg-color: hsl(var(--base-hue), 15%, 96%);
+  --header-bg-color: hsl(var(--base-hue), 100%, 100%);
+  --main-bg-color: hsl(var(--base-hue), 25%, 92%);
+
+  --disabled-bg-color: hsl(var(--base-hue), 25%, 92%);
+  --disabled-border-color: hsl(var(--base-hue), 25%, 90%);
+  --disabled-color: hsl(var(--base-hue), 25%, 80%);
+
+  --primary-hue: 72;
+  --primary-bg-color: hsl(var(--primary-hue), 42%, 46%);
+  --primary-border-color: hsl(var(--primary-hue), 42%, 55%);
+  --primary-color: hsl(var(--primary-hue), 100%, 100%);
+  --primary-hover-color: hsl(var(--primary-hue), 46%, 52%);
+
+  --warning-bg-color: hsl(var(--base-hue), 30%, 80%);
+  --warning-border-color: hsl(var(--base-hue), 0%, 30%);
+}
+
 body {
-  background: #e6ecf0;
+  background: var(--main-bg-color);
+  color: var(--main-color);
+  font-family: "Lato", sans-serif;
+  font-size: 1.2vw;
   margin: 0;
 }
 
 .content-container {
   display: grid;
-  grid-gap: 10px;
+  grid-gap: 1vw;
   grid-template-columns: repeat(4, 1fr);
 
   margin: 0 auto;
-  max-width: 1024px;
+  max-width: 90%;
 }
 
 .main-container {
@@ -18,4 +57,25 @@ body {
 
 .right-container {
   grid-column: 4;
+}
+
+@media only screen and (max-width: 768px) {
+  body {
+    font-size: 2.5vh;
+  }
+
+  .content-container {
+    display: block;
+    max-width: 100%;
+  }
+
+  .main-container,
+  .right-container {
+    display: none;
+    grid-column: unset;
+  }
+
+  .mobile-visible {
+    display: block;
+  }
 }

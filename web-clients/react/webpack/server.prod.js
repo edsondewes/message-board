@@ -38,7 +38,15 @@ module.exports = env => {
         },
         {
           test: /\.css$/,
-          use: ["css-loader/locals"],
+          use: [
+            {
+              loader: "css-loader/locals",
+              options: {
+                camelCase: "only",
+                modules: true,
+              },
+            },
+          ],
         },
       ],
     },

@@ -13,13 +13,6 @@ module.exports = env => {
   return {
     mode: "production",
     entry: {
-      vendor: [
-        "axios",
-        "octicons",
-        "react",
-        "react-dom",
-        "react-infinite-scroller",
-      ],
       main: path.join(__dirname, "../src/client.js"),
     },
     output: {
@@ -48,23 +41,15 @@ module.exports = env => {
             MiniCssExtractPlugin.loader,
             {
               loader: "css-loader",
-              options: { minimize: true },
+              options: {
+                camelCase: "only",
+                minimize: true,
+                modules: true,
+              },
             },
           ],
         },
       ],
-    },
-    optimization: {
-      splitChunks: {
-        cacheGroups: {
-          vendor: {
-            chunks: "initial",
-            name: "vendor",
-            test: "vendor",
-            enforce: true,
-          },
-        },
-      },
     },
     plugins: [
       new webpack.DefinePlugin({

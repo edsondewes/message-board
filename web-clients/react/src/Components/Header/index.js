@@ -1,9 +1,23 @@
 import React from "react";
-import "./_style.css";
+import style from "./_style.css";
 
-const Header = () => (
-  <header className="top-bar">
-    <h1>Message Board</h1>
+const Header = ({ changeMobileView }) => (
+  <header className={style.topBar}>
+    <div className={style.headerContainer}>
+      <h1>Message Board</h1>
+      <button
+        className={style.toggleView}
+        onClick={changeMobileView("messages")}
+      >
+        Messages
+      </button>
+      <button
+        className={style.toggleView}
+        onClick={changeMobileView("ranking")}
+      >
+        Ranking
+      </button>
+    </div>
   </header>
 );
 

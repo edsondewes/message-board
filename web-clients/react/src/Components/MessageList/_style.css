@@ -1,21 +1,27 @@
 .btn-vote {
   background: transparent;
   border: 0;
+  color: var(--secondary-color);
   cursor: pointer;
-  margin-right: 10px;
+  margin-right: 1vw;
   padding: 0;
+}
+
+.btn-vote:disabled {
+  color: var(--disabled-color);
+  cursor: not-allowed;
 }
 
 .btn-vote span {
   fill: currentColor;
-  margin-right: 3px;
+  margin-right: 0.5vw;
 }
 
 .message {
-  background: #fff;
-  border: 1px #e6ecf0 solid;
-  margin-bottom: 5px;
-  padding: 15px 10px;
+  background: var(--content-bg-color);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1vh;
+  padding: 2vh 1vw;
 }
 
 .message footer {
@@ -25,10 +31,11 @@
 }
 
 .message p {
-  margin: 0 0 10px;
+  font-size: 1rem;
+  margin: 0 0 2vh;
 }
 
 .message time {
-  color: gray;
-  font-size: smaller;
+  color: var(--secondary-color);
+  font-size: 0.8rem;
 }

@@ -1,8 +1,8 @@
 import React from "react";
-import "./_style.css";
+import style from "./_style.css";
 
 const FloatingPanel = ({ children }) => (
-  <div className="floating-panel">{children}</div>
+  <div className={style.floatingPanel}>{children}</div>
 );
 
 export default FloatingPanel;

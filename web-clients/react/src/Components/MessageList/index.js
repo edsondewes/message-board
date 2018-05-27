@@ -1,6 +1,5 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
-import "./_style.css";
 import Message from "./Message";
 import {
   MESSAGE_CREATED,
