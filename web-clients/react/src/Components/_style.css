@@ -2,6 +2,7 @@
   font-family: "Lato";
   font-style: normal;
   font-weight: 400;
+  font-display: swap;
   src: local("Lato Regular"), local("Lato-Regular"),
     url(/fonts/lato.woff2) format("woff2");
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
@@ -10,9 +11,11 @@
 }
 
 :root {
+  font-size: 1.2vw;
+
   --base-hue: 210;
   --main-color: hsl(var(--base-hue), 20%, 0%);
-  --secondary-color: hsl(var(--base-hue), 20%, 60%);
+  --secondary-color: hsl(var(--base-hue), 20%, 45%);
 
   --border-color: hsl(var(--base-hue), 15%, 92%);
   --content-bg-color: hsl(var(--base-hue), 0%, 100%);
@@ -38,7 +41,6 @@ body {
   background: var(--main-bg-color);
   color: var(--main-color);
   font-family: "Lato", sans-serif;
-  font-size: 1.2vw;
   margin: 0;
 }
 
@@ -46,7 +48,6 @@ body {
   display: grid;
   grid-gap: 1vw;
   grid-template-columns: repeat(4, 1fr);
-
   margin: 0 auto;
   max-width: 90%;
 }
@@ -60,7 +61,7 @@ body {
 }
 
 @media only screen and (max-width: 768px) {
-  body {
+  :root {
     font-size: 2.5vh;
   }
 

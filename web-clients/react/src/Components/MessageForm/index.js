@@ -59,6 +59,7 @@ class MessageForm extends React.Component {
         }`}
       >
         <textarea
+          aria-label="Write what's in your mind"
           onBlur={this.onBlur}
           onChange={this.onChange}
           onFocus={this.onFocus}

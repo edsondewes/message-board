@@ -15,6 +15,7 @@
 .btn-vote span {
   fill: currentColor;
   margin-right: 0.5vw;
+  font-size: 0.8rem;
 }
 
 .message {
@@ -32,10 +33,14 @@
 
 .message p {
   font-size: 1rem;
-  margin: 0 0 2vh;
+  margin: 0 0 1.5vh;
 }
 
 .message time {
   color: var(--secondary-color);
+}
+
+.message button,
+.message time {
   font-size: 0.8rem;
 }

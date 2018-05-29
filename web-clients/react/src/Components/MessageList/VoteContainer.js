@@ -1,7 +1,7 @@
 import React from "react";
 import octicons from "octicons";
 import { OfflineConsumer } from "../OfflineContext";
-import VoteButton from "./VoteButton";
+import { btnVote as btnVoteClass } from "./_style.css";
 import { get as getVotes, post } from "../../apis/voteApi";
 
 class VoteOptions extends React.Component {
@@ -37,22 +37,32 @@ class VoteOptions extends React.Component {
           const voteEnabled = !this.state.voted && context.online;
           return (
             <div>
-              <VoteButton enabled={voteEnabled} onClick={this.submitLike}>
+              <button
+                aria-label="Like this message"
+                className={btnVoteClass}
+                disabled={!voteEnabled}
+                onClick={this.submitLike}
+              >
                 <span
                   dangerouslySetInnerHTML={{
                     __html: octicons.thumbsup.toSVG(),
                   }}
                 />
                 {this.state.like}
-              </VoteButton>
-              <VoteButton enabled={voteEnabled} onClick={this.submitDislike}>
+              </button>
+              <button
+                aria-label="Dislike this message"
+                className={btnVoteClass}
+                disabled={!voteEnabled}
+                onClick={this.submitDislike}
+              >
                 <span
                   dangerouslySetInnerHTML={{
                     __html: octicons.thumbsdown.toSVG(),
                   }}
                 />
                 {this.state.dislike}
-              </VoteButton>
+              </button>
             </div>
           );
         }}
