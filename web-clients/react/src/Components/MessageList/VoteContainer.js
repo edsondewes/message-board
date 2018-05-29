@@ -1,5 +1,5 @@
 import React from "react";
-import octicons from "octicons";
+import Octicon from "../Octicon";
 import { OfflineConsumer } from "../OfflineContext";
 import { btnVote as btnVoteClass } from "./_style.css";
 import { get as getVotes, post } from "../../apis/voteApi";
@@ -43,11 +43,7 @@ class VoteOptions extends React.Component {
                 disabled={!voteEnabled}
                 onClick={this.submitLike}
               >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: octicons.thumbsup.toSVG(),
-                  }}
-                />
+                <Octicon ico="thumbsup" />
                 {this.state.like}
               </button>
               <button
@@ -56,11 +52,7 @@ class VoteOptions extends React.Component {
                 disabled={!voteEnabled}
                 onClick={this.submitDislike}
               >
-                <span
-                  dangerouslySetInnerHTML={{
-                    __html: octicons.thumbsdown.toSVG(),
-                  }}
-                />
+                <Octicon ico="thumbsdown" />
                 {this.state.dislike}
               </button>
             </div>
