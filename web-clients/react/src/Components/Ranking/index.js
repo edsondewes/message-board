@@ -1,5 +1,7 @@
 import React from "react";
-import style from "./_style.css";
+import EmptyRankingInfo from "./EmptyRankingInfo";
+import RankingList from "./RankingList";
+import { rankingContainer as rankingContainerClass } from "./_style.css";
 import { getById as getMessage } from "../../apis/messageApi";
 import { get as getRanking } from "../../apis/rankingApi";
 
@@ -23,16 +25,13 @@ class Ranking extends React.Component {
 
   render() {
     return (
-      <div className={style.rankingContainer}>
+      <div className={rankingContainerClass}>
         <h2>Top messages</h2>
-        <ol className={style.rankingList}>
-          {this.props.messages.map(message => (
-            <li key={message.id}>
-              <span>{message.count}</span>
-              <p>{message.text}</p>
-            </li>
-          ))}
-        </ol>
+        {this.props.messages.length ? (
+          <RankingList messages={this.props.messages} />
+        ) : (
+          <EmptyRankingInfo />
+        )}
       </div>
     );
   }

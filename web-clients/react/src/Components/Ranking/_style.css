@@ -1,3 +1,7 @@
+.empty-container {
+  color: var(--secondary-color);
+}
+
 .ranking-container {
   background: var(--content-bg-color);
   padding: 1vw;

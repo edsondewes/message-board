@@ -18,6 +18,12 @@
   font-size: 0.8rem;
 }
 
+.empty-container {
+  color: var(--secondary-color);
+  padding: 2vh;
+  text-align: center;
+}
+
 .message {
   background: var(--content-bg-color);
   border: 1px solid var(--border-color);

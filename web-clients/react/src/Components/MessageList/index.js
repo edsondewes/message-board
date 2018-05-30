@@ -1,5 +1,6 @@
 import React from "react";
 import InfiniteScroll from "react-infinite-scroller";
+import EmptyListInfo from "./EmptyListInfo";
 import Message from "./Message";
 import {
   MESSAGE_CREATED,
@@ -56,13 +57,20 @@ class MessageList extends React.Component {
   }
 
   render() {
-    return (
-      <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadNextPage}>
-        {this.state.messages.map(m => (
-          <Message key={m.id} id={m.id} created={m.created} text={m.text} />
-        ))}
-      </InfiniteScroll>
-    );
+    if (this.state.messages.length) {
+      return (
+        <InfiniteScroll
+          hasMore={this.state.hasMore}
+          loadMore={this.loadNextPage}
+        >
+          {this.state.messages.map(m => (
+            <Message key={m.id} id={m.id} created={m.created} text={m.text} />
+          ))}
+        </InfiniteScroll>
+      );
+    }
+
+    return <EmptyListInfo />;
   }
 }
 
