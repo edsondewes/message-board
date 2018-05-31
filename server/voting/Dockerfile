@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.0-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk AS build-env
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -15,7 +15,7 @@ WORKDIR /app/MessageBoard.Voting.Api
 RUN dotnet publish -c Release -o out --no-restore
 
 # build runtime image
-FROM microsoft/aspnetcore:2.0
+FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/MessageBoard.Voting.Api/out ./
 ENTRYPOINT ["dotnet", "MessageBoard.Voting.Api.dll"]

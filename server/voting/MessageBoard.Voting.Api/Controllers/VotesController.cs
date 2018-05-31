@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MessageBoard.Voting.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class VotesController : Controller
     {
@@ -21,9 +22,6 @@ namespace MessageBoard.Voting.Api.Controllers
         [HttpGet("{subjectId}")]
         public async Task<ActionResult> Get(string subjectId)
         {
-            if (string.IsNullOrEmpty(subjectId))
-                return BadRequest("Invalid subjectId");
-
             var result = await _mediator.Send(new VoteCountQuery(subjectId));
             var view = ViewVote.From(result);
 
@@ -33,9 +31,6 @@ namespace MessageBoard.Voting.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]AddVoteModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
             var result = await _mediator.Send(new AddVoteCommand(model.SubjectId, model.OptionName));
             await _mediator.Publish(VoteCreated.From(result));
 

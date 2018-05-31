@@ -3,6 +3,7 @@ using MessageBoard.Voting.Nats;
 using MessageBoard.Voting.Redis;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json.Serialization;
@@ -22,6 +23,7 @@ namespace MessageBoard.Voting.Api
         {
             services
                 .AddMvc()
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
                 .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));

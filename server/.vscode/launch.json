@@ -7,7 +7,7 @@
       "request": "launch",
       "preLaunchTask": "build-messaging-api",
       "program":
-        "${workspaceFolder}/messaging/MessageBoard.Messaging.Api/bin/Debug/netcoreapp2.0/MessageBoard.Messaging.Api.dll",
+        "${workspaceFolder}/messaging/MessageBoard.Messaging.Api/bin/Debug/netcoreapp2.1/MessageBoard.Messaging.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/messaging/MessageBoard.Messaging.Api",
       "stopAtEntry": false,
@@ -23,7 +23,7 @@
       "request": "launch",
       "preLaunchTask": "build-ranking-api",
       "program":
-        "${workspaceFolder}/ranking/MessageBoard.Ranking.Api/bin/Debug/netcoreapp2.0/MessageBoard.Ranking.Api.dll",
+        "${workspaceFolder}/ranking/MessageBoard.Ranking.Api/bin/Debug/netcoreapp2.1/MessageBoard.Ranking.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/ranking/MessageBoard.Ranking.Api",
       "stopAtEntry": false,
@@ -39,7 +39,7 @@
       "request": "launch",
       "preLaunchTask": "build-voting-api",
       "program":
-        "${workspaceFolder}/voting/MessageBoard.Voting.Api/bin/Debug/netcoreapp2.0/MessageBoard.Voting.Api.dll",
+        "${workspaceFolder}/voting/MessageBoard.Voting.Api/bin/Debug/netcoreapp2.1/MessageBoard.Voting.Api.dll",
       "args": [],
       "cwd": "${workspaceFolder}/voting/MessageBoard.Voting.Api",
       "stopAtEntry": false,

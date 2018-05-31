@@ -6,6 +6,7 @@ using MediatR;
 using MessageBoard.Ranking.Core.Commands;
 using MessageBoard.Ranking.Nats.Interop;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using NATS.Client;
 using Newtonsoft.Json;
 

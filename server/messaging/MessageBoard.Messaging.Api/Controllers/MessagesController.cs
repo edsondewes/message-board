@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MessageBoard.Messaging.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class MessagesController : Controller
     {
@@ -34,13 +35,10 @@ namespace MessageBoard.Messaging.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]CreateMessageModel model)
+        public async Task<ActionResult<Message>> Post([FromBody]CreateMessageModel model)
         {
-            if (!ModelState.IsValid)
-                return BadRequest(ModelState);
-
-            var result = await _mediator.Send(new CreateMessageCommand(model.Text));
-            return Ok(result);
+            var message = await _mediator.Send(new CreateMessageCommand(model.Text));
+            return message;
         }
     }
 }

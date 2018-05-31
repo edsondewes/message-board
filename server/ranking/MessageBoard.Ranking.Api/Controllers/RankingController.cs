@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MessageBoard.Ranking.Api.Controllers
 {
+    [ApiController]
     [Route("api/[controller]")]
     public class RankingController : Controller
     {
