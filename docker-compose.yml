@@ -55,14 +55,12 @@ services:
       - "traefik.port=80"
 
   web:
-    build:
-      context: ./web-clients/react/
-      args:
-        apiurl: "http://localhost:8080/api"
-        internal_apiurl: "http://proxy/api"
+    build: ./web-clients/react/
     image: edsondewes/message-board-react:latest
     environment:
       NODE_ENV: production
+      INTERNAL_API_URL: http://proxy/api
+      PUBLIC_API_URL: http://localhost:8080/api
     labels:
       - "traefik.backend=react-web"
       - "traefik.frontend.rule=PathPrefix:/"

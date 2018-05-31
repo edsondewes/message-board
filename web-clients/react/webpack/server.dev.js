@@ -48,7 +48,7 @@ module.exports = {
   },
   plugins: [
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify("http://localhost:9090/api"),
+      __API_URL__: "process.env.INTERNAL_API_URL || process.env.PUBLIC_API_URL",
     }),
   ],
 };

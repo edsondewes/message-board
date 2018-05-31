@@ -13,7 +13,10 @@
 </head>
 <body>
     <div id="root"><%- appString %></div>
-    <script>window.__REACT_STATE__ = <%- state %>;</script>
+    <script>
+      window.__API_URL__ = <%- apiUrl %>;
+      window.__REACT_STATE__ = <%- state %>;
+    </script>
     <%- js %>
 </body>
 </html>

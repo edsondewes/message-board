@@ -6,9 +6,8 @@
   "author": "Edson Dewes <edson_dewes@hotmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node ./src/index.dev",
-    "build":
-      "rimraf ./dist && yarn build:client --env.API_URL=$API_URL && yarn build:server --env.API_URL=$INTERNAL_API_URL",
+    "start": "PUBLIC_API_URL=http://localhost:9090/api node ./src/index.dev",
+    "build": "rimraf ./dist && yarn build:client && yarn build:server",
     "build:client": "webpack --config ./webpack/client.prod.js",
     "build:server": "webpack --config ./webpack/server.prod.js"
   },

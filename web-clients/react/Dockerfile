@@ -7,10 +7,7 @@ RUN yarn install
 
 # copy everything else and build
 COPY . .
-
-ARG apiurl
-ARG internal_apiurl
-RUN INTERNAL_API_URL=$internal_apiurl API_URL=$apiurl yarn build
+RUN yarn build
 
 # build runtime image
 FROM node:10-alpine
