@@ -68,7 +68,7 @@ module.exports = env => {
         staticFileGlobsIgnorePatterns: [/\.map$/, /stats\.json$/],
         runtimeCaching: [
           {
-            urlPattern: /^http:\/\/localhost:8080\/$/,
+            urlPattern: /^(http|https):\/\/\w+.\w+\/$/,
             handler: "networkFirst",
           },
           {
