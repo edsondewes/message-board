@@ -22,6 +22,13 @@ const Header = ({ changeMobileView, toggleTheme }) => (
       >
         <Octicon ico="paintcan" />
       </button>
+      <a
+        className={style.iconButton}
+        href="https://github.com/edsondewes/message-board"
+        title="Visit GitHub page"
+      >
+        <Octicon ico="mark-github" />
+      </a>
     </div>
   </header>
 );
