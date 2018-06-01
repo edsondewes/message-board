@@ -1,13 +1,33 @@
 .header-container {
+  align-content: center;
   display: flex;
   margin: 0 auto;
   max-width: 90%;
 }
 
-.toggle-view {
+.icon-button,
+.nav-button {
   border: 0;
   background: transparent;
   color: var(--main-color);
+}
+
+.icon-button {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.icon-button:focus {
+  outline: 0;
+}
+
+.icon-button svg {
+  height: 24px;
+  width: 24px;
+}
+
+.nav-button {
   display: none;
 }
 
@@ -28,7 +48,7 @@
     max-width: 100%;
   }
 
-  .toggle-view {
+  .nav-button {
     display: inline;
   }
 }

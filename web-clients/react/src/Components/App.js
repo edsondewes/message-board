@@ -47,10 +47,23 @@ class App extends React.Component {
       : defaultClass;
   }
 
+  toggleTheme() {
+    const root = document.documentElement;
+    const themeAttribute = "data-theme";
+    if (root.hasAttribute(themeAttribute)) {
+      root.removeAttribute(themeAttribute);
+    } else {
+      root.setAttribute(themeAttribute, "dark");
+    }
+  }
+
   render() {
     return (
       <OfflineProvider>
-        <Header changeMobileView={this.changeMobileView} />
+        <Header
+          changeMobileView={this.changeMobileView}
+          toggleTheme={this.toggleTheme}
+        />
         <OfflinePanel>
           <FloatingPanel>
             <h1>Offline mode</h1>
