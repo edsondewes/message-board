@@ -21,7 +21,7 @@ You can see below what is done and what is planned.
 - [x] Offline support
 - [x] Responsive layout
 - [x] PWA ready
-- [ ] Light/dark themes (using css variables)
+- [x] Light/dark themes (using css variables)
 
 ## Vue App
 - [ ] TODO
