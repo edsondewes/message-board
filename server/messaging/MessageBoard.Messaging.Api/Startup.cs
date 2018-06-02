@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using App.Metrics.Health;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,12 @@ namespace MessageBoard.Messaging.Api
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
             services.AddMediatR();
+
+            services.AddHealth(
+                AppMetricsHealth.CreateDefaultBuilder()
+                    .HealthChecks.RegisterFromAssembly(services)
+                    .BuildAndAddTo(services));
+            services.AddHealthEndpoints();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -36,6 +43,7 @@ namespace MessageBoard.Messaging.Api
                     .AllowAnyHeader());
             }
 
+            app.UseHealthEndpoint();
             app.UseMvc();
         }
     }

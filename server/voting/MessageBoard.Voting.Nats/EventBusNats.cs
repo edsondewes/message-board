@@ -10,15 +10,9 @@ namespace MessageBoard.Voting.Nats
     {
         private readonly IConnection _connection;
 
-        public EventBusNats(string url)
+        public EventBusNats(IConnection connection)
         {
-            if (string.IsNullOrEmpty(url))
-                throw new ArgumentNullException(nameof(url));
-
-            var options = ConnectionFactory.GetDefaultOptions();
-            options.Url = url;
-
-            _connection = new ConnectionFactory().CreateConnection(options);
+            _connection = connection;
         }
 
         public Task Publish<T>(T obj)

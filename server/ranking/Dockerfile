@@ -18,4 +18,6 @@ RUN dotnet publish -c Release -o out --no-restore
 FROM microsoft/dotnet:2.1-aspnetcore-runtime
 WORKDIR /app
 COPY --from=build-env /app/MessageBoard.Ranking.Api/out ./
+
+HEALTHCHECK --interval=2m --timeout=3s CMD curl --fail http://localhost/health || exit 1
 ENTRYPOINT ["dotnet", "MessageBoard.Ranking.Api.dll"]

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -18,15 +17,9 @@ namespace MessageBoard.Ranking.Nats
         private readonly IServiceScopeFactory _scopeFactory;
         private IAsyncSubscription _subscription;
 
-        public SubscriptionsServiceNats(IServiceScopeFactory scopeFactory, string url)
+        public SubscriptionsServiceNats(IConnection connection, IServiceScopeFactory scopeFactory)
         {
-            if (string.IsNullOrEmpty(url))
-                throw new ArgumentNullException(nameof(url));
-
-            var options = ConnectionFactory.GetDefaultOptions();
-            options.Url = url;
-
-            _connection = new ConnectionFactory().CreateConnection(options);
+            _connection = connection;
             _scopeFactory = scopeFactory;
         }
 

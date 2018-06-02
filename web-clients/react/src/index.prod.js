@@ -4,6 +4,7 @@ const path = require("path");
 
 const app = express();
 app.use(compression());
+app.use("/health", require("express-healthcheck")());
 
 const clientStats = require("./stats.json");
 const serverRender = require("./app.server.js").default;
