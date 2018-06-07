@@ -1,0 +1,24 @@
+:root {
+  --base-hue: 210;
+  --main-color: hsl(var(--base-hue), 20%, 0%);
+  --secondary-color: hsl(var(--base-hue), 20%, 45%);
+
+  --border-color: hsl(var(--base-hue), 15%, 92%);
+  --content-bg-color: hsl(var(--base-hue), 0%, 100%);
+  --form-bg-color: hsl(var(--base-hue), 15%, 96%);
+  --header-bg-color: hsl(var(--base-hue), 100%, 100%);
+  --main-bg-color: hsl(var(--base-hue), 25%, 92%);
+
+  --disabled-bg-color: hsl(var(--base-hue), 25%, 92%);
+  --disabled-border-color: hsl(var(--base-hue), 25%, 90%);
+  --disabled-color: hsl(var(--base-hue), 25%, 80%);
+
+  --primary-hue: 72;
+  --primary-bg-color: hsl(var(--primary-hue), 42%, 46%);
+  --primary-border-color: hsl(var(--primary-hue), 42%, 55%);
+  --primary-color: hsl(var(--primary-hue), 100%, 100%);
+  --primary-hover-color: hsl(var(--primary-hue), 46%, 52%);
+
+  --warning-bg-color: hsl(var(--base-hue), 30%, 80%);
+  --warning-border-color: hsl(var(--base-hue), 0%, 30%);
+}
