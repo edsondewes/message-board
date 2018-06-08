@@ -16,7 +16,7 @@ You can see below what is done and what is planned.
 - [ ] Integration tests
 
 ## React App
-- [x] React 16.x
+- [x] React 16.x client
 - [x] Server side rendering (without frameworks and fetching data)
 - [x] Offline support
 - [x] Responsive layout
@@ -24,10 +24,15 @@ You can see below what is done and what is planned.
 - [x] Light/dark themes (using css variables)
 
 ## Vue App
-- [ ] TODO
+- [x] Vue 2.5.x client
+- [ ] Server side rendering
+- [ ] Offline support
+- [x] Responsive layout
+- [ ] PWA ready
+- [ ] Light/dark themes
 
 ## Other
-- [ ] Deployment: https://messageboard.site (soon)
+- [x] Deployment: https://messageboard.site
 - [x] [Traefik](https://traefik.io/) as API Gateway
 - [x] Docker support (multistage build)
 - [ ] Kubernetes support
