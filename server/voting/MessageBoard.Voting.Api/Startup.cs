@@ -1,5 +1,6 @@
 ﻿using App.Metrics.Health;
 using MediatR;
+using MessageBoard.Voting.GRPC;
 using MessageBoard.Voting.Nats;
 using MessageBoard.Voting.Redis;
 using Microsoft.AspNetCore.Builder;
@@ -29,6 +30,7 @@ namespace MessageBoard.Voting.Api
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
             services.AddNats(Configuration.GetValue<string>("Nats"));
+            services.AddGRPCServer();
             services.AddMediatR();
 
             services.AddHealth(

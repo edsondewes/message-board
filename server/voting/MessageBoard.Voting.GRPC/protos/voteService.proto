@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package MessageBoard.Voting.GRPC;
+
+service VoteService {
+    rpc Add(AddRequest) returns (VoteResponse) {}
+    rpc Single(SingleRequest) returns (stream VoteResponse) {}
+}
+
+message VoteResponse {
+    string optionName = 1;
+    uint32 count = 2;
+}
+
+message AddRequest {
+    string subjectId = 1;
+    string optionName = 2;
+}
+
+message SingleRequest {
+    string subjectId = 1;
+}
