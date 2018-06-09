@@ -5,7 +5,7 @@ using Microsoft.Extensions.Hosting;
 
 namespace MessageBoard.Ranking.GRPC
 {
-    public class BackgroundServerGRPC : BackgroundService
+    public class BackgroundServerGRPC : IHostedService
     {
         private readonly Server _server;
 
@@ -18,13 +18,13 @@ namespace MessageBoard.Ranking.GRPC
             };
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        public Task StartAsync(CancellationToken stoppingToken)
         {
             _server.Start();
             return Task.CompletedTask;
         }
 
-        public override Task StopAsync(CancellationToken cancellationToken)
+        public Task StopAsync(CancellationToken cancellationToken)
         {
             return _server.ShutdownAsync();
         }
