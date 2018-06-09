@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MessageBoard.Messaging.Core\MessageBoard.Messaging.Core.csproj" />
+    <ProjectReference Include="..\MessageBoard.Messaging.GRPC\MessageBoard.Messaging.GRPC.csproj" />
     <ProjectReference Include="..\MessageBoard.Messaging.Redis\MessageBoard.Messaging.Redis.csproj" />
   </ItemGroup>
 

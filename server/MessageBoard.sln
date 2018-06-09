@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27130.2036
@@ -28,6 +28,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "voting", "voting", "{DE250017-7820-4F80-85EE-1FBCB7A895D9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Voting.Nats", "voting\MessageBoard.Voting.Nats\MessageBoard.Voting.Nats.csproj", "{C1854E9F-ED93-4248-81F3-F0D34D77F9C1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{2DC272F8-3FED-4971-9788-DAA81DF66045}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageBoard.Messaging.GRPC", "messaging\MessageBoard.Messaging.GRPC\MessageBoard.Messaging.GRPC.csproj", "{586AFD14-239E-4154-9EAB-ED468090AFE8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -147,6 +151,18 @@ Global
 		{C1854E9F-ED93-4248-81F3-F0D34D77F9C1}.Release|x64.Build.0 = Release|x64
 		{C1854E9F-ED93-4248-81F3-F0D34D77F9C1}.Release|x86.ActiveCfg = Release|x86
 		{C1854E9F-ED93-4248-81F3-F0D34D77F9C1}.Release|x86.Build.0 = Release|x86
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|x64.Build.0 = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Debug|x86.Build.0 = Debug|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|x64.ActiveCfg = Release|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|x64.Build.0 = Release|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|x86.ActiveCfg = Release|Any CPU
+		{586AFD14-239E-4154-9EAB-ED468090AFE8}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,5 +176,6 @@ Global
 		{1979C447-6939-4325-9982-5764934E3019} = {C7E9F561-5CC6-404B-A78F-2FA256A76571}
 		{F4A9F137-5522-4C31-A7B9-22CC91C0DBC7} = {C7E9F561-5CC6-404B-A78F-2FA256A76571}
 		{C1854E9F-ED93-4248-81F3-F0D34D77F9C1} = {DE250017-7820-4F80-85EE-1FBCB7A895D9}
+		{586AFD14-239E-4154-9EAB-ED468090AFE8} = {2DC272F8-3FED-4971-9788-DAA81DF66045}
 	EndGlobalSection
 EndGlobal

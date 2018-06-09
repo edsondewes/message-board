@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package MessageBoard.Messaging.GRPC;
+
+service MessageService {
+    rpc Create(CreateRequest) returns (MessageResponse) {}
+    rpc List(ListRequest) returns (stream MessageResponse) {}
+    rpc Single(SingleRequest) returns (MessageResponse) {}
+}
+
+message MessageResponse {
+    int64 id = 1;
+    int64 created = 2;
+    string text = 3;
+}
+
+message CreateRequest {
+    string text = 1;
+}
+
+message ListRequest {
+    int64 from = 1;
+}
+
+message SingleRequest {
+    int64 id = 1;
+}
