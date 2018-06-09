@@ -18,7 +18,7 @@ services:
     depends_on:
       - redis
     build: ./server/messaging/
-    image: edsondewes/messaging-api:latest
+    image: edsondewes/message-board:messaging-api-latest
     environment:
       Redis: redis
     labels:
@@ -31,7 +31,7 @@ services:
       - nats
       - redis
     build: ./server/ranking/
-    image: edsondewes/ranking-api:latest
+    image: edsondewes/message-board:ranking-api-latest
     environment:
       Nats: nats://nats:4222
       Redis: redis
@@ -45,7 +45,7 @@ services:
       - nats
       - redis
     build: ./server/voting/
-    image: edsondewes/voting-api:latest
+    image: edsondewes/message-board:voting-api-latest
     environment:
       Nats: nats://nats:4222
       Redis: redis
@@ -56,7 +56,7 @@ services:
 
   web:
     build: ./web-clients/react/
-    image: edsondewes/message-board-react:latest
+    image: edsondewes/message-board:web-react-latest
     environment:
       NODE_ENV: production
       INTERNAL_API_URL: http://proxy/api
@@ -67,7 +67,7 @@ services:
       - "traefik.port=80"
     
   proxy:
-    image: traefik:1.5-alpine
+    image: traefik:1.6-alpine
     labels:
       - "traefik.enable=false"
     ports:
