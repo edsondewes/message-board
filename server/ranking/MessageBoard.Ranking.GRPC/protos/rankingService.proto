@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package MessageBoard.Ranking.GRPC;
+
+service RankingService {
+    rpc List(ListRequest) returns (stream RankingResponse) {}
+}
+
+message RankingResponse {
+    string subjectId = 1;
+    uint32 count = 2;
+}
+
+message ListRequest {
+    string optionName = 1;
+}

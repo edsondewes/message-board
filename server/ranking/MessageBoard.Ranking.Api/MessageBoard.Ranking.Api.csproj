@@ -14,6 +14,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\MessageBoard.Ranking.Core\MessageBoard.Ranking.Core.csproj" />
+    <ProjectReference Include="..\MessageBoard.Ranking.GRPC\MessageBoard.Ranking.GRPC.csproj" />
     <ProjectReference Include="..\MessageBoard.Ranking.Nats\MessageBoard.Ranking.Nats.csproj" />
     <ProjectReference Include="..\MessageBoard.Ranking.Redis\MessageBoard.Ranking.Redis.csproj" />
   </ItemGroup>
