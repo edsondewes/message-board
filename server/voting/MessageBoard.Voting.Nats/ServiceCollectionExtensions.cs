@@ -1,9 +1,9 @@
 using System;
 using MessageBoard.Voting.Core;
-using Microsoft.Extensions.DependencyInjection;
+using MessageBoard.Voting.Nats;
 using NATS.Client;
 
-namespace MessageBoard.Voting.Nats
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

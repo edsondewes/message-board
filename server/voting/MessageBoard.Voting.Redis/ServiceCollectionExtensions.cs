@@ -1,8 +1,7 @@
 ﻿using System;
-using Microsoft.Extensions.DependencyInjection;
 using StackExchange.Redis;
 
-namespace MessageBoard.Voting.Redis
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

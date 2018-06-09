@@ -1,10 +1,9 @@
-
 using System;
-using Microsoft.Extensions.DependencyInjection;
+using MessageBoard.Ranking.Nats;
 using Microsoft.Extensions.Hosting;
 using NATS.Client;
 
-namespace MessageBoard.Ranking.Nats
+namespace Microsoft.Extensions.DependencyInjection
 {
     public static class ServiceCollectionExtensions
     {

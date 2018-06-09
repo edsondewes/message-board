@@ -1,6 +1,5 @@
 ﻿using App.Metrics.Health;
 using MediatR;
-using MessageBoard.Messaging.GRPC;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -24,7 +23,6 @@ namespace MessageBoard.Messaging.Api
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
-            services.AddGRPCServer();
             services.AddMediatR();
 
             services.AddHealth(
