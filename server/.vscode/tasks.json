@@ -44,6 +44,39 @@
       ],
       "problemMatcher": "$msCompile",
       "group": "build"
+    },
+    {
+      "label": "build-messaging-grpc",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/messaging/MessageBoard.Messaging.GRPC/MessageBoard.Messaging.GRPC.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-ranking-grpc",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/ranking/MessageBoard.Ranking.GRPC/MessageBoard.Ranking.GRPC.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
+    },
+    {
+      "label": "build-voting-grpc",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build",
+        "${workspaceFolder}/voting/MessageBoard.Voting.GRPC/MessageBoard.Voting.GRPC.csproj"
+      ],
+      "problemMatcher": "$msCompile",
+      "group": "build"
     }
   ]
 }

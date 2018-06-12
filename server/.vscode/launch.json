@@ -50,6 +50,42 @@
       }
     },
     {
+      "name": "Messaging GRPC",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-messaging-grpc",
+      "program":
+        "${workspaceFolder}/messaging/MessageBoard.Messaging.GRPC/bin/Debug/netcoreapp2.1/MessageBoard.Messaging.GRPC.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/messaging/MessageBoard.Messaging.GRPC",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "Ranking GRPC",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-ranking-grpc",
+      "program":
+        "${workspaceFolder}/ranking/MessageBoard.Ranking.GRPC/bin/Debug/netcoreapp2.1/MessageBoard.Ranking.GRPC.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/ranking/MessageBoard.Ranking.GRPC",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
+      "name": "Voting GRPC",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-voting-grpc",
+      "program":
+        "${workspaceFolder}/voting/MessageBoard.Voting.GRPC/bin/Debug/netcoreapp2.1/MessageBoard.Voting.GRPC.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/voting/MessageBoard.Voting.GRPC",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart"
+    },
+    {
       "name": ".NET Core Attach",
       "type": "coreclr",
       "request": "attach",
