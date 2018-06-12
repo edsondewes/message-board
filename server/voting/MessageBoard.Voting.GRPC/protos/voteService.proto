@@ -4,12 +4,16 @@ package MessageBoard.Voting.GRPC;
 
 service VoteService {
     rpc Add(AddRequest) returns (VoteResponse) {}
-    rpc Single(SingleRequest) returns (stream VoteResponse) {}
+    rpc Single(SingleRequest) returns (SingleResponse) {}
 }
 
 message VoteResponse {
     string optionName = 1;
     uint32 count = 2;
+}
+
+message SingleResponse {
+    repeated VoteResponse votes = 1;
 }
 
 message AddRequest {

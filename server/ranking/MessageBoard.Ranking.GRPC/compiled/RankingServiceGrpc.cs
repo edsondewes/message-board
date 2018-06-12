@@ -16,7 +16,7 @@ namespace MessageBoard.Ranking.GRPC {
     static readonly grpc::Marshaller<global::MessageBoard.Ranking.GRPC.RankingResponse> __Marshaller_RankingResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Ranking.GRPC.RankingResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::MessageBoard.Ranking.GRPC.ListRequest, global::MessageBoard.Ranking.GRPC.RankingResponse> __Method_List = new grpc::Method<global::MessageBoard.Ranking.GRPC.ListRequest, global::MessageBoard.Ranking.GRPC.RankingResponse>(
-        grpc::MethodType.ServerStreaming,
+        grpc::MethodType.Unary,
         __ServiceName,
         "List",
         __Marshaller_ListRequest,
@@ -31,7 +31,7 @@ namespace MessageBoard.Ranking.GRPC {
     /// <summary>Base class for server-side implementations of RankingService</summary>
     public abstract partial class RankingServiceBase
     {
-      public virtual global::System.Threading.Tasks.Task List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::IServerStreamWriter<global::MessageBoard.Ranking.GRPC.RankingResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Ranking.GRPC.RankingResponse> List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -61,13 +61,21 @@ namespace MessageBoard.Ranking.GRPC {
       {
       }
 
-      public virtual grpc::AsyncServerStreamingCall<global::MessageBoard.Ranking.GRPC.RankingResponse> List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::MessageBoard.Ranking.GRPC.RankingResponse List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncServerStreamingCall<global::MessageBoard.Ranking.GRPC.RankingResponse> List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::CallOptions options)
+      public virtual global::MessageBoard.Ranking.GRPC.RankingResponse List(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncServerStreamingCall(__Method_List, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Ranking.GRPC.RankingResponse> ListAsync(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Ranking.GRPC.RankingResponse> ListAsync(global::MessageBoard.Ranking.GRPC.ListRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override RankingServiceClient NewInstance(ClientBaseConfiguration configuration)

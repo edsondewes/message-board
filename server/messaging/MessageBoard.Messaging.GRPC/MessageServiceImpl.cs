@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
@@ -27,7 +28,7 @@ namespace MessageBoard.Messaging.GRPC
             }
         }
 
-        public override async Task List(ListRequest request, IServerStreamWriter<MessageResponse> responseStream, ServerCallContext context)
+        public override async Task<ListResponse> List(ListRequest request, ServerCallContext context)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
@@ -37,10 +38,10 @@ namespace MessageBoard.Messaging.GRPC
                     : null;
 
                 var list = await mediator.Send(new PaginatedMessagesQuery(from));
-                foreach (var item in list)
-                {
-                    await responseStream.WriteAsync(ToResponse(item));
-                }
+
+                var response = new ListResponse();
+                response.Messages.AddRange(list.Select(ToResponse));
+                return response;
             }
         }
 
@@ -56,7 +57,7 @@ namespace MessageBoard.Messaging.GRPC
 
         private MessageResponse ToResponse(Message message) => new MessageResponse
         {
-            Created = message.Created.Ticks,
+            Created = Google.Protobuf.WellKnownTypes.Timestamp.FromDateTime(message.Created.ToUniversalTime()),
             Id = message.Id,
             Text = message.Text
         };

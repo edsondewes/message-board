@@ -15,6 +15,7 @@ namespace MessageBoard.Messaging.GRPC {
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.CreateRequest> __Marshaller_CreateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.CreateRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.MessageResponse> __Marshaller_MessageResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.MessageResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.ListRequest> __Marshaller_ListRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.ListRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.ListResponse> __Marshaller_ListResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.ListResponse.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.SingleRequest> __Marshaller_SingleRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.SingleRequest.Parser.ParseFrom);
 
     static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.CreateRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_Create = new grpc::Method<global::MessageBoard.Messaging.GRPC.CreateRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
@@ -24,12 +25,12 @@ namespace MessageBoard.Messaging.GRPC {
         __Marshaller_CreateRequest,
         __Marshaller_MessageResponse);
 
-    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_List = new grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
-        grpc::MethodType.ServerStreaming,
+    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.ListResponse> __Method_List = new grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.ListResponse>(
+        grpc::MethodType.Unary,
         __ServiceName,
         "List",
         __Marshaller_ListRequest,
-        __Marshaller_MessageResponse);
+        __Marshaller_ListResponse);
 
     static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.SingleRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_Single = new grpc::Method<global::MessageBoard.Messaging.GRPC.SingleRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
         grpc::MethodType.Unary,
@@ -52,7 +53,7 @@ namespace MessageBoard.Messaging.GRPC {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::IServerStreamWriter<global::MessageBoard.Messaging.GRPC.MessageResponse> responseStream, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.ListResponse> List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -103,13 +104,21 @@ namespace MessageBoard.Messaging.GRPC {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Create, null, options, request);
       }
-      public virtual grpc::AsyncServerStreamingCall<global::MessageBoard.Messaging.GRPC.MessageResponse> List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
         return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncServerStreamingCall<global::MessageBoard.Messaging.GRPC.MessageResponse> List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::CallOptions options)
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncServerStreamingCall(__Method_List, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> ListAsync(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> ListAsync(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
       }
       public virtual global::MessageBoard.Messaging.GRPC.MessageResponse Single(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {

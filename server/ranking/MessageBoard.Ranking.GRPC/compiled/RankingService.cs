@@ -25,15 +25,17 @@ namespace MessageBoard.Ranking.GRPC {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChRyYW5raW5nU2VydmljZS5wcm90bxIZTWVzc2FnZUJvYXJkLlJhbmtpbmcu",
-            "R1JQQyIzCg9SYW5raW5nUmVzcG9uc2USEQoJc3ViamVjdElkGAEgASgJEg0K",
-            "BWNvdW50GAIgASgNIiEKC0xpc3RSZXF1ZXN0EhIKCm9wdGlvbk5hbWUYASAB",
-            "KAkycAoOUmFua2luZ1NlcnZpY2USXgoETGlzdBImLk1lc3NhZ2VCb2FyZC5S",
-            "YW5raW5nLkdSUEMuTGlzdFJlcXVlc3QaKi5NZXNzYWdlQm9hcmQuUmFua2lu",
-            "Zy5HUlBDLlJhbmtpbmdSZXNwb25zZSIAMAFiBnByb3RvMw=="));
+            "R1JQQyKVAQoPUmFua2luZ1Jlc3BvbnNlEksKBXZvdGVzGAEgAygLMjwuTWVz",
+            "c2FnZUJvYXJkLlJhbmtpbmcuR1JQQy5SYW5raW5nUmVzcG9uc2UuVm90ZUNv",
+            "dW50UmVzcG9uc2UaNQoRVm90ZUNvdW50UmVzcG9uc2USEQoJc3ViamVjdElk",
+            "GAEgASgJEg0KBWNvdW50GAIgASgNIiEKC0xpc3RSZXF1ZXN0EhIKCm9wdGlv",
+            "bk5hbWUYASABKAkybgoOUmFua2luZ1NlcnZpY2USXAoETGlzdBImLk1lc3Nh",
+            "Z2VCb2FyZC5SYW5raW5nLkdSUEMuTGlzdFJlcXVlc3QaKi5NZXNzYWdlQm9h",
+            "cmQuUmFua2luZy5HUlBDLlJhbmtpbmdSZXNwb25zZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
-            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Ranking.GRPC.RankingResponse), global::MessageBoard.Ranking.GRPC.RankingResponse.Parser, new[]{ "SubjectId", "Count" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Ranking.GRPC.RankingResponse), global::MessageBoard.Ranking.GRPC.RankingResponse.Parser, new[]{ "Votes" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse), global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse.Parser, new[]{ "SubjectId", "Count" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Ranking.GRPC.ListRequest), global::MessageBoard.Ranking.GRPC.ListRequest.Parser, new[]{ "OptionName" }, null, null, null)
           }));
     }
@@ -66,8 +68,7 @@ namespace MessageBoard.Ranking.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public RankingResponse(RankingResponse other) : this() {
-      subjectId_ = other.subjectId_;
-      count_ = other.count_;
+      votes_ = other.votes_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -76,26 +77,14 @@ namespace MessageBoard.Ranking.GRPC {
       return new RankingResponse(this);
     }
 
-    /// <summary>Field number for the "subjectId" field.</summary>
-    public const int SubjectIdFieldNumber = 1;
-    private string subjectId_ = "";
+    /// <summary>Field number for the "votes" field.</summary>
+    public const int VotesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse> _repeated_votes_codec
+        = pb::FieldCodec.ForMessage(10, global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse.Parser);
+    private readonly pbc::RepeatedField<global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse> votes_ = new pbc::RepeatedField<global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse>();
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string SubjectId {
-      get { return subjectId_; }
-      set {
-        subjectId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "count" field.</summary>
-    public const int CountFieldNumber = 2;
-    private uint count_;
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public uint Count {
-      get { return count_; }
-      set {
-        count_ = value;
-      }
+    public pbc::RepeatedField<global::MessageBoard.Ranking.GRPC.RankingResponse.Types.VoteCountResponse> Votes {
+      get { return votes_; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -111,16 +100,14 @@ namespace MessageBoard.Ranking.GRPC {
       if (ReferenceEquals(other, this)) {
         return true;
       }
-      if (SubjectId != other.SubjectId) return false;
-      if (Count != other.Count) return false;
+      if(!votes_.Equals(other.votes_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override int GetHashCode() {
       int hash = 1;
-      if (SubjectId.Length != 0) hash ^= SubjectId.GetHashCode();
-      if (Count != 0) hash ^= Count.GetHashCode();
+      hash ^= votes_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -134,14 +121,7 @@ namespace MessageBoard.Ranking.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
-      if (SubjectId.Length != 0) {
-        output.WriteRawTag(10);
-        output.WriteString(SubjectId);
-      }
-      if (Count != 0) {
-        output.WriteRawTag(16);
-        output.WriteUInt32(Count);
-      }
+      votes_.WriteTo(output, _repeated_votes_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -150,12 +130,7 @@ namespace MessageBoard.Ranking.GRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public int CalculateSize() {
       int size = 0;
-      if (SubjectId.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(SubjectId);
-      }
-      if (Count != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
-      }
+      size += votes_.CalculateSize(_repeated_votes_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -167,12 +142,7 @@ namespace MessageBoard.Ranking.GRPC {
       if (other == null) {
         return;
       }
-      if (other.SubjectId.Length != 0) {
-        SubjectId = other.SubjectId;
-      }
-      if (other.Count != 0) {
-        Count = other.Count;
-      }
+      votes_.Add(other.votes_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -185,16 +155,176 @@ namespace MessageBoard.Ranking.GRPC {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 10: {
-            SubjectId = input.ReadString();
-            break;
-          }
-          case 16: {
-            Count = input.ReadUInt32();
+            votes_.AddEntriesFrom(input, _repeated_votes_codec);
             break;
           }
         }
       }
     }
+
+    #region Nested types
+    /// <summary>Container for nested types declared in the RankingResponse message type.</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static partial class Types {
+      public sealed partial class VoteCountResponse : pb::IMessage<VoteCountResponse> {
+        private static readonly pb::MessageParser<VoteCountResponse> _parser = new pb::MessageParser<VoteCountResponse>(() => new VoteCountResponse());
+        private pb::UnknownFieldSet _unknownFields;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pb::MessageParser<VoteCountResponse> Parser { get { return _parser; } }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public static pbr::MessageDescriptor Descriptor {
+          get { return global::MessageBoard.Ranking.GRPC.RankingResponse.Descriptor.NestedTypes[0]; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        pbr::MessageDescriptor pb::IMessage.Descriptor {
+          get { return Descriptor; }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VoteCountResponse() {
+          OnConstruction();
+        }
+
+        partial void OnConstruction();
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VoteCountResponse(VoteCountResponse other) : this() {
+          subjectId_ = other.subjectId_;
+          count_ = other.count_;
+          _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public VoteCountResponse Clone() {
+          return new VoteCountResponse(this);
+        }
+
+        /// <summary>Field number for the "subjectId" field.</summary>
+        public const int SubjectIdFieldNumber = 1;
+        private string subjectId_ = "";
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public string SubjectId {
+          get { return subjectId_; }
+          set {
+            subjectId_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+          }
+        }
+
+        /// <summary>Field number for the "count" field.</summary>
+        public const int CountFieldNumber = 2;
+        private uint count_;
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public uint Count {
+          get { return count_; }
+          set {
+            count_ = value;
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override bool Equals(object other) {
+          return Equals(other as VoteCountResponse);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public bool Equals(VoteCountResponse other) {
+          if (ReferenceEquals(other, null)) {
+            return false;
+          }
+          if (ReferenceEquals(other, this)) {
+            return true;
+          }
+          if (SubjectId != other.SubjectId) return false;
+          if (Count != other.Count) return false;
+          return Equals(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override int GetHashCode() {
+          int hash = 1;
+          if (SubjectId.Length != 0) hash ^= SubjectId.GetHashCode();
+          if (Count != 0) hash ^= Count.GetHashCode();
+          if (_unknownFields != null) {
+            hash ^= _unknownFields.GetHashCode();
+          }
+          return hash;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public override string ToString() {
+          return pb::JsonFormatter.ToDiagnosticString(this);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void WriteTo(pb::CodedOutputStream output) {
+          if (SubjectId.Length != 0) {
+            output.WriteRawTag(10);
+            output.WriteString(SubjectId);
+          }
+          if (Count != 0) {
+            output.WriteRawTag(16);
+            output.WriteUInt32(Count);
+          }
+          if (_unknownFields != null) {
+            _unknownFields.WriteTo(output);
+          }
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public int CalculateSize() {
+          int size = 0;
+          if (SubjectId.Length != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeStringSize(SubjectId);
+          }
+          if (Count != 0) {
+            size += 1 + pb::CodedOutputStream.ComputeUInt32Size(Count);
+          }
+          if (_unknownFields != null) {
+            size += _unknownFields.CalculateSize();
+          }
+          return size;
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(VoteCountResponse other) {
+          if (other == null) {
+            return;
+          }
+          if (other.SubjectId.Length != 0) {
+            SubjectId = other.SubjectId;
+          }
+          if (other.Count != 0) {
+            Count = other.Count;
+          }
+          _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+        }
+
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+        public void MergeFrom(pb::CodedInputStream input) {
+          uint tag;
+          while ((tag = input.ReadTag()) != 0) {
+            switch(tag) {
+              default:
+                _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+                break;
+              case 10: {
+                SubjectId = input.ReadString();
+                break;
+              }
+              case 16: {
+                Count = input.ReadUInt32();
+                break;
+              }
+            }
+          }
+        }
+
+      }
+
+    }
+    #endregion
 
   }
 

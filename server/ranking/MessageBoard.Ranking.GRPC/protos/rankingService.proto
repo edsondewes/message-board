@@ -3,12 +3,16 @@ syntax = "proto3";
 package MessageBoard.Ranking.GRPC;
 
 service RankingService {
-    rpc List(ListRequest) returns (stream RankingResponse) {}
+    rpc List(ListRequest) returns (RankingResponse) {}
 }
 
 message RankingResponse {
-    string subjectId = 1;
-    uint32 count = 2;
+    message VoteCountResponse {
+        string subjectId = 1;
+        uint32 count = 2;
+    }
+
+    repeated VoteCountResponse votes = 1;
 }
 
 message ListRequest {

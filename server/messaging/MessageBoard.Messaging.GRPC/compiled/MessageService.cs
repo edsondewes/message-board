@@ -25,21 +25,25 @@ namespace MessageBoard.Messaging.GRPC {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "ChRtZXNzYWdlU2VydmljZS5wcm90bxIbTWVzc2FnZUJvYXJkLk1lc3NhZ2lu",
-            "Zy5HUlBDIjwKD01lc3NhZ2VSZXNwb25zZRIKCgJpZBgBIAEoAxIPCgdjcmVh",
-            "dGVkGAIgASgDEgwKBHRleHQYAyABKAkiHQoNQ3JlYXRlUmVxdWVzdBIMCgR0",
-            "ZXh0GAEgASgJIhsKC0xpc3RSZXF1ZXN0EgwKBGZyb20YASABKAMiGwoNU2lu",
-            "Z2xlUmVxdWVzdBIKCgJpZBgBIAEoAzLAAgoOTWVzc2FnZVNlcnZpY2USZAoG",
-            "Q3JlYXRlEiouTWVzc2FnZUJvYXJkLk1lc3NhZ2luZy5HUlBDLkNyZWF0ZVJl",
-            "cXVlc3QaLC5NZXNzYWdlQm9hcmQuTWVzc2FnaW5nLkdSUEMuTWVzc2FnZVJl",
-            "c3BvbnNlIgASYgoETGlzdBIoLk1lc3NhZ2VCb2FyZC5NZXNzYWdpbmcuR1JQ",
-            "Qy5MaXN0UmVxdWVzdBosLk1lc3NhZ2VCb2FyZC5NZXNzYWdpbmcuR1JQQy5N",
-            "ZXNzYWdlUmVzcG9uc2UiADABEmQKBlNpbmdsZRIqLk1lc3NhZ2VCb2FyZC5N",
-            "ZXNzYWdpbmcuR1JQQy5TaW5nbGVSZXF1ZXN0GiwuTWVzc2FnZUJvYXJkLk1l",
-            "c3NhZ2luZy5HUlBDLk1lc3NhZ2VSZXNwb25zZSIAYgZwcm90bzM="));
+            "Zy5HUlBDGg90aW1lc3RhbXAucHJvdG8iWAoPTWVzc2FnZVJlc3BvbnNlEgoK",
+            "AmlkGAEgASgDEisKB2NyZWF0ZWQYAiABKAsyGi5nb29nbGUucHJvdG9idWYu",
+            "VGltZXN0YW1wEgwKBHRleHQYAyABKAkiTgoMTGlzdFJlc3BvbnNlEj4KCG1l",
+            "c3NhZ2VzGAEgAygLMiwuTWVzc2FnZUJvYXJkLk1lc3NhZ2luZy5HUlBDLk1l",
+            "c3NhZ2VSZXNwb25zZSIdCg1DcmVhdGVSZXF1ZXN0EgwKBHRleHQYASABKAki",
+            "GwoLTGlzdFJlcXVlc3QSDAoEZnJvbRgBIAEoAyIbCg1TaW5nbGVSZXF1ZXN0",
+            "EgoKAmlkGAEgASgDMrsCCg5NZXNzYWdlU2VydmljZRJkCgZDcmVhdGUSKi5N",
+            "ZXNzYWdlQm9hcmQuTWVzc2FnaW5nLkdSUEMuQ3JlYXRlUmVxdWVzdBosLk1l",
+            "c3NhZ2VCb2FyZC5NZXNzYWdpbmcuR1JQQy5NZXNzYWdlUmVzcG9uc2UiABJd",
+            "CgRMaXN0EiguTWVzc2FnZUJvYXJkLk1lc3NhZ2luZy5HUlBDLkxpc3RSZXF1",
+            "ZXN0GikuTWVzc2FnZUJvYXJkLk1lc3NhZ2luZy5HUlBDLkxpc3RSZXNwb25z",
+            "ZSIAEmQKBlNpbmdsZRIqLk1lc3NhZ2VCb2FyZC5NZXNzYWdpbmcuR1JQQy5T",
+            "aW5nbGVSZXF1ZXN0GiwuTWVzc2FnZUJvYXJkLk1lc3NhZ2luZy5HUlBDLk1l",
+            "c3NhZ2VSZXNwb25zZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { },
+          new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.TimestampReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Messaging.GRPC.MessageResponse), global::MessageBoard.Messaging.GRPC.MessageResponse.Parser, new[]{ "Id", "Created", "Text" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Messaging.GRPC.ListResponse), global::MessageBoard.Messaging.GRPC.ListResponse.Parser, new[]{ "Messages" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Messaging.GRPC.CreateRequest), global::MessageBoard.Messaging.GRPC.CreateRequest.Parser, new[]{ "Text" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Messaging.GRPC.ListRequest), global::MessageBoard.Messaging.GRPC.ListRequest.Parser, new[]{ "From" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Messaging.GRPC.SingleRequest), global::MessageBoard.Messaging.GRPC.SingleRequest.Parser, new[]{ "Id" }, null, null, null)
@@ -75,7 +79,7 @@ namespace MessageBoard.Messaging.GRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public MessageResponse(MessageResponse other) : this() {
       id_ = other.id_;
-      created_ = other.created_;
+      Created = other.created_ != null ? other.Created.Clone() : null;
       text_ = other.text_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -98,9 +102,9 @@ namespace MessageBoard.Messaging.GRPC {
 
     /// <summary>Field number for the "created" field.</summary>
     public const int CreatedFieldNumber = 2;
-    private long created_;
+    private global::Google.Protobuf.WellKnownTypes.Timestamp created_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public long Created {
+    public global::Google.Protobuf.WellKnownTypes.Timestamp Created {
       get { return created_; }
       set {
         created_ = value;
@@ -132,7 +136,7 @@ namespace MessageBoard.Messaging.GRPC {
         return true;
       }
       if (Id != other.Id) return false;
-      if (Created != other.Created) return false;
+      if (!object.Equals(Created, other.Created)) return false;
       if (Text != other.Text) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -141,7 +145,7 @@ namespace MessageBoard.Messaging.GRPC {
     public override int GetHashCode() {
       int hash = 1;
       if (Id != 0L) hash ^= Id.GetHashCode();
-      if (Created != 0L) hash ^= Created.GetHashCode();
+      if (created_ != null) hash ^= Created.GetHashCode();
       if (Text.Length != 0) hash ^= Text.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -160,9 +164,9 @@ namespace MessageBoard.Messaging.GRPC {
         output.WriteRawTag(8);
         output.WriteInt64(Id);
       }
-      if (Created != 0L) {
-        output.WriteRawTag(16);
-        output.WriteInt64(Created);
+      if (created_ != null) {
+        output.WriteRawTag(18);
+        output.WriteMessage(Created);
       }
       if (Text.Length != 0) {
         output.WriteRawTag(26);
@@ -179,8 +183,8 @@ namespace MessageBoard.Messaging.GRPC {
       if (Id != 0L) {
         size += 1 + pb::CodedOutputStream.ComputeInt64Size(Id);
       }
-      if (Created != 0L) {
-        size += 1 + pb::CodedOutputStream.ComputeInt64Size(Created);
+      if (created_ != null) {
+        size += 1 + pb::CodedOutputStream.ComputeMessageSize(Created);
       }
       if (Text.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Text);
@@ -199,8 +203,11 @@ namespace MessageBoard.Messaging.GRPC {
       if (other.Id != 0L) {
         Id = other.Id;
       }
-      if (other.Created != 0L) {
-        Created = other.Created;
+      if (other.created_ != null) {
+        if (created_ == null) {
+          created_ = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+        }
+        Created.MergeFrom(other.Created);
       }
       if (other.Text.Length != 0) {
         Text = other.Text;
@@ -220,12 +227,136 @@ namespace MessageBoard.Messaging.GRPC {
             Id = input.ReadInt64();
             break;
           }
-          case 16: {
-            Created = input.ReadInt64();
+          case 18: {
+            if (created_ == null) {
+              created_ = new global::Google.Protobuf.WellKnownTypes.Timestamp();
+            }
+            input.ReadMessage(created_);
             break;
           }
           case 26: {
             Text = input.ReadString();
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
+  public sealed partial class ListResponse : pb::IMessage<ListResponse> {
+    private static readonly pb::MessageParser<ListResponse> _parser = new pb::MessageParser<ListResponse>(() => new ListResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<ListResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ListResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ListResponse(ListResponse other) : this() {
+      messages_ = other.messages_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public ListResponse Clone() {
+      return new ListResponse(this);
+    }
+
+    /// <summary>Field number for the "messages" field.</summary>
+    public const int MessagesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::MessageBoard.Messaging.GRPC.MessageResponse> _repeated_messages_codec
+        = pb::FieldCodec.ForMessage(10, global::MessageBoard.Messaging.GRPC.MessageResponse.Parser);
+    private readonly pbc::RepeatedField<global::MessageBoard.Messaging.GRPC.MessageResponse> messages_ = new pbc::RepeatedField<global::MessageBoard.Messaging.GRPC.MessageResponse>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::MessageBoard.Messaging.GRPC.MessageResponse> Messages {
+      get { return messages_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as ListResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(ListResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!messages_.Equals(other.messages_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= messages_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      messages_.WriteTo(output, _repeated_messages_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += messages_.CalculateSize(_repeated_messages_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(ListResponse other) {
+      if (other == null) {
+        return;
+      }
+      messages_.Add(other.messages_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            messages_.AddEntriesFrom(input, _repeated_messages_codec);
             break;
           }
         }
@@ -242,7 +373,7 @@ namespace MessageBoard.Messaging.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -371,7 +502,7 @@ namespace MessageBoard.Messaging.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -500,7 +631,7 @@ namespace MessageBoard.Messaging.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[3]; }
+      get { return global::MessageBoard.Messaging.GRPC.MessageServiceReflection.Descriptor.MessageTypes[4]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

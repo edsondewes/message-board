@@ -26,17 +26,20 @@ namespace MessageBoard.Voting.GRPC {
           string.Concat(
             "ChF2b3RlU2VydmljZS5wcm90bxIYTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBD",
             "IjEKDFZvdGVSZXNwb25zZRISCgpvcHRpb25OYW1lGAEgASgJEg0KBWNvdW50",
-            "GAIgASgNIjMKCkFkZFJlcXVlc3QSEQoJc3ViamVjdElkGAEgASgJEhIKCm9w",
-            "dGlvbk5hbWUYAiABKAkiIgoNU2luZ2xlUmVxdWVzdBIRCglzdWJqZWN0SWQY",
-            "ASABKAkywwEKC1ZvdGVTZXJ2aWNlElUKA0FkZBIkLk1lc3NhZ2VCb2FyZC5W",
-            "b3RpbmcuR1JQQy5BZGRSZXF1ZXN0GiYuTWVzc2FnZUJvYXJkLlZvdGluZy5H",
-            "UlBDLlZvdGVSZXNwb25zZSIAEl0KBlNpbmdsZRInLk1lc3NhZ2VCb2FyZC5W",
-            "b3RpbmcuR1JQQy5TaW5nbGVSZXF1ZXN0GiYuTWVzc2FnZUJvYXJkLlZvdGlu",
-            "Zy5HUlBDLlZvdGVSZXNwb25zZSIAMAFiBnByb3RvMw=="));
+            "GAIgASgNIkcKDlNpbmdsZVJlc3BvbnNlEjUKBXZvdGVzGAEgAygLMiYuTWVz",
+            "c2FnZUJvYXJkLlZvdGluZy5HUlBDLlZvdGVSZXNwb25zZSIzCgpBZGRSZXF1",
+            "ZXN0EhEKCXN1YmplY3RJZBgBIAEoCRISCgpvcHRpb25OYW1lGAIgASgJIiIK",
+            "DVNpbmdsZVJlcXVlc3QSEQoJc3ViamVjdElkGAEgASgJMsMBCgtWb3RlU2Vy",
+            "dmljZRJVCgNBZGQSJC5NZXNzYWdlQm9hcmQuVm90aW5nLkdSUEMuQWRkUmVx",
+            "dWVzdBomLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQQy5Wb3RlUmVzcG9uc2Ui",
+            "ABJdCgZTaW5nbGUSJy5NZXNzYWdlQm9hcmQuVm90aW5nLkdSUEMuU2luZ2xl",
+            "UmVxdWVzdBooLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQQy5TaW5nbGVSZXNw",
+            "b25zZSIAYgZwcm90bzM="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.VoteResponse), global::MessageBoard.Voting.GRPC.VoteResponse.Parser, new[]{ "OptionName", "Count" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.SingleResponse), global::MessageBoard.Voting.GRPC.SingleResponse.Parser, new[]{ "Votes" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.AddRequest), global::MessageBoard.Voting.GRPC.AddRequest.Parser, new[]{ "SubjectId", "OptionName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.SingleRequest), global::MessageBoard.Voting.GRPC.SingleRequest.Parser, new[]{ "SubjectId" }, null, null, null)
           }));
@@ -202,6 +205,127 @@ namespace MessageBoard.Voting.GRPC {
 
   }
 
+  public sealed partial class SingleResponse : pb::IMessage<SingleResponse> {
+    private static readonly pb::MessageParser<SingleResponse> _parser = new pb::MessageParser<SingleResponse>(() => new SingleResponse());
+    private pb::UnknownFieldSet _unknownFields;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<SingleResponse> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::MessageBoard.Voting.GRPC.VoteServiceReflection.Descriptor.MessageTypes[1]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingleResponse() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingleResponse(SingleResponse other) : this() {
+      votes_ = other.votes_.Clone();
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public SingleResponse Clone() {
+      return new SingleResponse(this);
+    }
+
+    /// <summary>Field number for the "votes" field.</summary>
+    public const int VotesFieldNumber = 1;
+    private static readonly pb::FieldCodec<global::MessageBoard.Voting.GRPC.VoteResponse> _repeated_votes_codec
+        = pb::FieldCodec.ForMessage(10, global::MessageBoard.Voting.GRPC.VoteResponse.Parser);
+    private readonly pbc::RepeatedField<global::MessageBoard.Voting.GRPC.VoteResponse> votes_ = new pbc::RepeatedField<global::MessageBoard.Voting.GRPC.VoteResponse>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<global::MessageBoard.Voting.GRPC.VoteResponse> Votes {
+      get { return votes_; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as SingleResponse);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(SingleResponse other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if(!votes_.Equals(other.votes_)) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      hash ^= votes_.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+      votes_.WriteTo(output, _repeated_votes_codec);
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      size += votes_.CalculateSize(_repeated_votes_codec);
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(SingleResponse other) {
+      if (other == null) {
+        return;
+      }
+      votes_.Add(other.votes_);
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 10: {
+            votes_.AddEntriesFrom(input, _repeated_votes_codec);
+            break;
+          }
+        }
+      }
+    }
+
+  }
+
   public sealed partial class AddRequest : pb::IMessage<AddRequest> {
     private static readonly pb::MessageParser<AddRequest> _parser = new pb::MessageParser<AddRequest>(() => new AddRequest());
     private pb::UnknownFieldSet _unknownFields;
@@ -210,7 +334,7 @@ namespace MessageBoard.Voting.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MessageBoard.Voting.GRPC.VoteServiceReflection.Descriptor.MessageTypes[1]; }
+      get { return global::MessageBoard.Voting.GRPC.VoteServiceReflection.Descriptor.MessageTypes[2]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -367,7 +491,7 @@ namespace MessageBoard.Voting.GRPC {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::MessageBoard.Voting.GRPC.VoteServiceReflection.Descriptor.MessageTypes[2]; }
+      get { return global::MessageBoard.Voting.GRPC.VoteServiceReflection.Descriptor.MessageTypes[3]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Threading.Tasks;
 using Grpc.Core;
 using MediatR;
@@ -37,17 +38,16 @@ namespace MessageBoard.Voting.GRPC
             }
         }
 
-        public override async Task Single(SingleRequest request, IServerStreamWriter<VoteResponse> responseStream, ServerCallContext context)
+        public override async Task<SingleResponse> Single(SingleRequest request, ServerCallContext context)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                 var votes = await mediator.Send(new VoteCountQuery(request.SubjectId));
 
-                foreach (var item in votes)
-                {
-                    await responseStream.WriteAsync(ToResponse(item));
-                }
+                var response = new SingleResponse();
+                response.Votes.AddRange(votes.Select(ToResponse));
+                return response;
             }
         }
 
