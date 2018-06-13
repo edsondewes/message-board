@@ -86,6 +86,22 @@
       "internalConsoleOptions": "openOnSessionStart"
     },
     {
+      "name": "GraphQL",
+      "type": "coreclr",
+      "request": "launch",
+      "preLaunchTask": "build-graphql",
+      "program":
+        "${workspaceFolder}/graphql/bin/Debug/netcoreapp2.1/MessageBoard.GraphQL.dll",
+      "args": [],
+      "cwd": "${workspaceFolder}/graphql",
+      "stopAtEntry": false,
+      "internalConsoleOptions": "openOnSessionStart",
+      "env": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "ASPNETCORE_URLS": "http://*:5010;https://*:5011"
+      }
+    },
+    {
       "name": ".NET Core Attach",
       "type": "coreclr",
       "request": "attach",
