@@ -17,7 +17,9 @@ services:
   messaging-api:
     depends_on:
       - redis
-    build: ./server/messaging/
+    build:
+      context: ./server/messaging/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:messaging-api-latest
     environment:
       Redis: redis
@@ -30,7 +32,9 @@ services:
     depends_on:
       - nats
       - redis
-    build: ./server/ranking/
+    build:
+      context: ./server/ranking/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:ranking-api-latest
     environment:
       Nats: nats://nats:4222
@@ -44,7 +48,9 @@ services:
     depends_on:
       - nats
       - redis
-    build: ./server/voting/
+    build:
+      context: ./server/voting/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:voting-api-latest
     environment:
       Nats: nats://nats:4222

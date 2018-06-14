@@ -47,7 +47,7 @@ Open http://localhost:8080/ in your browser
 
 ## For web development
 ```bash
-docker-compose -f docker-compose.server.yml up -d
+docker-compose -f docker-compose.api-only.yml up -d
 cd web-clients/react/
 yarn install
 yarn start

@@ -17,7 +17,9 @@ services:
   messaging-api:
     depends_on:
       - redis
-    build: ./server/messaging/
+    build:
+      context: ./server/messaging/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:messaging-api-latest
     environment:
       ASPNETCORE_ENVIRONMENT: Development
@@ -31,7 +33,9 @@ services:
     depends_on:
       - nats
       - redis
-    build: ./server/ranking/
+    build:
+      context: ./server/ranking/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:ranking-api-latest
     environment:
       ASPNETCORE_ENVIRONMENT: Development
@@ -46,7 +50,9 @@ services:
     depends_on:
       - nats
       - redis
-    build: ./server/voting/
+    build:
+      context: ./server/voting/
+      dockerfile: Api.Dockerfile
     image: edsondewes/message-board:voting-api-latest
     environment:
       ASPNETCORE_ENVIRONMENT: Development
