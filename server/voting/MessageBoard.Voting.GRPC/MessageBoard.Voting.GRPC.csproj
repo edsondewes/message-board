@@ -27,4 +27,8 @@
     <ProjectReference Include="..\MessageBoard.Voting.Redis\MessageBoard.Voting.Redis.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="appsettings.json" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+
 </Project>

@@ -6,12 +6,20 @@ using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MessageBoard.GraphQL
 {
     public class Startup
     {
+        private readonly IConfiguration _configuration;
+
+        public Startup(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
@@ -25,7 +33,7 @@ namespace MessageBoard.GraphQL
                 options.ExposeExceptions = true;
             });
 
-            services.AddGRPC();
+            services.AddGRPC(_configuration);
             services.AddMessageBoardSchema();
         }
 
