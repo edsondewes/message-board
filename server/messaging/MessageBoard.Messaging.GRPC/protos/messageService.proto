@@ -5,8 +5,17 @@ package MessageBoard.Messaging.GRPC;
 
 service MessageService {
     rpc Create(CreateRequest) returns (MessageResponse) {}
-    rpc List(ListRequest) returns (ListResponse) {}
-    rpc Single(SingleRequest) returns (MessageResponse) {}
+    rpc Load(LoadRequest) returns (MessageResponse) {}
+    rpc LoadBatch(LoadBatchRequest) returns (ListResponse) {}
+    rpc Paginate(PaginateRequest) returns (ListResponse) {}
+}
+
+message CreateRequest {
+    string text = 1;
+}
+
+message LoadRequest {
+    int64 id = 1;
 }
 
 message MessageResponse {
@@ -15,18 +24,14 @@ message MessageResponse {
     string text = 3;
 }
 
-message ListResponse {
-    repeated MessageResponse messages = 1;
+message LoadBatchRequest {
+    repeated int64 id = 1;
 }
 
-message CreateRequest {
-    string text = 1;
-}
-
-message ListRequest {
+message PaginateRequest {
     int64 from = 1;
 }
 
-message SingleRequest {
-    int64 id = 1;
+message ListResponse {
+    repeated MessageResponse messages = 1;
 }

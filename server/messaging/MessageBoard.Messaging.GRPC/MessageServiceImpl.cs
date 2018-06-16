@@ -28,7 +28,30 @@ namespace MessageBoard.Messaging.GRPC
             }
         }
 
-        public override async Task<ListResponse> List(ListRequest request, ServerCallContext context)
+        public override async Task<MessageResponse> Load(LoadRequest request, ServerCallContext context)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var message = await mediator.Send(new MessageByIdQuery(request.Id));
+                return ToResponse(message);
+            }
+        }
+
+        public override async Task<ListResponse> LoadBatch(LoadBatchRequest request, ServerCallContext context)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var messages = await mediator.Send(new MessageByIdBatchQuery(request.Id));
+
+                var response = new ListResponse();
+                response.Messages.Add(messages.Select(ToResponse));
+                return response;
+            }
+        }
+
+        public override async Task<ListResponse> Paginate(PaginateRequest request, ServerCallContext context)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
@@ -40,18 +63,8 @@ namespace MessageBoard.Messaging.GRPC
                 var list = await mediator.Send(new PaginatedMessagesQuery(from));
 
                 var response = new ListResponse();
-                response.Messages.AddRange(list.Select(ToResponse));
+                response.Messages.Add(list.Select(ToResponse));
                 return response;
-            }
-        }
-
-        public override async Task<MessageResponse> Single(SingleRequest request, ServerCallContext context)
-        {
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var message = await mediator.Send(new MessageByIdQuery(request.Id));
-                return ToResponse(message);
             }
         }
 

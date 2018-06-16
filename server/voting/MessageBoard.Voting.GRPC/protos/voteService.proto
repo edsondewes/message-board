@@ -4,16 +4,8 @@ package MessageBoard.Voting.GRPC;
 
 service VoteService {
     rpc Add(AddRequest) returns (VoteResponse) {}
-    rpc Single(SingleRequest) returns (SingleResponse) {}
-}
-
-message VoteResponse {
-    string optionName = 1;
-    uint32 count = 2;
-}
-
-message SingleResponse {
-    repeated VoteResponse votes = 1;
+    rpc Load(LoadRequest) returns (LoadResponse) {}
+    rpc LoadBatch(LoadBatchRequest) returns (LoadBatchResponse) {}
 }
 
 message AddRequest {
@@ -21,6 +13,28 @@ message AddRequest {
     string optionName = 2;
 }
 
-message SingleRequest {
+message VoteResponse {
+    string optionName = 1;
+    uint32 count = 2;
+}
+
+message LoadRequest {
     string subjectId = 1;
+}
+
+message LoadResponse {
+    repeated VoteResponse votes = 1;
+}
+
+message LoadBatchRequest {
+    repeated string subjectId = 1;
+}
+
+message LoadBatchResponse {
+    message SubjectListResponse {
+        string subjectId = 1;
+        repeated VoteResponse votes = 2;
+    }
+
+    repeated SubjectListResponse votes = 1;
 }

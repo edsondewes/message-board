@@ -14,8 +14,10 @@ namespace MessageBoard.Voting.GRPC {
 
     static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.AddRequest> __Marshaller_AddRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.AddRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.VoteResponse> __Marshaller_VoteResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.VoteResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.SingleRequest> __Marshaller_SingleRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.SingleRequest.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.SingleResponse> __Marshaller_SingleResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.SingleResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.LoadRequest> __Marshaller_LoadRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.LoadRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.LoadResponse> __Marshaller_LoadResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.LoadResponse.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.LoadBatchRequest> __Marshaller_LoadBatchRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.LoadBatchRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Voting.GRPC.LoadBatchResponse> __Marshaller_LoadBatchResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Voting.GRPC.LoadBatchResponse.Parser.ParseFrom);
 
     static readonly grpc::Method<global::MessageBoard.Voting.GRPC.AddRequest, global::MessageBoard.Voting.GRPC.VoteResponse> __Method_Add = new grpc::Method<global::MessageBoard.Voting.GRPC.AddRequest, global::MessageBoard.Voting.GRPC.VoteResponse>(
         grpc::MethodType.Unary,
@@ -24,12 +26,19 @@ namespace MessageBoard.Voting.GRPC {
         __Marshaller_AddRequest,
         __Marshaller_VoteResponse);
 
-    static readonly grpc::Method<global::MessageBoard.Voting.GRPC.SingleRequest, global::MessageBoard.Voting.GRPC.SingleResponse> __Method_Single = new grpc::Method<global::MessageBoard.Voting.GRPC.SingleRequest, global::MessageBoard.Voting.GRPC.SingleResponse>(
+    static readonly grpc::Method<global::MessageBoard.Voting.GRPC.LoadRequest, global::MessageBoard.Voting.GRPC.LoadResponse> __Method_Load = new grpc::Method<global::MessageBoard.Voting.GRPC.LoadRequest, global::MessageBoard.Voting.GRPC.LoadResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "Single",
-        __Marshaller_SingleRequest,
-        __Marshaller_SingleResponse);
+        "Load",
+        __Marshaller_LoadRequest,
+        __Marshaller_LoadResponse);
+
+    static readonly grpc::Method<global::MessageBoard.Voting.GRPC.LoadBatchRequest, global::MessageBoard.Voting.GRPC.LoadBatchResponse> __Method_LoadBatch = new grpc::Method<global::MessageBoard.Voting.GRPC.LoadBatchRequest, global::MessageBoard.Voting.GRPC.LoadBatchResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LoadBatch",
+        __Marshaller_LoadBatchRequest,
+        __Marshaller_LoadBatchResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -45,7 +54,12 @@ namespace MessageBoard.Voting.GRPC {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Voting.GRPC.SingleResponse> Single(global::MessageBoard.Voting.GRPC.SingleRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Voting.GRPC.LoadResponse> Load(global::MessageBoard.Voting.GRPC.LoadRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Voting.GRPC.LoadBatchResponse> LoadBatch(global::MessageBoard.Voting.GRPC.LoadBatchRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -91,21 +105,37 @@ namespace MessageBoard.Voting.GRPC {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Add, null, options, request);
       }
-      public virtual global::MessageBoard.Voting.GRPC.SingleResponse Single(global::MessageBoard.Voting.GRPC.SingleRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::MessageBoard.Voting.GRPC.LoadResponse Load(global::MessageBoard.Voting.GRPC.LoadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return Single(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Load(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::MessageBoard.Voting.GRPC.SingleResponse Single(global::MessageBoard.Voting.GRPC.SingleRequest request, grpc::CallOptions options)
+      public virtual global::MessageBoard.Voting.GRPC.LoadResponse Load(global::MessageBoard.Voting.GRPC.LoadRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_Single, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Load, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.SingleResponse> SingleAsync(global::MessageBoard.Voting.GRPC.SingleRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.LoadResponse> LoadAsync(global::MessageBoard.Voting.GRPC.LoadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return SingleAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return LoadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.SingleResponse> SingleAsync(global::MessageBoard.Voting.GRPC.SingleRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.LoadResponse> LoadAsync(global::MessageBoard.Voting.GRPC.LoadRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_Single, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Load, null, options, request);
+      }
+      public virtual global::MessageBoard.Voting.GRPC.LoadBatchResponse LoadBatch(global::MessageBoard.Voting.GRPC.LoadBatchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return LoadBatch(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::MessageBoard.Voting.GRPC.LoadBatchResponse LoadBatch(global::MessageBoard.Voting.GRPC.LoadBatchRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_LoadBatch, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.LoadBatchResponse> LoadBatchAsync(global::MessageBoard.Voting.GRPC.LoadBatchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return LoadBatchAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Voting.GRPC.LoadBatchResponse> LoadBatchAsync(global::MessageBoard.Voting.GRPC.LoadBatchRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_LoadBatch, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override VoteServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -120,7 +150,8 @@ namespace MessageBoard.Voting.GRPC {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Add, serviceImpl.Add)
-          .AddMethod(__Method_Single, serviceImpl.Single).Build();
+          .AddMethod(__Method_Load, serviceImpl.Load)
+          .AddMethod(__Method_LoadBatch, serviceImpl.LoadBatch).Build();
     }
 
   }

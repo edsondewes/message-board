@@ -14,9 +14,10 @@ namespace MessageBoard.Messaging.GRPC {
 
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.CreateRequest> __Marshaller_CreateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.CreateRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.MessageResponse> __Marshaller_MessageResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.MessageResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.ListRequest> __Marshaller_ListRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.ListRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.LoadRequest> __Marshaller_LoadRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.LoadRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.LoadBatchRequest> __Marshaller_LoadBatchRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.LoadBatchRequest.Parser.ParseFrom);
     static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.ListResponse> __Marshaller_ListResponse = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.ListResponse.Parser.ParseFrom);
-    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.SingleRequest> __Marshaller_SingleRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.SingleRequest.Parser.ParseFrom);
+    static readonly grpc::Marshaller<global::MessageBoard.Messaging.GRPC.PaginateRequest> __Marshaller_PaginateRequest = grpc::Marshallers.Create((arg) => global::Google.Protobuf.MessageExtensions.ToByteArray(arg), global::MessageBoard.Messaging.GRPC.PaginateRequest.Parser.ParseFrom);
 
     static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.CreateRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_Create = new grpc::Method<global::MessageBoard.Messaging.GRPC.CreateRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
         grpc::MethodType.Unary,
@@ -25,19 +26,26 @@ namespace MessageBoard.Messaging.GRPC {
         __Marshaller_CreateRequest,
         __Marshaller_MessageResponse);
 
-    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.ListResponse> __Method_List = new grpc::Method<global::MessageBoard.Messaging.GRPC.ListRequest, global::MessageBoard.Messaging.GRPC.ListResponse>(
+    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.LoadRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_Load = new grpc::Method<global::MessageBoard.Messaging.GRPC.LoadRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "List",
-        __Marshaller_ListRequest,
+        "Load",
+        __Marshaller_LoadRequest,
+        __Marshaller_MessageResponse);
+
+    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.LoadBatchRequest, global::MessageBoard.Messaging.GRPC.ListResponse> __Method_LoadBatch = new grpc::Method<global::MessageBoard.Messaging.GRPC.LoadBatchRequest, global::MessageBoard.Messaging.GRPC.ListResponse>(
+        grpc::MethodType.Unary,
+        __ServiceName,
+        "LoadBatch",
+        __Marshaller_LoadBatchRequest,
         __Marshaller_ListResponse);
 
-    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.SingleRequest, global::MessageBoard.Messaging.GRPC.MessageResponse> __Method_Single = new grpc::Method<global::MessageBoard.Messaging.GRPC.SingleRequest, global::MessageBoard.Messaging.GRPC.MessageResponse>(
+    static readonly grpc::Method<global::MessageBoard.Messaging.GRPC.PaginateRequest, global::MessageBoard.Messaging.GRPC.ListResponse> __Method_Paginate = new grpc::Method<global::MessageBoard.Messaging.GRPC.PaginateRequest, global::MessageBoard.Messaging.GRPC.ListResponse>(
         grpc::MethodType.Unary,
         __ServiceName,
-        "Single",
-        __Marshaller_SingleRequest,
-        __Marshaller_MessageResponse);
+        "Paginate",
+        __Marshaller_PaginateRequest,
+        __Marshaller_ListResponse);
 
     /// <summary>Service descriptor</summary>
     public static global::Google.Protobuf.Reflection.ServiceDescriptor Descriptor
@@ -53,12 +61,17 @@ namespace MessageBoard.Messaging.GRPC {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.ListResponse> List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.MessageResponse> Load(global::MessageBoard.Messaging.GRPC.LoadRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
 
-      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.MessageResponse> Single(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::ServerCallContext context)
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.ListResponse> LoadBatch(global::MessageBoard.Messaging.GRPC.LoadBatchRequest request, grpc::ServerCallContext context)
+      {
+        throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
+      }
+
+      public virtual global::System.Threading.Tasks.Task<global::MessageBoard.Messaging.GRPC.ListResponse> Paginate(global::MessageBoard.Messaging.GRPC.PaginateRequest request, grpc::ServerCallContext context)
       {
         throw new grpc::RpcException(new grpc::Status(grpc::StatusCode.Unimplemented, ""));
       }
@@ -104,37 +117,53 @@ namespace MessageBoard.Messaging.GRPC {
       {
         return CallInvoker.AsyncUnaryCall(__Method_Create, null, options, request);
       }
-      public virtual global::MessageBoard.Messaging.GRPC.ListResponse List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::MessageBoard.Messaging.GRPC.MessageResponse Load(global::MessageBoard.Messaging.GRPC.LoadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return List(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return Load(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::MessageBoard.Messaging.GRPC.ListResponse List(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::CallOptions options)
+      public virtual global::MessageBoard.Messaging.GRPC.MessageResponse Load(global::MessageBoard.Messaging.GRPC.LoadRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_List, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_Load, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> ListAsync(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.MessageResponse> LoadAsync(global::MessageBoard.Messaging.GRPC.LoadRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return ListAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return LoadAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> ListAsync(global::MessageBoard.Messaging.GRPC.ListRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.MessageResponse> LoadAsync(global::MessageBoard.Messaging.GRPC.LoadRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_List, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_Load, null, options, request);
       }
-      public virtual global::MessageBoard.Messaging.GRPC.MessageResponse Single(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse LoadBatch(global::MessageBoard.Messaging.GRPC.LoadBatchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return Single(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return LoadBatch(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual global::MessageBoard.Messaging.GRPC.MessageResponse Single(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::CallOptions options)
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse LoadBatch(global::MessageBoard.Messaging.GRPC.LoadBatchRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.BlockingUnaryCall(__Method_Single, null, options, request);
+        return CallInvoker.BlockingUnaryCall(__Method_LoadBatch, null, options, request);
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.MessageResponse> SingleAsync(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> LoadBatchAsync(global::MessageBoard.Messaging.GRPC.LoadBatchRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
       {
-        return SingleAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+        return LoadBatchAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
       }
-      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.MessageResponse> SingleAsync(global::MessageBoard.Messaging.GRPC.SingleRequest request, grpc::CallOptions options)
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> LoadBatchAsync(global::MessageBoard.Messaging.GRPC.LoadBatchRequest request, grpc::CallOptions options)
       {
-        return CallInvoker.AsyncUnaryCall(__Method_Single, null, options, request);
+        return CallInvoker.AsyncUnaryCall(__Method_LoadBatch, null, options, request);
+      }
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse Paginate(global::MessageBoard.Messaging.GRPC.PaginateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return Paginate(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual global::MessageBoard.Messaging.GRPC.ListResponse Paginate(global::MessageBoard.Messaging.GRPC.PaginateRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.BlockingUnaryCall(__Method_Paginate, null, options, request);
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> PaginateAsync(global::MessageBoard.Messaging.GRPC.PaginateRequest request, grpc::Metadata headers = null, global::System.DateTime? deadline = null, global::System.Threading.CancellationToken cancellationToken = default(global::System.Threading.CancellationToken))
+      {
+        return PaginateAsync(request, new grpc::CallOptions(headers, deadline, cancellationToken));
+      }
+      public virtual grpc::AsyncUnaryCall<global::MessageBoard.Messaging.GRPC.ListResponse> PaginateAsync(global::MessageBoard.Messaging.GRPC.PaginateRequest request, grpc::CallOptions options)
+      {
+        return CallInvoker.AsyncUnaryCall(__Method_Paginate, null, options, request);
       }
       /// <summary>Creates a new instance of client from given <c>ClientBaseConfiguration</c>.</summary>
       protected override MessageServiceClient NewInstance(ClientBaseConfiguration configuration)
@@ -149,8 +178,9 @@ namespace MessageBoard.Messaging.GRPC {
     {
       return grpc::ServerServiceDefinition.CreateBuilder()
           .AddMethod(__Method_Create, serviceImpl.Create)
-          .AddMethod(__Method_List, serviceImpl.List)
-          .AddMethod(__Method_Single, serviceImpl.Single).Build();
+          .AddMethod(__Method_Load, serviceImpl.Load)
+          .AddMethod(__Method_LoadBatch, serviceImpl.LoadBatch)
+          .AddMethod(__Method_Paginate, serviceImpl.Paginate).Build();
     }
 
   }

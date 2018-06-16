@@ -21,14 +21,7 @@ namespace MessageBoard.Messaging.Redis.Handlers
         public async Task<Message> Handle(MessageByIdQuery request, CancellationToken cancellationToken)
         {
             var entries = await _db.HashGetAllAsync(MapKey(request.Id));
-            var dictionary = entries.ToDictionary();
-
-            return new Message
-            {
-                Created = new DateTime((long)dictionary[CreatedEntry]),
-                Id = (long)request.Id,
-                Text = dictionary[TextEntry]
-            };
+            return ToModel(request.Id, entries);
         }
     }
 }

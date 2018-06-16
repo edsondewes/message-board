@@ -38,15 +38,44 @@ namespace MessageBoard.Voting.GRPC
             }
         }
 
-        public override async Task<SingleResponse> Single(SingleRequest request, ServerCallContext context)
+        public override async Task<LoadResponse> Load(LoadRequest request, ServerCallContext context)
         {
             using (var scope = _scopeFactory.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
                 var votes = await mediator.Send(new VoteCountQuery(request.SubjectId));
 
-                var response = new SingleResponse();
+                var response = new LoadResponse();
                 response.Votes.AddRange(votes.Select(ToResponse));
+                return response;
+            }
+        }
+
+        public override async Task<LoadBatchResponse> LoadBatch(LoadBatchRequest request, ServerCallContext context)
+        {
+            using (var scope = _scopeFactory.CreateScope())
+            {
+                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
+                var votes = await mediator.Send(new VoteCountBatchQuery(request.SubjectId));
+
+                var votesBySubject = votes
+                    .GroupBy(v => v.SubjectId)
+                    .Select(group =>
+                    {
+                        var votesResponse = group.Select(vote => new VoteResponse
+                        {
+                            Count = vote.Count,
+                            OptionName = vote.OptionName
+                        });
+
+                        var list = new LoadBatchResponse.Types.SubjectListResponse();
+                        list.SubjectId = group.Key;
+                        list.Votes.Add(votesResponse);
+                        return list;
+                    });
+
+                var response = new LoadBatchResponse();
+                response.Votes.Add(votesBySubject);
                 return response;
             }
         }

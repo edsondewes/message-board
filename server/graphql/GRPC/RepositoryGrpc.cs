@@ -49,23 +49,23 @@ namespace MessageBoard.GraphQL.GRPC
 
         public async Task<Message> GetMessage(long id)
         {
-            var request = new Messaging.GRPC.SingleRequest
+            var request = new Messaging.GRPC.LoadRequest
             {
                 Id = id
             };
 
-            var message = await _messageClient.SingleAsync(request);
+            var message = await _messageClient.LoadAsync(request);
             return ToModel(message);
         }
 
         public async Task<IEnumerable<Message>> ListMessages(long? from)
         {
-            var request = new Messaging.GRPC.ListRequest
+            var request = new Messaging.GRPC.PaginateRequest
             {
                 From = from ?? 0
             };
 
-            var list = await _messageClient.ListAsync(request);
+            var list = await _messageClient.PaginateAsync(request);
             return list.Messages.Select(ToModel);
         }
 
@@ -82,12 +82,12 @@ namespace MessageBoard.GraphQL.GRPC
 
         public async Task<IEnumerable<Vote>> ListVotes(string subjectId, string optionName = null)
         {
-            var request = new Voting.GRPC.SingleRequest
+            var request = new Voting.GRPC.LoadRequest
             {
                 SubjectId = subjectId
             };
 
-            var list = await _voteClient.SingleAsync(request);
+            var list = await _voteClient.LoadAsync(request);
 
             //TODO: filter in the GPRC side
             var filtered = optionName != null
