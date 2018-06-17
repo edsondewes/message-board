@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using GraphQL.Types;
 using MessageBoard.GraphQL.Model;
 
@@ -9,16 +10,16 @@ namespace MessageBoard.GraphQL.Schemas
         {
             Name = "RootQuery";
 
-            Field<ListGraphType<MessageType>>(
+            FieldAsync<ListGraphType<MessageType>, IEnumerable<Message>>(
                 name: "messages",
                 description: "Message paginated list",
                 arguments: new QueryArguments(
                     new QueryArgument<IntGraphType> { Name = "from", Description = "Message ID to start the list from" }
                 ),
-                resolve: context => repository.ListMessages(context.GetArgument<int>("from"))
+                resolve: context => repository.PaginateMessages(context.GetArgument<int>("from"))
             );
 
-            Field<ListGraphType<MessageRankingType>>(
+            FieldAsync<ListGraphType<MessageRankingType>, IEnumerable<MessageRanking>>(
                 name: "ranking",
                 description: "Ranking of messages based on a voting option",
                 arguments: new QueryArguments(

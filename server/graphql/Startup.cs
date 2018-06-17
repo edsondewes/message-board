@@ -1,13 +1,14 @@
 ﻿using GraphQL;
-using GraphQL.Http;
+using GraphQL.DataLoader;
+using GraphQL.Execution;
 using GraphQL.Server.Transports.AspNetCore;
 using GraphQL.Server.Ui.Playground;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 
 namespace MessageBoard.GraphQL
 {
@@ -22,16 +23,13 @@ namespace MessageBoard.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Dataloader
+            services.AddSingleton<IDataLoaderContextAccessor, DataLoaderContextAccessor>();
+            services.AddSingleton<IDocumentExecutionListener, DataLoaderDocumentListener>();
+
+            // GraphQL
             services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-            services.AddSingleton<IDocumentExecuter, DocumentExecuter>();
-            services.AddSingleton<IDocumentWriter, DocumentWriter>();
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddGraphQLHttp();
-            services.Configure<ExecutionOptions>(options =>
-            {
-                options.EnableMetrics = true;
-                options.ExposeExceptions = true;
-            });
 
             services.AddGRPC(_configuration);
             services.AddMessageBoardSchema();
@@ -45,7 +43,11 @@ namespace MessageBoard.GraphQL
             }
 
             // add http for Schema at default url /graphql
-            app.UseGraphQLHttp<ISchema>(new GraphQLHttpOptions());
+            //app.UseGraphQLHttp<ISchema>(new GraphQLHttpOptions());
+
+            // using a custom middleware to enable dataloader
+            // https://github.com/graphql-dotnet/server/issues/108
+            app.UseMiddleware<CustomGraphQLHttpMiddleware<ISchema>>(Options.Create(new GraphQLHttpOptions()));
 
             // use graphql-playground at url /
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions

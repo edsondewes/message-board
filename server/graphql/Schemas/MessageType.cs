@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using GraphQL.DataLoader;
 using GraphQL.Types;
 using MessageBoard.GraphQL.Model;
 
@@ -5,7 +7,7 @@ namespace MessageBoard.GraphQL.Schemas
 {
     public class MessageType : ObjectGraphType<Message>
     {
-        public MessageType(IRepository repository)
+        public MessageType(IDataLoaderContextAccessor accessor, IRepository repository)
         {
             Name = "Message";
 
@@ -13,13 +15,19 @@ namespace MessageBoard.GraphQL.Schemas
             Field(h => h.Created).Description("Date the message was created");
             Field(h => h.Text).Description("Message content");
 
-            Field<ListGraphType<VoteType>>(
+            FieldAsync<ListGraphType<VoteType>, IEnumerable<Vote>>(
                 name: "votes",
                 description: "List os votes for this message",
                 arguments: new QueryArguments(
                     new QueryArgument<StringGraphType> { Name = "optionName", Description = "Type of vote" }
                 ),
-                resolve: context => repository.ListVotes(context.Source.Id.ToString(), context.GetArgument<string>("optionName"))
+                resolve: context =>
+                {
+                    var fetchFunc = repository.ListVotes(context.GetArgument<string>("optionName"));
+                    var loader = accessor.Context.GetOrAddBatchLoader<string, IEnumerable<Vote>>("GetVotesBySubjectId", fetchFunc);
+
+                    return loader.LoadAsync(context.Source.Id.ToString());
+                }
             );
         }
     }

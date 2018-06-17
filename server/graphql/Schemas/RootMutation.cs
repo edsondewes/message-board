@@ -9,7 +9,7 @@ namespace MessageBoard.GraphQL.Schemas
         {
             Name = "RootMutation";
 
-            Field<VoteType>(
+            FieldAsync<VoteType, Vote>(
                 name: "addVote",
                 description: "Add a vote to a message for some ranking",
                 arguments: new QueryArguments(
@@ -18,7 +18,7 @@ namespace MessageBoard.GraphQL.Schemas
                 resolve: context => repository.AddVote(context.GetArgument<AddVoteModel>("vote"))
             );
 
-            Field<MessageType>(
+            FieldAsync<MessageType, Message>(
                 name: "createMessage",
                 description: "Submit a new message",
                 arguments: new QueryArguments(

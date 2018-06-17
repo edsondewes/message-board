@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -8,9 +9,9 @@ namespace MessageBoard.GraphQL.Model
         Task<Vote> AddVote(AddVoteModel model);
         Task<Message> CreateMessage(CreateMessageModel model);
 
-        Task<Message> GetMessage(long id);
-        Task<IEnumerable<Message>> ListMessages(long? from);
+        Task<Dictionary<long, Message>> ListMessages(IEnumerable<long> ids);
         Task<IEnumerable<MessageRanking>> ListMessagesByRanking(string optionName);
-        Task<IEnumerable<Vote>> ListVotes(string subjectId, string optionName = null);
+        Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(string optionName = null);
+        Task<IEnumerable<Message>> PaginateMessages(long? from);
     }
 }

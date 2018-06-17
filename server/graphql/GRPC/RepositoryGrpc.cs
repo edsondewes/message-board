@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -47,26 +48,16 @@ namespace MessageBoard.GraphQL.GRPC
             return ToModel(message);
         }
 
-        public async Task<Message> GetMessage(long id)
+        public async Task<Dictionary<long, Message>> ListMessages(IEnumerable<long> ids)
         {
-            var request = new Messaging.GRPC.LoadRequest
-            {
-                Id = id
-            };
+            var request = new Messaging.GRPC.LoadBatchRequest();
+            request.Id.Add(ids);
 
-            var message = await _messageClient.LoadAsync(request);
-            return ToModel(message);
-        }
-
-        public async Task<IEnumerable<Message>> ListMessages(long? from)
-        {
-            var request = new Messaging.GRPC.PaginateRequest
-            {
-                From = from ?? 0
-            };
-
-            var list = await _messageClient.PaginateAsync(request);
-            return list.Messages.Select(ToModel);
+            var response = await _messageClient.LoadBatchAsync(request);
+            return response.Messages.ToDictionary(
+                key => key.Id,
+                element => ToModel(element)
+            );
         }
 
         public async Task<IEnumerable<MessageRanking>> ListMessagesByRanking(string optionName)
@@ -80,21 +71,34 @@ namespace MessageBoard.GraphQL.GRPC
             return ranking.Votes.Select(ToModel);
         }
 
-        public async Task<IEnumerable<Vote>> ListVotes(string subjectId, string optionName = null)
+        public Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(string optionName = null)
         {
-            var request = new Voting.GRPC.LoadRequest
+            return async (subjectIds) =>
             {
-                SubjectId = subjectId
+                var request = new Voting.GRPC.LoadBatchRequest();
+                request.SubjectId.Add(subjectIds);
+
+                var response = await _voteClient.LoadBatchAsync(request);
+
+                //TODO: filter in the GPRC side
+                return response.Votes.ToDictionary(
+                    key => key.SubjectId,
+                    elements => elements.Votes
+                        .Where(v => optionName == null || v.OptionName == optionName)
+                        .Select(ToModel)
+                );
+            };
+        }
+
+        public async Task<IEnumerable<Message>> PaginateMessages(long? from)
+        {
+            var request = new Messaging.GRPC.PaginateRequest
+            {
+                From = from ?? 0
             };
 
-            var list = await _voteClient.LoadAsync(request);
-
-            //TODO: filter in the GPRC side
-            var filtered = optionName != null
-                ? list.Votes.Where(v => v.OptionName == optionName)
-                : list.Votes;
-
-            return filtered.Select(ToModel);
+            var list = await _messageClient.PaginateAsync(request);
+            return list.Messages.Select(ToModel);
         }
 
         private Message ToModel(MessageResponse obj) => new Message
