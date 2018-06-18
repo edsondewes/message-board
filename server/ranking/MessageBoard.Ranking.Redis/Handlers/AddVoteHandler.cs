@@ -16,9 +16,10 @@ namespace MessageBoard.Ranking.Redis.Handlers
             _db = db;
         }
 
-        public Task Handle(AddVoteCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(AddVoteCommand request, CancellationToken cancellationToken)
         {
-            return _db.SortedSetIncrementAsync(MapKey(request.OptionName), request.SubjectId, 1d);
+            await _db.SortedSetIncrementAsync(MapKey(request.OptionName), request.SubjectId, 1d);
+            return Unit.Value;
         }
     }
 }
