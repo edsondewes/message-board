@@ -12,6 +12,8 @@ You can see below what is done and what is planned.
 - [x] Internal communication using command/query with [MediatR](https://github.com/jbogard/MediatR)
 - [x] External communication using [NATS](https://nats.io/)
 - [x] Redis as database
+- [x] GraphQL Server (with data loader)
+- [x] GRPC Services
 - [ ] Basic metrics (probably using [Prometheus](https://prometheus.io/))
 - [ ] Integration tests
 
@@ -38,20 +40,27 @@ You can see below what is done and what is planned.
 - [ ] Kubernetes support
 
 # Running
-## Entire application
+## Entire application (web client)
 ```bash
 docker-compose up -d
 ```
 
 Open http://localhost:8080/ in your browser
 
-## For web development
+## Only APIs for web development
 ```bash
 docker-compose -f docker-compose.api-only.yml up -d
 cd web-clients/react/
 yarn install
 yarn start
 ```
+
+## GraphQL Playground
+```bash
+docker-compose -f docker-compose.graphql.yml up -d
+```
+
+Open http://localhost:8181/ in your browser
 
 # Sending feedback and pull requests
 Fell free to open issues pointing to bugs, feature request, discuss some ideas/implementations of the project.
