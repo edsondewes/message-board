@@ -1,0 +1,24 @@
+[data-theme="dark"] {
+  --base-hue: 210;
+  --main-color: hsl(var(--base-hue), 20%, 80%);
+  --secondary-color: hsl(var(--base-hue), 20%, 50%);
+
+  --border-color: hsl(var(--base-hue), 30%, 18%);
+  --content-bg-color: hsl(var(--base-hue), 30%, 15%);
+  --form-bg-color: hsl(var(--base-hue), 30%, 20%);
+  --header-bg-color: hsl(var(--base-hue), 30%, 8%);
+  --main-bg-color: hsl(var(--base-hue), 30%, 12%);
+
+  --disabled-bg-color: hsl(var(--base-hue), 30%, 15%);
+  --disabled-border-color: hsl(var(--base-hue), 30%, 16%);
+  --disabled-color: hsl(var(--base-hue), 30%, 20%);
+
+  --primary-hue: 30;
+  --primary-bg-color: hsl(var(--primary-hue), 42%, 46%);
+  --primary-border-color: hsl(var(--primary-hue), 42%, 55%);
+  --primary-color: hsl(var(--primary-hue), 100%, 100%);
+  --primary-hover-color: hsl(var(--primary-hue), 46%, 52%);
+
+  --warning-bg-color: hsl(var(--base-hue), 50%, 15%);
+  --warning-border-color: hsl(var(--base-hue), 30%, 10%);
+}

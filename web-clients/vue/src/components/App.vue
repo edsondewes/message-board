@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <Header @change-mobile-view="mobileView = $event" />
+    <Header 
+      @change-mobile-view="mobileView = $event" 
+      @toggle-theme="toggleTheme" />
     <div class="content-container">
       <main :class="['main-container', { 'mobile-visible': mobileView === 'messages' }]">
         <MessageForm />
@@ -31,12 +33,24 @@ export default {
     return {
       mobileView: 'messages'
     }
+  },
+  methods: {
+    toggleTheme() {
+      const root = document.documentElement;
+      const themeAttribute = "data-theme";
+      if (root.hasAttribute(themeAttribute)) {
+        root.removeAttribute(themeAttribute);
+      } else {
+        root.setAttribute(themeAttribute, "dark");
+      }
+    }
   }
 }
 </script>
 
 <style src="./base.css"></style>
 <style src="./light-theme.css"></style>
+<style src="./dark-theme.css"></style>
 <style scoped>
 .content-container {
   display: grid;

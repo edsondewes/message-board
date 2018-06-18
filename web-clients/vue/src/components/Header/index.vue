@@ -14,6 +14,13 @@
       >
         Ranking
       </button>
+      <button
+        class="icon-button"
+        title="Toggle theme"
+        @click="$emit('toggle-theme')"
+      >
+        <Octicon ico="paintcan" />
+      </button>
       <a 
         class="icon-button"
         href="https://github.com/edsondewes/message-board"

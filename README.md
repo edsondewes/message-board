@@ -29,7 +29,7 @@ You can see below what is done and what is planned.
 - [ ] Offline support
 - [x] Responsive layout
 - [ ] PWA ready
-- [ ] Light/dark themes
+- [x] Light/dark themes
 
 ## Other
 - [x] Deployment: https://messageboard.site
