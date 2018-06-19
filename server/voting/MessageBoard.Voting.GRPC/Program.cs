@@ -17,10 +17,15 @@ namespace MessageBoard.Voting.GRPC
         }
 
         public static IHostBuilder CreateHostBuilder() => new HostBuilder()
+            .ConfigureHostConfiguration(builder =>
+            {
+                builder.AddEnvironmentVariables();
+            })
             .ConfigureAppConfiguration((hostingContext, config) =>
             {
                 config.SetBasePath(Directory.GetCurrentDirectory());
                 config.AddJsonFile("appsettings.json", optional: true);
+                config.AddJsonFile($"appsettings.{hostingContext.HostingEnvironment.EnvironmentName}.json", optional: true);
                 config.AddEnvironmentVariables();
             })
             .ConfigureServices((hostContext, services) =>

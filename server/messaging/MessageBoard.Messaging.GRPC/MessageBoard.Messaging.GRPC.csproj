@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <None Include="appsettings.json" CopyToPublishDirectory="Always" />
+    <None Include="appsettings.Development.json" CopyToPublishDirectory="Always" />
   </ItemGroup>
 
 </Project>
