@@ -1,0 +1,61 @@
+version: '3'
+
+services:
+  nats:
+    image: nats
+    labels:
+      - "traefik.enable=false"
+
+  redis:
+    image: redis:alpine
+    command: redis-server --appendonly yes
+    labels:
+      - "traefik.enable=false"
+    volumes:
+      - redis-data:/data
+  
+  messaging-grpc:
+    depends_on:
+      - redis
+    build:
+      context: ./server/messaging/
+      dockerfile: GRPC.Dockerfile
+    image: edsondewes/message-board:messaging-grpc-latest
+    environment:
+      Environment: Development
+      Redis: redis
+    ports:
+      - "50051:50051"
+
+  ranking-grpc:
+    depends_on:
+      - nats
+      - redis
+    build:
+      context: ./server/ranking/
+      dockerfile: GRPC.Dockerfile
+    image: edsondewes/message-board:ranking-grpc-latest
+    environment:
+      Environment: Development
+      Nats: nats://nats:4222
+      Redis: redis
+    ports:
+      - "50052:50051"
+
+  voting-grpc:
+    depends_on:
+      - nats
+      - redis
+    build:
+      context: ./server/voting/
+      dockerfile: GRPC.Dockerfile
+    image: edsondewes/message-board:voting-grpc-latest
+    environment:
+      Environment: Development
+      Nats: nats://nats:4222
+      Redis: redis
+    ports:
+      - "50053:50051"
+      
+volumes:
+  redis-data:
