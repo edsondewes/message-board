@@ -12,8 +12,8 @@ You can see below what is done and what is planned.
 - [x] Internal communication using command/query with [MediatR](https://github.com/jbogard/MediatR)
 - [x] External communication using [NATS](https://nats.io/)
 - [x] Redis as database
-- [x] GraphQL Server (with data loader)
-- [x] GRPC Services
+- [x] [GraphQL server](https://github.com/edsondewes/message-board/tree/master/server/graphql/README.md) (with data loader)
+- [x] GRPC services
 - [ ] Basic metrics (probably using [Prometheus](https://prometheus.io/))
 - [ ] Integration tests
 
@@ -61,6 +61,15 @@ docker-compose -f docker-compose.graphql.yml up -d
 ```
 
 Open http://localhost:8181/ in your browser
+
+## Only GRPC services for GraphQL development
+```bash
+docker-compose -f docker-compose.grpc-only.yml up -d
+cd server/graphql
+dotnet run
+```
+
+For more information about the GraphQL server, [check this page](https://github.com/edsondewes/message-board/tree/master/server/graphql/README.md)
 
 # Sending feedback and pull requests
 Fell free to open issues pointing to bugs, feature request, discuss some ideas/implementations of the project.
