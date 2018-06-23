@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk-alpine AS build-env
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -13,7 +13,8 @@ WORKDIR /app/MessageBoard.Messaging.GRPC
 RUN dotnet publish -c Release -o out --no-restore
 
 # build runtime image
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1-runtime-alpine
+RUN apk update && apk add libc6-compat
 WORKDIR /app
 COPY --from=build-env /app/MessageBoard.Messaging.GRPC/out ./
 

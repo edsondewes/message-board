@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk AS build-env
+FROM microsoft/dotnet:2.1-sdk-alpine AS build-env
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -13,9 +13,9 @@ WORKDIR /app/MessageBoard.Messaging.Api
 RUN dotnet publish -c Release -o out --no-restore
 
 # build runtime image
-FROM microsoft/dotnet:2.1-aspnetcore-runtime
+FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine
 WORKDIR /app
 COPY --from=build-env /app/MessageBoard.Messaging.Api/out ./
 
-HEALTHCHECK --interval=30s --timeout=3s CMD curl --fail http://localhost/health || exit 1
+HEALTHCHECK --interval=30s --timeout=3s CMD wget --quiet --tries=1 --spider http://localhost/health || exit 1
 ENTRYPOINT ["dotnet", "MessageBoard.Messaging.Api.dll"]
