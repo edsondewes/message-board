@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using MediatR;
 using MessageBoard.Messaging.Api.Models;
@@ -21,17 +22,34 @@ namespace MessageBoard.Messaging.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Message>> Get([FromQuery]long? from)
+        public async Task<IActionResult> Get([FromQuery]long? from)
         {
-            var result = await _mediator.Send(new PaginatedMessagesQuery(from));
-            return result;
+            try
+            {
+                var result = await _mediator.Send(new PaginatedMessagesQuery(from));
+                return Ok(result);
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpGet("{id}")]
-        public async Task<Message> GetId([FromRoute]long id)
+        public async Task<ActionResult<Message>> GetId([FromRoute]long id)
         {
-            var result = await _mediator.Send(new MessageByIdQuery(id));
-            return result;
+            try
+            {
+                var result = await _mediator.Send(new MessageByIdQuery(id));
+                if (result == null)
+                    return NotFound("Id not fount");
+
+                return result;
+            }
+            catch (ArgumentOutOfRangeException ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         [HttpPost]

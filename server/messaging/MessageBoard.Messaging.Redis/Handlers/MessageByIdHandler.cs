@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
@@ -21,6 +22,9 @@ namespace MessageBoard.Messaging.Redis.Handlers
         public async Task<Message> Handle(MessageByIdQuery request, CancellationToken cancellationToken)
         {
             var entries = await _db.HashGetAllAsync(MapKey(request.Id));
+            if (!entries.Any())
+                return null;
+
             return ToModel(request.Id, entries);
         }
     }
