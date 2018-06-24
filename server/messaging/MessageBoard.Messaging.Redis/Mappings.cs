@@ -20,7 +20,7 @@ namespace MessageBoard.Messaging.Redis
             var dictionary = entries.ToDictionary();
             return new Message
             {
-                Created = new DateTime((long)dictionary[CreatedEntry]),
+                Created = new DateTime((long)dictionary[CreatedEntry], DateTimeKind.Local),
                 Id = id,
                 Text = dictionary[TextEntry]
             };
