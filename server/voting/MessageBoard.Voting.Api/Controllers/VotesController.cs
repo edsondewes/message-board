@@ -20,7 +20,7 @@ namespace MessageBoard.Voting.Api.Controllers
         }
 
         [HttpGet("{subjectId}")]
-        public async Task<ActionResult> Get(string subjectId)
+        public async Task<IActionResult> Get(string subjectId)
         {
             var result = await _mediator.Send(new VoteCountQuery(subjectId));
             var view = ViewVote.From(result);
