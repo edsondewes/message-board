@@ -1,10 +1,6 @@
 const expect = require("chai").expect;
 const axios = require("axios");
 
-//TODO: use some config file or env to customize the URL
-const messagingApiUrl = "http://localhost:5000/api/messages";
-const votingApiUrl = "http://localhost:5001/api/votes";
-
 const neverRejectSettings = {
   validateStatus: function() {
     return true; //never reject the response
@@ -13,7 +9,7 @@ const neverRejectSettings = {
 
 describe("Voting API", function() {
   before(async function() {
-    const response = await axios.post(messagingApiUrl, {
+    const response = await axios.post(process.env.URL_MESSAGING_API, {
       text: "test message for voting",
     });
 
@@ -22,7 +18,7 @@ describe("Voting API", function() {
 
   describe("POST vote", function() {
     it("should add a vote to the given option name", async function() {
-      const response = await axios.post(votingApiUrl, {
+      const response = await axios.post(process.env.URL_VOTING_API, {
         optionName: "like",
         subjectId: this.message.id,
       });
@@ -39,7 +35,7 @@ describe("Voting API", function() {
       };
 
       const response = await axios.post(
-        votingApiUrl,
+        process.env.URL_VOTING_API,
         body,
         neverRejectSettings,
       );
@@ -52,7 +48,7 @@ describe("Voting API", function() {
       };
 
       const response = await axios.post(
-        votingApiUrl,
+        process.env.URL_VOTING_API,
         body,
         neverRejectSettings,
       );
@@ -64,11 +60,11 @@ describe("Voting API", function() {
     before(function() {
       //add some votes
       return Promise.all([
-        axios.post(votingApiUrl, {
+        axios.post(process.env.URL_VOTING_API, {
           optionName: "like",
           subjectId: this.message.id,
         }),
-        axios.post(votingApiUrl, {
+        axios.post(process.env.URL_VOTING_API, {
           optionName: "dislike",
           subjectId: this.message.id,
         }),
@@ -76,7 +72,9 @@ describe("Voting API", function() {
     });
 
     it("should return all votes", async function() {
-      const response = await axios.get(`${votingApiUrl}/${this.message.id}`);
+      const response = await axios.get(
+        `${process.env.URL_VOTING_API}/${this.message.id}`,
+      );
 
       expect(response.status).to.equal(200);
       expect(response.data).to.deep.equal({
