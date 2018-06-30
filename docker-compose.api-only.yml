@@ -24,6 +24,8 @@ services:
     environment:
       ASPNETCORE_ENVIRONMENT: Development
       Redis: redis
+    healthcheck:
+      disable: true
     labels:
       - "traefik.backend=messaging-api"
       - "traefik.frontend.rule=PathPrefix:/api/messages"
@@ -41,6 +43,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       Nats: nats://nats:4222
       Redis: redis
+    healthcheck:
+      disable: true
     labels:
       - "traefik.backend=ranking-api"
       - "traefik.frontend.rule=PathPrefix:/api/ranking"
@@ -58,6 +62,8 @@ services:
       ASPNETCORE_ENVIRONMENT: Development
       Nats: nats://nats:4222
       Redis: redis
+    healthcheck:
+      disable: true
     labels:
       - "traefik.backend=voting-api"
       - "traefik.frontend.rule=PathPrefix:/api/votes"
