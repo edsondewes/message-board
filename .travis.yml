@@ -1,0 +1,28 @@
+sudo: required
+language: node_js
+node_js: node
+
+services:
+- docker
+
+env:
+  global:
+  - URL_MESSAGING_API=http://localhost:9090/api/messages
+  - URL_RANKING_API=http://localhost:9090/api/ranking
+  - URL_VOTING_API=http://localhost:9090/api/votes
+  - secure: aO3rKGQtzz9SJd5JTSdlnboqUuJLrRZZDfWVWzEHm9fiA+XhhicDpqWXn2sSG+1yCG+C8UkHDk0fgx8lNFrwyAHhmdOq87nDFpwmEWn4M++9BzZDVJAbf6EH+L5/q+Dp9LjyEW7ITBLll1Yj1Go5wM4i6kWhW0HGa5nt5T8UyTdwqcZt9kS1G76KOsyGZqV+eRkhhASJwFq4urqyep1owgmNIkhBJm6CwnGaHR8NCP/7L1DlHWjhEewvahr+2AiNOU1Ls81rVjSv04F7ClSBSkroIOd9BDqONWvDzLHKhszG9tndlWK6yeDROH5ADSrvJ5vb7d0SZFYLderC5UGpQXjmBhB5c30ZTVe+voKFxAK1zEdwn92NKq7Cx9DM/pEK0ELG8tlfTOkjgXVetzQFMj9r0HTuMujgDBWisTyHcWlk9f34aYVqKMQpSR/tK7RkWSinPsNEiZvrzqZyf0jc9TL0BQ7N60wLyOuLyDG0Y/UrXkMtc7ivbCIdPoBQIgi/hH5FezRTu6hHy8GtXozb5wBSzsJ8RP8t0+LbMn7HOxOGbDLsj+YKLkx1HdQUpgKy3wj/w2WKf8e1u3QAoupi7mGbLuOu+cazqIWiKtjBgKkCPd1luEX6L/CCDwoPP8blrurzqPzBbIChzOhXBtzFwrhvylNghFRBALyTBpjwxZI=
+  - secure: ZanDYFpytqy+ZnhMu3PjaXRGeKE4Ect9o2zUNNXLgsaUYb1VAuUEbEJcJ+3NNaKA+Y0FndAYtvGz7q+5cEyk4BXcQhHKx8+LibECu+a979e0f/4rBg+b4vH0m5kV5l23VDOG0Gfp75LCrBKOlj3OA48fxVUCq/p7RyCPNDcMKvsWbqbS1MW7bh24omsbRXtObg1vGP7fBLJUQhupQSvyhZqQ3m00Y7F47/HsNSqF4/R/qYKbIeNiIlgvmM4gqnJjQuEjelX5h4Fo3BGlgKR3/+Iq1iWItD9kDcPEY5CavM9uQj0V81C0KM4ZERZw/kc1U+BDFrW3ykbZBYggr07YdNmS2VmWsDhtNkDHUFQfdYCT5rwD04Aj/Sr5IG3L7Bx+3UkZ4s0AhWhx8wt/RYhz6qdtaZ43AR0XCQkYgUINeFNBiq9xxvbkHFMcBQf9e+6q6Ls+Om90gjE8T98TsMCGvMs9o1FKZJBtL5Jb+JgLBnxykFG4KSnnmouRcGytcM9j0d8E/qPRwNCZT7sKrN58GXSa5No3sF/REc3HR2pdIlJaBRhgeYDKu8P2H/fTPmFXYs3nksxlND28J2MA0HiandoPNT2EGNJXRkgx1j1UU9mp8dMbztfdPXSdOaf9reXtyIQa3AsIeRe/fFJig0AmlfyibUvVbLyDNJOJCPeerCw=
+
+install:
+- yarn --cwd test/integration-api/
+
+before_script:
+- docker-compose -f docker-compose.api-only.yml up -d --build
+
+script: ./scripts/test-api.sh
+
+deploy:
+  provider: script
+  script: bash ./scripts/deploy-dockerhub.sh
+  on:
+    branch: master
