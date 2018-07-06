@@ -9,11 +9,11 @@ namespace MessageBoard.Voting.Redis
     {
         public static string MapKey(string id) => $"voting:{id}";
 
-        public static IEnumerable<Vote> ToModel(string subjectId, HashEntry[] entries)
+        public static IEnumerable<Vote> ToModel(string subjectId, IEnumerable<HashEntry> entries)
         {
             return entries.Select(e => new Vote
             {
-                Count = (uint)e.Value,
+                Count = e.Value.HasValue ? (uint)e.Value : 0,
                 OptionName = e.Name,
                 SubjectId = subjectId
             });

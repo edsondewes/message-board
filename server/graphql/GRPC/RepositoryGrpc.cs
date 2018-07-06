@@ -71,21 +71,20 @@ namespace MessageBoard.GraphQL.GRPC
             return ranking.Votes.Select(ToModel);
         }
 
-        public Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(string optionName = null)
+        public Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string> optionNames = null)
         {
             return async (subjectIds) =>
             {
                 var request = new Voting.GRPC.LoadBatchRequest();
                 request.SubjectId.Add(subjectIds);
 
-                var response = await _voteClient.LoadBatchAsync(request);
+                if (optionNames != null)
+                    request.OptionNames.Add(optionNames);
 
-                //TODO: filter in the GPRC side
+                var response = await _voteClient.LoadBatchAsync(request);
                 return response.Votes.ToDictionary(
                     key => key.SubjectId,
-                    elements => elements.Votes
-                        .Where(v => optionName == null || v.OptionName == optionName)
-                        .Select(ToModel)
+                    elements => elements.Votes.Select(ToModel)
                 );
             };
         }

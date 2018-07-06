@@ -11,7 +11,7 @@ namespace MessageBoard.GraphQL.Model
 
         Task<Dictionary<long, Message>> ListMessages(IEnumerable<long> ids);
         Task<IEnumerable<MessageRanking>> ListMessagesByRanking(string optionName);
-        Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(string optionName = null);
+        Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string> optionNames = null);
         Task<IEnumerable<Message>> PaginateMessages(long? from);
     }
 }

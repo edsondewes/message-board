@@ -21,13 +21,22 @@ namespace MessageBoard.Voting.Redis.Handlers
 
         public async Task<IEnumerable<Vote>> Handle(VoteCountQuery request, CancellationToken cancellationToken)
         {
-            var entries = await _db.HashGetAllAsync(MapKey(request.SubjectId));
-            return entries.Select(e => new Vote
+            var key = MapKey(request.SubjectId);
+            IEnumerable<HashEntry> entries;
+
+            if (request.OptionNames == null || !request.OptionNames.Any())
+                entries = await _db.HashGetAllAsync(key);
+            else
             {
-                Count = (uint)e.Value,
-                OptionName = e.Name,
-                SubjectId = request.SubjectId
-            });
+                var redisOptions = request.OptionNames
+                    .Select(o => (RedisValue)o)
+                    .ToArray();
+
+                var voteValues = await _db.HashGetAsync(key, redisOptions);
+                entries = voteValues.Select((value, index) => new HashEntry(redisOptions[index], value));
+            }
+
+            return ToModel(request.SubjectId, entries);
         }
     }
 }

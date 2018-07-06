@@ -27,29 +27,30 @@ namespace MessageBoard.Voting.GRPC {
             "ChF2b3RlU2VydmljZS5wcm90bxIYTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBD",
             "IjMKCkFkZFJlcXVlc3QSEQoJc3ViamVjdElkGAEgASgJEhIKCm9wdGlvbk5h",
             "bWUYAiABKAkiMQoMVm90ZVJlc3BvbnNlEhIKCm9wdGlvbk5hbWUYASABKAkS",
-            "DQoFY291bnQYAiABKA0iIAoLTG9hZFJlcXVlc3QSEQoJc3ViamVjdElkGAEg",
-            "ASgJIkUKDExvYWRSZXNwb25zZRI1CgV2b3RlcxgBIAMoCzImLk1lc3NhZ2VC",
-            "b2FyZC5Wb3RpbmcuR1JQQy5Wb3RlUmVzcG9uc2UiJQoQTG9hZEJhdGNoUmVx",
-            "dWVzdBIRCglzdWJqZWN0SWQYASADKAkixAEKEUxvYWRCYXRjaFJlc3BvbnNl",
-            "Ek4KBXZvdGVzGAEgAygLMj8uTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBDLkxv",
-            "YWRCYXRjaFJlc3BvbnNlLlN1YmplY3RMaXN0UmVzcG9uc2UaXwoTU3ViamVj",
-            "dExpc3RSZXNwb25zZRIRCglzdWJqZWN0SWQYASABKAkSNQoFdm90ZXMYAiAD",
-            "KAsyJi5NZXNzYWdlQm9hcmQuVm90aW5nLkdSUEMuVm90ZVJlc3BvbnNlMqUC",
-            "CgtWb3RlU2VydmljZRJVCgNBZGQSJC5NZXNzYWdlQm9hcmQuVm90aW5nLkdS",
-            "UEMuQWRkUmVxdWVzdBomLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQQy5Wb3Rl",
-            "UmVzcG9uc2UiABJXCgRMb2FkEiUuTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBD",
-            "LkxvYWRSZXF1ZXN0GiYuTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBDLkxvYWRS",
-            "ZXNwb25zZSIAEmYKCUxvYWRCYXRjaBIqLk1lc3NhZ2VCb2FyZC5Wb3Rpbmcu",
-            "R1JQQy5Mb2FkQmF0Y2hSZXF1ZXN0GisuTWVzc2FnZUJvYXJkLlZvdGluZy5H",
-            "UlBDLkxvYWRCYXRjaFJlc3BvbnNlIgBiBnByb3RvMw=="));
+            "DQoFY291bnQYAiABKA0iNQoLTG9hZFJlcXVlc3QSEQoJc3ViamVjdElkGAEg",
+            "ASgJEhMKC29wdGlvbk5hbWVzGAIgAygJIkUKDExvYWRSZXNwb25zZRI1CgV2",
+            "b3RlcxgBIAMoCzImLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQQy5Wb3RlUmVz",
+            "cG9uc2UiOgoQTG9hZEJhdGNoUmVxdWVzdBIRCglzdWJqZWN0SWQYASADKAkS",
+            "EwoLb3B0aW9uTmFtZXMYAiADKAkixAEKEUxvYWRCYXRjaFJlc3BvbnNlEk4K",
+            "BXZvdGVzGAEgAygLMj8uTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBDLkxvYWRC",
+            "YXRjaFJlc3BvbnNlLlN1YmplY3RMaXN0UmVzcG9uc2UaXwoTU3ViamVjdExp",
+            "c3RSZXNwb25zZRIRCglzdWJqZWN0SWQYASABKAkSNQoFdm90ZXMYAiADKAsy",
+            "Ji5NZXNzYWdlQm9hcmQuVm90aW5nLkdSUEMuVm90ZVJlc3BvbnNlMqUCCgtW",
+            "b3RlU2VydmljZRJVCgNBZGQSJC5NZXNzYWdlQm9hcmQuVm90aW5nLkdSUEMu",
+            "QWRkUmVxdWVzdBomLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQQy5Wb3RlUmVz",
+            "cG9uc2UiABJXCgRMb2FkEiUuTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBDLkxv",
+            "YWRSZXF1ZXN0GiYuTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBDLkxvYWRSZXNw",
+            "b25zZSIAEmYKCUxvYWRCYXRjaBIqLk1lc3NhZ2VCb2FyZC5Wb3RpbmcuR1JQ",
+            "Qy5Mb2FkQmF0Y2hSZXF1ZXN0GisuTWVzc2FnZUJvYXJkLlZvdGluZy5HUlBD",
+            "LkxvYWRCYXRjaFJlc3BvbnNlIgBiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.AddRequest), global::MessageBoard.Voting.GRPC.AddRequest.Parser, new[]{ "SubjectId", "OptionName" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.VoteResponse), global::MessageBoard.Voting.GRPC.VoteResponse.Parser, new[]{ "OptionName", "Count" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadRequest), global::MessageBoard.Voting.GRPC.LoadRequest.Parser, new[]{ "SubjectId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadRequest), global::MessageBoard.Voting.GRPC.LoadRequest.Parser, new[]{ "SubjectId", "OptionNames" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadResponse), global::MessageBoard.Voting.GRPC.LoadResponse.Parser, new[]{ "Votes" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadBatchRequest), global::MessageBoard.Voting.GRPC.LoadBatchRequest.Parser, new[]{ "SubjectId" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadBatchRequest), global::MessageBoard.Voting.GRPC.LoadBatchRequest.Parser, new[]{ "SubjectId", "OptionNames" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadBatchResponse), global::MessageBoard.Voting.GRPC.LoadBatchResponse.Parser, new[]{ "Votes" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::MessageBoard.Voting.GRPC.LoadBatchResponse.Types.SubjectListResponse), global::MessageBoard.Voting.GRPC.LoadBatchResponse.Types.SubjectListResponse.Parser, new[]{ "SubjectId", "Votes" }, null, null, null)})
           }));
     }
@@ -397,6 +398,7 @@ namespace MessageBoard.Voting.GRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LoadRequest(LoadRequest other) : this() {
       subjectId_ = other.subjectId_;
+      optionNames_ = other.optionNames_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -416,6 +418,16 @@ namespace MessageBoard.Voting.GRPC {
       }
     }
 
+    /// <summary>Field number for the "optionNames" field.</summary>
+    public const int OptionNamesFieldNumber = 2;
+    private static readonly pb::FieldCodec<string> _repeated_optionNames_codec
+        = pb::FieldCodec.ForString(18);
+    private readonly pbc::RepeatedField<string> optionNames_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> OptionNames {
+      get { return optionNames_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as LoadRequest);
@@ -430,6 +442,7 @@ namespace MessageBoard.Voting.GRPC {
         return true;
       }
       if (SubjectId != other.SubjectId) return false;
+      if(!optionNames_.Equals(other.optionNames_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -437,6 +450,7 @@ namespace MessageBoard.Voting.GRPC {
     public override int GetHashCode() {
       int hash = 1;
       if (SubjectId.Length != 0) hash ^= SubjectId.GetHashCode();
+      hash ^= optionNames_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -454,6 +468,7 @@ namespace MessageBoard.Voting.GRPC {
         output.WriteRawTag(10);
         output.WriteString(SubjectId);
       }
+      optionNames_.WriteTo(output, _repeated_optionNames_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -465,6 +480,7 @@ namespace MessageBoard.Voting.GRPC {
       if (SubjectId.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(SubjectId);
       }
+      size += optionNames_.CalculateSize(_repeated_optionNames_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -479,6 +495,7 @@ namespace MessageBoard.Voting.GRPC {
       if (other.SubjectId.Length != 0) {
         SubjectId = other.SubjectId;
       }
+      optionNames_.Add(other.optionNames_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -492,6 +509,10 @@ namespace MessageBoard.Voting.GRPC {
             break;
           case 10: {
             SubjectId = input.ReadString();
+            break;
+          }
+          case 18: {
+            optionNames_.AddEntriesFrom(input, _repeated_optionNames_codec);
             break;
           }
         }
@@ -647,6 +668,7 @@ namespace MessageBoard.Voting.GRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LoadBatchRequest(LoadBatchRequest other) : this() {
       subjectId_ = other.subjectId_.Clone();
+      optionNames_ = other.optionNames_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -665,6 +687,16 @@ namespace MessageBoard.Voting.GRPC {
       get { return subjectId_; }
     }
 
+    /// <summary>Field number for the "optionNames" field.</summary>
+    public const int OptionNamesFieldNumber = 2;
+    private static readonly pb::FieldCodec<string> _repeated_optionNames_codec
+        = pb::FieldCodec.ForString(18);
+    private readonly pbc::RepeatedField<string> optionNames_ = new pbc::RepeatedField<string>();
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public pbc::RepeatedField<string> OptionNames {
+      get { return optionNames_; }
+    }
+
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public override bool Equals(object other) {
       return Equals(other as LoadBatchRequest);
@@ -679,6 +711,7 @@ namespace MessageBoard.Voting.GRPC {
         return true;
       }
       if(!subjectId_.Equals(other.subjectId_)) return false;
+      if(!optionNames_.Equals(other.optionNames_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -686,6 +719,7 @@ namespace MessageBoard.Voting.GRPC {
     public override int GetHashCode() {
       int hash = 1;
       hash ^= subjectId_.GetHashCode();
+      hash ^= optionNames_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -700,6 +734,7 @@ namespace MessageBoard.Voting.GRPC {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       subjectId_.WriteTo(output, _repeated_subjectId_codec);
+      optionNames_.WriteTo(output, _repeated_optionNames_codec);
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
       }
@@ -709,6 +744,7 @@ namespace MessageBoard.Voting.GRPC {
     public int CalculateSize() {
       int size = 0;
       size += subjectId_.CalculateSize(_repeated_subjectId_codec);
+      size += optionNames_.CalculateSize(_repeated_optionNames_codec);
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
       }
@@ -721,6 +757,7 @@ namespace MessageBoard.Voting.GRPC {
         return;
       }
       subjectId_.Add(other.subjectId_);
+      optionNames_.Add(other.optionNames_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
 
@@ -734,6 +771,10 @@ namespace MessageBoard.Voting.GRPC {
             break;
           case 10: {
             subjectId_.AddEntriesFrom(input, _repeated_subjectId_codec);
+            break;
+          }
+          case 18: {
+            optionNames_.AddEntriesFrom(input, _repeated_optionNames_codec);
             break;
           }
         }

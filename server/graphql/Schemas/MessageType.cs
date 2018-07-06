@@ -19,11 +19,11 @@ namespace MessageBoard.GraphQL.Schemas
                 name: "votes",
                 description: "List os votes for this message",
                 arguments: new QueryArguments(
-                    new QueryArgument<StringGraphType> { Name = "optionName", Description = "Type of vote" }
+                    new QueryArgument<ListGraphType<StringGraphType>> { Name = "optionName", Description = "Type of vote" }
                 ),
                 resolve: context =>
                 {
-                    var fetchFunc = repository.ListVotes(context.GetArgument<string>("optionName"));
+                    var fetchFunc = repository.ListVotes(context.GetArgument<IEnumerable<string>>("optionName"));
                     var loader = accessor.Context.GetOrAddBatchLoader<string, IEnumerable<Vote>>("GetVotesBySubjectId", fetchFunc);
 
                     return loader.LoadAsync(context.Source.Id.ToString());

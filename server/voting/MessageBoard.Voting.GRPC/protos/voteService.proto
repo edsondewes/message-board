@@ -20,6 +20,7 @@ message VoteResponse {
 
 message LoadRequest {
     string subjectId = 1;
+    repeated string optionNames = 2;
 }
 
 message LoadResponse {
@@ -28,6 +29,7 @@ message LoadResponse {
 
 message LoadBatchRequest {
     repeated string subjectId = 1;
+    repeated string optionNames = 2;
 }
 
 message LoadBatchResponse {

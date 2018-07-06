@@ -52,27 +52,27 @@ namespace MessageBoard.Voting.GRPC
             using (var scope = _scopeFactory.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var votes = await mediator.Send(new VoteCountBatchQuery(request.SubjectId));
+                var votes = await mediator.Send(new VoteCountBatchQuery(request.SubjectId, request.OptionNames));
 
-                var votesBySubject = votes
-                    .GroupBy(v => v.SubjectId)
-                    .Select(group =>
-                    {
-                        var votesResponse = group.Select(vote => new VoteResponse
+                var batchResponse = new LoadBatchResponse();
+                foreach (var subjectId in request.SubjectId)
+                {
+                    var subjectVotes = votes
+                        .Where(v => v.SubjectId == subjectId)
+                        .Select(vote => new VoteResponse
                         {
                             Count = vote.Count,
                             OptionName = vote.OptionName
                         });
 
-                        var list = new LoadBatchResponse.Types.SubjectListResponse();
-                        list.SubjectId = group.Key;
-                        list.Votes.Add(votesResponse);
-                        return list;
-                    });
+                    var list = new LoadBatchResponse.Types.SubjectListResponse();
+                    list.SubjectId = subjectId;
+                    list.Votes.Add(subjectVotes);
 
-                var response = new LoadBatchResponse();
-                response.Votes.Add(votesBySubject);
-                return response;
+                    batchResponse.Votes.Add(list);
+                }
+
+                return batchResponse;
             }
         }
 
