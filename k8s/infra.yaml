@@ -1,0 +1,88 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  labels:
+    app: redis
+    group: message-board
+spec:
+  ports:
+  - port: 6379
+    targetPort: 6379
+  selector:
+    app: redis
+    group: message-board
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nats
+  labels:
+    app: nats
+    group: message-board
+spec:
+  ports:
+  - name: client
+    port: 4222
+    targetPort: 4222
+  - name: report
+    port: 8222
+    targetPort: 8222
+  - name: cluster
+    port: 6222 
+    targetPort: 6222
+  selector:
+    app:  nats
+    group: message-board
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  labels:
+    app: redis
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: redis
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: redis
+        group: message-board
+    spec:
+      containers:
+      - name: master
+        image: redis:alpine
+        ports:
+        - containerPort: 6379
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nats
+  labels:
+    app: nats
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: nats
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: nats
+        group: message-board
+    spec:
+      containers:
+      - name: nats
+        image: nats
+        ports:
+        - containerPort: 4222
+        - containerPort: 8222
+        - containerPort: 6222

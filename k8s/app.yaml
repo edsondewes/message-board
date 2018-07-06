@@ -1,0 +1,211 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: messaging-api
+  labels:
+    app: messaging-api
+    group: message-board
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: messaging-api
+    group: message-board
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: ranking-api
+  labels:
+    app: ranking-api
+    group: message-board
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: ranking-api
+    group: message-board
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: voting-api
+  labels:
+    app: voting-api
+    group: message-board
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: voting-api
+    group: message-board
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: web-react
+  labels:
+    app: web-react
+    group: message-board
+spec:
+  ports:
+  - name: http
+    port: 80
+    targetPort: 80
+  selector:
+    app: web-react
+    group: message-board
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: messaging-api
+  labels:
+    app: messaging-api
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: messaging-api
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: messaging-api
+        group: message-board
+    spec:
+      containers:
+      - name: messaging-api
+        image: edsondewes/message-board:messaging-api-latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: Redis
+          value: redis
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: ranking-api
+  labels:
+    app: ranking-api
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: ranking-api
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: ranking-api
+        group: message-board
+    spec:
+      containers:
+      - name: ranking-api
+        image: edsondewes/message-board:ranking-api-latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: Redis
+          value: redis
+        - name: Nats
+          value: nats://nats:4222
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: voting-api
+  labels:
+    app: voting-api
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: voting-api
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: voting-api
+        group: message-board
+    spec:
+      containers:
+      - name: messaging-api
+        image: edsondewes/message-board:voting-api-latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: Redis
+          value: redis
+        - name: Nats
+          value: nats://nats:4222
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: web-react
+  labels:
+    app: web-react
+    group: message-board
+spec:
+  selector:
+    matchLabels:
+      app: web-react
+      group: message-board
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: web-react
+        group: message-board
+    spec:
+      containers:
+      - name: messaging-api
+        image: edsondewes/message-board:web-react-latest
+        ports:
+        - containerPort: 80
+        env:
+        - name: NODE_ENV
+          value: production
+        - name: INTERNAL_API_URL
+          value: http://traefik-ingress-service.kube-system/api
+        - name: PUBLIC_API_URL
+          value: http://messageboard.minikube/api
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: message-board
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefix
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /api/messages
+        backend:
+          serviceName: messaging-api
+          servicePort: http
+      - path: /api/ranking
+        backend:
+          serviceName: ranking-api
+          servicePort: http
+      - path: /api/votes
+        backend:
+          serviceName: voting-api
+          servicePort: http
+      - path: /
+        backend:
+          serviceName: web-react
+          servicePort: http
