@@ -24,11 +24,7 @@ namespace MessageBoard.Voting.GRPC
             using (var scope = _scopeFactory.CreateScope())
             {
                 var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-
-                //TODO: refactor this command
-                //It needs to be only one command doing the same
                 var vote = await mediator.Send(new AddVoteCommand(request.SubjectId, request.OptionName));
-                await mediator.Publish(VoteCreated.From(vote));
 
                 return new VoteResponse
                 {

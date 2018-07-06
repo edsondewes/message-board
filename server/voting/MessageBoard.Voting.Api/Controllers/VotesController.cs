@@ -32,8 +32,6 @@ namespace MessageBoard.Voting.Api.Controllers
         public async Task<IActionResult> Post([FromBody]AddVoteModel model)
         {
             var result = await _mediator.Send(new AddVoteCommand(model.SubjectId, model.OptionName));
-            await _mediator.Publish(VoteCreated.From(result));
-
             var view = ViewVote.From(result);
             return Ok(view);
         }
