@@ -57,8 +57,16 @@ spec:
       containers:
       - name: master
         image: redis:alpine
+        command: ["redis-server"]
+        args: ["--appendonly", "yes"]
         ports:
         - containerPort: 6379
+        volumeMounts:
+        - name: redis-storage
+          mountPath: /data
+      volumes:
+      - name: redis-storage
+        emptyDir: {}
 ---
 apiVersion: apps/v1
 kind: Deployment
