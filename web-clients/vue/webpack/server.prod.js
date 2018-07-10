@@ -1,20 +1,21 @@
+const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
-const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 
 module.exports = {
   mode: 'production',
-  entry: path.join(__dirname, '../src/entry-client.js'),
+  target: 'node',
+  externals: [nodeExternals()],
+  entry: path.join(__dirname, '../src/entry-server.js'),
   output: {
-    filename: '[name].[chunkhash].js',
-    chunkFilename: '[name].[chunkhash].chunk.js',
-    path: path.resolve(__dirname, '../dist/static'),
-    publicPath: '/',
+    filename: 'app.server.js',
+    libraryTarget: 'commonjs2',
+    path: path.resolve(__dirname, '../dist'),
   },
-  devtool: 'source-map',
+  devtool: false,
   resolve: {
     extensions: ['.js', '.vue'],
   },
@@ -37,22 +38,19 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader'],
+        use: ['css-loader/locals'],
       },
     ],
   },
   plugins: [
     new VueLoaderPlugin(),
-    new VueSSRClientPlugin({
-      filename: '../vue-ssr-client-manifest.json',
-    }),
+    new VueSSRServerPlugin(),
     new webpack.DefinePlugin({
       __API_URL__: JSON.stringify('http://localhost:9090/api'),
     }),
-    new MiniCssExtractPlugin({
-      filename: '[name].[contenthash].css',
-      chunkFilename: '[id].[contenthash].css',
-    }),
-    new CopyWebpackPlugin([{ from: './public', to: '.' }]),
+    new CopyWebpackPlugin([
+      { from: './src/index.prod.js', to: './index.js' },
+      { from: './src/templates', to: './templates' },
+    ]),
   ],
 };

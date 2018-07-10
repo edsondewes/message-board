@@ -1,21 +1,21 @@
+const nodeExternals = require('webpack-node-externals');
 const path = require('path');
 const webpack = require('webpack');
 const { VueLoaderPlugin } = require('vue-loader');
-const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
+const VueSSRServerPlugin = require('vue-server-renderer/server-plugin');
 
 module.exports = {
   mode: 'development',
-  name: 'client',
-  entry: [
-    'webpack-hot-middleware/client',
-    path.join(__dirname, '../src/entry-client.js'),
-  ],
+  name: 'server',
+  target: 'node',
+  externals: [nodeExternals()],
+  entry: path.join(__dirname, '../src/entry-server.js'),
   output: {
+    filename: 'app.server.js',
+    libraryTarget: 'commonjs2',
     path: path.resolve(__dirname, '../public'),
-    publicPath: '/',
-    filename: '[name].js',
   },
-  devtool: 'eval-source-map',
+  devtool: false,
   resolve: {
     extensions: ['.js', '.vue'],
   },
@@ -44,11 +44,9 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    new VueSSRClientPlugin(),
+    new VueSSRServerPlugin(),
     new webpack.DefinePlugin({
       __API_URL__: JSON.stringify('http://localhost:9090/api'),
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NoEmitOnErrorsPlugin(),
   ],
 };

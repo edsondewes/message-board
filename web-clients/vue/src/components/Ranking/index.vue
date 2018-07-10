@@ -9,29 +9,29 @@
 </template>
 
 <script>
-import EmptyRankingInfo from "./EmptyRankingInfo";
-import RankingList from "./RankingList";
-import { getById as getMessage } from "../../apis/messageApi";
-import { get as getRanking } from "../../apis/rankingApi";
+import EmptyRankingInfo from './EmptyRankingInfo';
+import RankingList from './RankingList';
+import { getById as getMessage } from '../../apis/messageApi';
+import { get as getRanking } from '../../apis/rankingApi';
 
 export default {
   name: 'Ranking',
   components: {
     EmptyRankingInfo,
-    RankingList
+    RankingList,
   },
   props: {
     optionName: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
-      messages: []
+      messages: [],
     };
   },
-  async created() {
+  async beforeMount() {
     const ranking = await getRanking(this.optionName);
     const messageRequests = ranking.map(rankingItem =>
       getMessage(rankingItem.subjectId).then(message => ({
@@ -43,8 +43,8 @@ export default {
 
     const response = await Promise.all(messageRequests);
     this.messages = response;
-  }
-}
+  },
+};
 </script>
 
 <style scoped>

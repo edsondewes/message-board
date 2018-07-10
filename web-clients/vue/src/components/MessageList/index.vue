@@ -17,25 +17,29 @@
 <script>
 import InfiniteLoading from 'vue-infinite-loading';
 import EmptyListInfo from './EmptyListInfo';
-import Message from './Message'
-import { EventBus, get as getMessages, MESSAGE_CREATED } from "../../apis/messageApi";
+import Message from './Message';
+import {
+  EventBus,
+  get as getMessages,
+  MESSAGE_CREATED,
+} from '../../apis/messageApi';
 
 export default {
   name: 'MessageList',
   components: {
     EmptyListInfo,
     InfiniteLoading,
-    Message
+    Message,
   },
   data() {
     return {
-      messages: []
-    }
+      messages: [],
+    };
   },
   beforeDestroy() {
     EventBus.$off(MESSAGE_CREATED, this.loadMessages);
   },
-  created () {
+  beforeMount() {
     EventBus.$on(MESSAGE_CREATED, this.loadMessages);
     this.loadMessages();
   },
@@ -55,7 +59,7 @@ export default {
     },
     async loadMessages() {
       this.messages = await getMessages();
-    }
-  }, 
-}
+    },
+  },
+};
 </script>
