@@ -47,7 +47,7 @@ module.exports = {
       filename: '../vue-ssr-client-manifest.json',
     }),
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify('http://localhost:9090/api'),
+      __API_URL__: 'window.__API_URL__',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].[contenthash].css',

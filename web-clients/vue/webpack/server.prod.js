@@ -46,7 +46,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new VueSSRServerPlugin(),
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify('http://localhost:9090/api'),
+      __API_URL__: 'process.env.INTERNAL_API_URL || process.env.PUBLIC_API_URL',
     }),
     new CopyWebpackPlugin([
       { from: './src/index.prod.js', to: './index.js' },

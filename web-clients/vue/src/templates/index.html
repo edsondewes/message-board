@@ -4,16 +4,21 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Simple React App for writing messages. PWA ready!">
-    <meta name="keywords" content="react,pwa,ssr,responsive,offline">
+    <meta name="description" content="Simple Vue App for writing messages. PWA ready!">
+    <meta name="keywords" content="vue,pwa,ssr,responsive,offline">
     <meta name="theme-color" content="gray">
     <title>Message Board</title>
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" sizes="192x192" href="/images/board-16.png">
+    {{{ renderResourceHints() }}}
+    {{{ renderStyles() }}}
 </head>
 
 <body>
     <!--vue-ssr-outlet-->
+    {{{ renderState({ contextKey: 'apiUrl', windowKey: '__API_URL__' }) }}}
+    {{{ renderState() }}}
+    {{{ renderScripts() }}}
 </body>
 
 </html>

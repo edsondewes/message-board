@@ -15,6 +15,7 @@ function createRenderer() {
 
   return createBundleRenderer(serverBundle, {
     clientManifest: clientManifest,
+    inject: false,
     runInNewContext: false,
     template: template,
   });

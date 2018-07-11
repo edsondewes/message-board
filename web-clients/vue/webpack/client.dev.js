@@ -46,7 +46,7 @@ module.exports = {
     new VueLoaderPlugin(),
     new VueSSRClientPlugin(),
     new webpack.DefinePlugin({
-      __API_URL__: JSON.stringify('http://localhost:9090/api'),
+      __API_URL__: 'window.__API_URL__',
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),

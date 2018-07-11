@@ -5,7 +5,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "start": "node ./src/index.dev",
+    "start": "PUBLIC_API_URL=http://localhost:9090/api node ./src/index.dev",
     "build": "rimraf ./dist && yarn build:client && yarn build:server",
     "build:client": "webpack --config ./webpack/client.prod.js",
     "build:server": "webpack --config ./webpack/server.prod.js"

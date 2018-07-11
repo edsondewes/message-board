@@ -32,6 +32,7 @@ multiCompiler.hooks.done.tap('CustomBundleRenderer', stats => {
 
   renderer = createBundleRenderer(serverBundle, {
     clientManifest: clientManifest,
+    inject: false,
     runInNewContext: false,
     template: template,
   });
