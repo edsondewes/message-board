@@ -2,8 +2,8 @@
   <div class="ranking-container">
     <h2>Top messages</h2>
     <RankingList 
-      v-if="messages.length" 
-      :messages="messages" />
+      v-if="ranking.length" 
+      :messages="ranking" />
     <EmptyRankingInfo v-else />
   </div>
 </template>
@@ -21,18 +21,14 @@ export default {
     RankingList,
   },
   props: {
-    optionName: {
-      type: String,
+    ranking: {
+      type: Array,
       required: true,
     },
   },
-  data() {
-    return {
-      messages: [],
-    };
-  },
-  async beforeMount() {
-    const ranking = await getRanking(this.optionName);
+  async asyncData(optionName = 'Like') {
+    const ranking = await getRanking(optionName);
+
     const messageRequests = ranking.map(rankingItem =>
       getMessage(rankingItem.subjectId).then(message => ({
         count: rankingItem.count,
@@ -41,8 +37,10 @@ export default {
       })),
     );
 
-    const response = await Promise.all(messageRequests);
-    this.messages = response;
+    const messages = await Promise.all(messageRequests);
+    return {
+      ranking: messages,
+    };
   },
 };
 </script>

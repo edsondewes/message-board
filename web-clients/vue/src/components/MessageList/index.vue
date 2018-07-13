@@ -5,7 +5,9 @@
       v-bind="item" 
       :key="item.id" />
       
-    <InfiniteLoading @infinite="infiniteHandler">
+    <InfiniteLoading
+      v-if="canInfiniteLoad"
+      @infinite="infiniteHandler">
       <span slot="no-more">
         There is no more messages :(
       </span>
@@ -31,17 +33,32 @@ export default {
     InfiniteLoading,
     Message,
   },
+  props: {
+    initialMessages: {
+      type: Array,
+      required: true,
+    },
+  },
   data() {
     return {
-      messages: [],
+      //vue-infinite-loading does not work well on SSR
+      //so we only load after mounting as a workaround
+      canInfiniteLoad: false,
+      messages: this.initialMessages,
+    };
+  },
+  async asyncData() {
+    const messages = await getMessages();
+    return {
+      initialMessages: messages,
     };
   },
   beforeDestroy() {
     EventBus.$off(MESSAGE_CREATED, this.loadMessages);
   },
-  beforeMount() {
+  mounted() {
     EventBus.$on(MESSAGE_CREATED, this.loadMessages);
-    this.loadMessages();
+    this.canInfiniteLoad = true;
   },
   methods: {
     async infiniteHandler($state) {

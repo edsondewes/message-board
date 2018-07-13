@@ -6,20 +6,22 @@
     <div class="content-container">
       <main :class="['main-container', { 'mobile-visible': mobileView === 'messages' }]">
         <MessageForm />
-        <MessageList />
+        <MessageList v-bind="messageList" />
       </main>
       <aside :class="['right-container', { 'mobile-visible': mobileView === 'ranking' }]">
-        <Ranking option-name="Like" />
+        <Ranking
+          v-bind="ranking"
+          option-name="Like" />
       </aside>
     </div>
   </div>
 </template>
 
 <script>
-import Header from './Header'
-import MessageForm from './MessageForm'
-import MessageList from './MessageList'
-import Ranking from './Ranking'
+import Header from './Header';
+import MessageForm from './MessageForm';
+import MessageList from './MessageList';
+import Ranking from './Ranking';
 
 export default {
   name: 'App',
@@ -27,25 +29,46 @@ export default {
     Header,
     MessageForm,
     MessageList,
-    Ranking
+    Ranking,
+  },
+  props: {
+    messageList: {
+      type: Object,
+      required: true,
+    },
+    ranking: {
+      type: Object,
+      required: true,
+    },
   },
   data() {
     return {
-      mobileView: 'messages'
-    }
+      mobileView: 'messages',
+    };
+  },
+  async asyncData() {
+    const [messageList, ranking] = await Promise.all([
+      MessageList.asyncData(),
+      Ranking.asyncData(),
+    ]);
+
+    return {
+      messageList,
+      ranking,
+    };
   },
   methods: {
     toggleTheme() {
       const root = document.documentElement;
-      const themeAttribute = "data-theme";
+      const themeAttribute = 'data-theme';
       if (root.hasAttribute(themeAttribute)) {
         root.removeAttribute(themeAttribute);
       } else {
-        root.setAttribute(themeAttribute, "dark");
+        root.setAttribute(themeAttribute, 'dark');
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style src="./base.css"></style>
