@@ -2,6 +2,7 @@ const path = require('path');
 const webpack = require('webpack');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin');
 const { VueLoaderPlugin } = require('vue-loader');
 const VueSSRClientPlugin = require('vue-server-renderer/client-plugin');
 
@@ -54,5 +55,24 @@ module.exports = {
       chunkFilename: '[id].[contenthash].css',
     }),
     new CopyWebpackPlugin([{ from: './public', to: '.' }]),
+    new SWPrecacheWebpackPlugin({
+      cacheId: 'message-board-vue',
+      filename: 'service-worker.js',
+      minify: false,
+      staticFileGlobsIgnorePatterns: [
+        /\.map$/,
+        /vue-ssr-client-manifest\.json$/,
+      ],
+      runtimeCaching: [
+        {
+          urlPattern: '/',
+          handler: 'networkFirst',
+        },
+        {
+          urlPattern: /\/api\//,
+          handler: 'networkFirst',
+        },
+      ],
+    }),
   ],
 };
