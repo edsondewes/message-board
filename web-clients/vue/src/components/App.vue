@@ -3,6 +3,10 @@
     <Header 
       @change-mobile-view="mobileView = $event" 
       @toggle-theme="toggleTheme" />
+    <FloatingPanel v-if="offline">
+      <h1>Offline mode</h1>
+      <p>You are working offline. Some features may not be available</p>
+    </FloatingPanel>
     <div class="content-container">
       <main :class="['main-container', { 'mobile-visible': mobileView === 'messages' }]">
         <MessageForm />
@@ -18,19 +22,23 @@
 </template>
 
 <script>
+import FloatingPanel from './FloatingPanel';
 import Header from './Header';
 import MessageForm from './MessageForm';
 import MessageList from './MessageList';
+import OfflineMixin from './OfflineMixin';
 import Ranking from './Ranking';
 
 export default {
   name: 'App',
   components: {
+    FloatingPanel,
     Header,
     MessageForm,
     MessageList,
     Ranking,
   },
+  mixins: [OfflineMixin],
   props: {
     messageList: {
       type: Object,

@@ -1,14 +1,14 @@
 <template>
   <div>
     <button 
-      :disabled="voted" 
+      :disabled="voted || offline" 
       aria-label="Like this message"
       class="btn-vote"
       @click="submiteVote('Like')">
       <Octicon ico="thumbsup" /> {{ like }}
     </button>
     <button 
-      :disabled="voted" 
+      :disabled="voted || offline" 
       aria-label="Dislike this message" 
       class="btn-vote" 
       @click="submiteVote('Dislike')">
@@ -18,25 +18,27 @@
 </template>
 
 <script>
-import Octicon from "../Octicon";
-import { get as getVotes, post } from "../../apis/voteApi"
+import Octicon from '../Octicon';
+import OfflineMixin from '../OfflineMixin';
+import { get as getVotes, post } from '../../apis/voteApi';
 
 export default {
   name: 'VoteContainer',
   components: {
-    Octicon
+    Octicon,
   },
+  mixins: [OfflineMixin],
   props: {
     subjectId: {
       type: Number,
-      required: true
-    }
+      required: true,
+    },
   },
   data() {
     return {
       dislike: 0,
       like: 0,
-      voted: false
+      voted: false,
     };
   },
   async created() {
@@ -50,14 +52,12 @@ export default {
       this.voted = true;
     },
     updateVoteCount(data) {
-      if (data.like)
-        this.like = data.like;
+      if (data.like) this.like = data.like;
 
-      if (data.dislike)
-        this.dislike = data.dislike;
-    }
-  }
-}
+      if (data.dislike) this.dislike = data.dislike;
+    },
+  },
+};
 </script>
 
 <style scoped>
