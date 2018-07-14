@@ -9,33 +9,33 @@
 </template>
 
 <script>
-import VoteContainer from './VoteContainer'
+import VoteContainer from './VoteContainer';
 
 export default {
   name: 'Message',
   components: {
-    VoteContainer
+    VoteContainer,
   },
   props: {
     created: {
       type: String,
-      required: true
+      required: true,
     },
     id: {
       type: Number,
-      required: true
+      required: true,
     },
     text: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
     localeDate() {
-      return new Date(this.created).toLocaleString("en-US");
-    }
+      return new Date(this.created).toLocaleString('en-US');
+    },
   },
-}
+};
 </script>
 
 <style scoped>

@@ -33,14 +33,14 @@
 </template>
 
 <script>
-import Octicon from "../Octicon";
+import Octicon from '../Octicon';
 
 export default {
   name: 'Header',
   components: {
-    Octicon
+    Octicon,
   },
-}
+};
 </script>
 
 <style scoped>

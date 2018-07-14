@@ -26,41 +26,40 @@
 </template>
 
 <script>
-import { post as postMessage } from "../../apis/messageApi";
+import { post as postMessage } from '../../apis/messageApi';
 
 export default {
   name: 'MessageForm',
   props: {
     maxLength: {
       type: Number,
-      default: 250
-    }
+      default: 250,
+    },
   },
   data() {
     return {
       expanded: false,
-      text: "",
-    }
+      text: '',
+    };
   },
   methods: {
     expandContainer() {
       this.expanded = true;
     },
     shrinkContainer() {
-      if (!this.text.length)
-        this.expanded = false;
+      if (!this.text.length) this.expanded = false;
     },
     async submitMessage() {
       await postMessage({ text: this.text });
       this.expanded = false;
-      this.text = "";
+      this.text = '';
     },
     truncateText($event) {
       if ($event.target.value.length >= this.maxLength)
         this.text = $event.target.value.substr(0, this.maxLength);
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped>

@@ -7,8 +7,8 @@
 
 <script>
 export default {
-  name: 'EmptyRankingInfo'
-}
+  name: 'EmptyRankingInfo',
+};
 </script>
 
 <style scoped>

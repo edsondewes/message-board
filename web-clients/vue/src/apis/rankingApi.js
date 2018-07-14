@@ -1,5 +1,5 @@
 /* global __API_URL__ */
-import axios from "axios";
+import axios from 'axios';
 
 const apiUrl = `${__API_URL__}/ranking`;
 

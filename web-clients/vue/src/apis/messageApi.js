@@ -1,10 +1,10 @@
 /* global __API_URL__ */
-import axios from "axios";
-import Vue from "vue";
+import axios from 'axios';
+import Vue from 'vue';
 
 const apiUrl = `${__API_URL__}/messages`;
 
-export const MESSAGE_CREATED = "message.created";
+export const MESSAGE_CREATED = 'message.created';
 export const EventBus = new Vue();
 
 export function get(from) {

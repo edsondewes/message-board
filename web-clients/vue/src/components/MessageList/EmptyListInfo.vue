@@ -9,8 +9,8 @@
 
 <script>
 export default {
-  name: 'EmptyListInfo'
-}
+  name: 'EmptyListInfo',
+};
 </script>
 
 <style scoped>

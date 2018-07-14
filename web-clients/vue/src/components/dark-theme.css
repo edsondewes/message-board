@@ -1,4 +1,4 @@
-[data-theme="dark"] {
+[data-theme='dark'] {
   --base-hue: 210;
   --main-color: hsl(var(--base-hue), 20%, 80%);
   --secondary-color: hsl(var(--base-hue), 20%, 50%);
