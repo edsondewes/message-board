@@ -33,10 +33,10 @@ You can see below what is done and what is planned.
 ## Vue App
 
 - [x] Vue 2.5.x client
-- [ ] Server side rendering
-- [ ] Offline support
+- [x] Server side rendering
+- [x] Offline support
 - [x] Responsive layout
-- [ ] PWA ready
+- [x] PWA ready
 - [x] Light/dark themes
 
 ## Other
