@@ -1,4 +1,3 @@
-using GraphQL.Types;
 using MessageBoard.GraphQL.Schemas;
 
 namespace Microsoft.Extensions.DependencyInjection
@@ -7,7 +6,7 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddMessageBoardSchema(this IServiceCollection services)
         {
-            services.AddSingleton<ISchema, MessageBoardSchema>();
+            services.AddSingleton<MessageBoardSchema>();
             services.AddSingleton<RootMutation>();
             services.AddSingleton<RootQuery>();
             services.AddSingleton<MessageInputType>();

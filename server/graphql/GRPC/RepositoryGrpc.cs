@@ -48,7 +48,7 @@ namespace MessageBoard.GraphQL.GRPC
             return ToModel(message);
         }
 
-        public async Task<Dictionary<long, Message>> ListMessages(IEnumerable<long> ids)
+        public async Task<IDictionary<long, Message>> ListMessages(IEnumerable<long> ids)
         {
             var request = new Messaging.GRPC.LoadBatchRequest();
             request.Id.Add(ids);
@@ -71,7 +71,7 @@ namespace MessageBoard.GraphQL.GRPC
             return ranking.Votes.Select(ToModel);
         }
 
-        public Func<IEnumerable<string>, Task<Dictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string> optionNames = null)
+        public Func<IEnumerable<string>, Task<IDictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string> optionNames = null)
         {
             return async (subjectIds) =>
             {
