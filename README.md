@@ -18,8 +18,7 @@ You can see below what is done and what is planned.
 - [x] Redis as database
 - [x] [GraphQL server](https://github.com/edsondewes/message-board/tree/master/server/graphql/README.md) (with data loader)
 - [x] GRPC services
-- [ ] Basic metrics (probably using [Prometheus](https://prometheus.io/))
-- [ ] Integration tests
+- [x] Integration tests
 
 ## React App
 
@@ -29,6 +28,10 @@ You can see below what is done and what is planned.
 - [x] Responsive layout
 - [x] PWA ready
 - [x] Light/dark themes (using css variables)
+
+## React GraphQL App
+
+- [ ] React 16.x client
 
 ## Vue App
 
