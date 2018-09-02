@@ -1,0 +1,36 @@
+{
+  "name": "message-board-react-graphql",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "private": true,
+  "repository": "git@github.com:edsondewes/message-board.git",
+  "author": "Edson Dewes <edson_dewes@hotmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "webpack-dev-server --config ./webpack/dev.js"
+  },
+  "dependencies": {
+    "apollo-boost": "0.1.15",
+    "graphql": "14.0.0",
+    "react": "16.4.2",
+    "react-apollo": "2.1.11",
+    "react-dom": "16.4.2",
+    "react-infinite-scroller": "1.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.0.0",
+    "@babel/preset-env": "7.0.0",
+    "@babel/preset-react": "7.0.0",
+    "babel-eslint": "9.0.0",
+    "babel-loader": "8.0.1",
+    "css-loader": "1.0.0",
+    "eslint": "5.5.0",
+    "eslint-loader": "2.1.0",
+    "eslint-plugin-react": "7.11.1",
+    "html-webpack-plugin": "3.2.0",
+    "mini-css-extract-plugin": "0.4.2",
+    "webpack": "4.17.1",
+    "webpack-cli": "3.1.0",
+    "webpack-dev-server": "3.1.7"
+  }
+}

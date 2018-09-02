@@ -1,0 +1,25 @@
+{
+  "background_color": "gray",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/images/board-16.png",
+      "type": "image/png",
+      "sizes": "16x16"
+    },
+    {
+      "src": "/images/board-128.png",
+      "type": "image/png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "/images/board-512.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "name": "Message Board",
+  "short_name": "Msg Board",
+  "start_url": ".",
+  "theme_color": "gray"
+}

@@ -1,0 +1,51 @@
+.btn-vote {
+  background: transparent;
+  border: 0;
+  color: var(--secondary-color);
+  cursor: pointer;
+  margin-right: 1vw;
+  padding: 0;
+}
+
+.btn-vote:disabled {
+  color: var(--disabled-color);
+  cursor: not-allowed;
+}
+
+.btn-vote span {
+  margin-right: 0.5vw;
+  font-size: 0.8rem;
+}
+
+.empty-container {
+  color: var(--secondary-color);
+  padding: 2vh;
+  text-align: center;
+}
+
+.message {
+  background: var(--content-bg-color);
+  border: 1px solid var(--border-color);
+  margin-bottom: 1vh;
+  padding: 2vh 1vw;
+}
+
+.message footer {
+  align-items: flex-end;
+  display: flex;
+  justify-content: space-between;
+}
+
+.message p {
+  font-size: 1rem;
+  margin: 0 0 1.5vh;
+}
+
+.message time {
+  color: var(--secondary-color);
+}
+
+.message button,
+.message time {
+  font-size: 0.8rem;
+}
