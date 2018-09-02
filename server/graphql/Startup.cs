@@ -22,6 +22,7 @@ namespace MessageBoard.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddCors();
             services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddGraphQL(options =>
             {
@@ -40,6 +41,11 @@ namespace MessageBoard.GraphQL
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseGraphQL<MessageBoardSchema>("/graphql");
             app.UseGraphQLPlayground(new GraphQLPlaygroundOptions
