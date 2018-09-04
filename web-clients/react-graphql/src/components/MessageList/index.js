@@ -2,9 +2,9 @@ import React from "react";
 import gql from "graphql-tag";
 import { ApolloConsumer } from "react-apollo";
 import InfiniteScroll from "react-infinite-scroller";
-
 import EmptyListInfo from "./EmptyListInfo";
 import Message from "./Message";
+import { eventBus, MESSAGE_CREATED } from "../../services/eventBus";
 
 const GET_MESSAGES = gql`
   query paginatedList($from: Int) {
@@ -12,7 +12,7 @@ const GET_MESSAGES = gql`
       id
       created
       text
-      votes {
+      votes(optionName: ["Like", "Dislike"]) {
         count
         optionName
       }
@@ -25,6 +25,7 @@ class MessageList extends React.Component {
     super(props);
 
     this.loadNextPage = this.loadNextPage.bind(this);
+    this.reload = this.reload.bind(this);
 
     this.state = {
       hasMore: true,
@@ -33,11 +34,24 @@ class MessageList extends React.Component {
   }
 
   async componentDidMount() {
+    eventBus.addListener(MESSAGE_CREATED, this.reload);
+
+    const messages = await this.loadMessages();
+    this.setState({ messages });
+  }
+
+  componentWillUnmount() {
+    eventBus.removeListener(MESSAGE_CREATED, this.reload);
+  }
+
+  async loadMessages(from) {
     const { data } = await this.props.apolloClient.query({
+      fetchPolicy: "network-only",
       query: GET_MESSAGES,
+      variables: { from },
     });
 
-    this.setState({ messages: data.messages });
+    return data.messages;
   }
 
   async loadNextPage() {
@@ -45,15 +59,19 @@ class MessageList extends React.Component {
       ? this.state.messages[this.state.messages.length - 1].id
       : undefined;
 
-    const { data } = await this.props.apolloClient.query({
-      query: GET_MESSAGES,
-      variables: { from: lastMessageId },
-    });
-
+    const messages = await this.loadMessages(lastMessageId);
     this.setState(prevState => ({
-      hasMore: data.messages.length > 0,
-      messages: prevState.messages.concat(data.messages),
+      hasMore: messages.length > 0,
+      messages: prevState.messages.concat(messages),
     }));
+  }
+
+  async reload() {
+    const messages = await this.loadMessages();
+    this.setState({
+      hasMore: true,
+      messages,
+    });
   }
 
   render() {
@@ -64,7 +82,7 @@ class MessageList extends React.Component {
           loadMore={this.loadNextPage}
         >
           {this.state.messages.map(m => (
-            <Message key={m.id} id={m.id} created={m.created} text={m.text} />
+            <Message key={m.id} {...m} />
           ))}
         </InfiniteScroll>
       );

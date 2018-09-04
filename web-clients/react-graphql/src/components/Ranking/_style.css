@@ -1,0 +1,42 @@
+.empty-container {
+  color: var(--secondary-color);
+}
+
+.ranking-container {
+  background: var(--content-bg-color);
+  padding: 1vw;
+}
+
+.ranking-container h2 {
+  margin: 0 0 2vh;
+}
+
+.ranking-list {
+  font-size: 0.9rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.ranking-list li {
+  align-items: flex-start;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  margin-bottom: 1vh;
+  padding-bottom: 1vh;
+}
+
+.ranking-list li:last-child {
+  border: 0;
+}
+
+.ranking-list span {
+  background: var(--secondary-color);
+  border-radius: 10px;
+  margin-right: 1vh;
+  padding: 0.2vh 1vh;
+}
+
+.ranking-list p {
+  margin: 0;
+}
