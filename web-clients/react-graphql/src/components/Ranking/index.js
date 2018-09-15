@@ -1,6 +1,7 @@
 import React from "react";
+import { Query } from "react-apollo";
 import gql from "graphql-tag";
-import { ApolloConsumer } from "react-apollo";
+
 import EmptyRankingInfo from "./EmptyRankingInfo";
 import RankingList from "./RankingList";
 import { rankingContainer as rankingContainerClass } from "./_style.css";
@@ -17,47 +18,29 @@ const GET_RANKING = gql`
   }
 `;
 
-class Ranking extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      messages: [],
-    };
-  }
-
-  async componentDidMount() {
-    const { data } = await this.props.apolloClient.query({
-      query: GET_RANKING,
-    });
-
-    const messageWithVotes = data.ranking.map(m => ({
-      id: m.message.id,
-      count: m.voteCount,
-      text: m.message.text,
-    }));
-
-    this.setState({ messages: messageWithVotes });
-  }
-
-  render() {
-    return (
-      <div className={rankingContainerClass}>
-        <h2>Top messages</h2>
-        {this.state.messages.length ? (
-          <RankingList messages={this.state.messages} />
-        ) : (
-          <EmptyRankingInfo />
-        )}
-      </div>
-    );
-  }
+function mapToModel(data) {
+  return data.ranking.map(m => ({
+    id: m.message.id,
+    count: m.voteCount,
+    text: m.message.text,
+  }));
 }
 
-const AppolloRanking = props => (
-  <ApolloConsumer>
-    {client => <Ranking {...props} apolloClient={client} />}
-  </ApolloConsumer>
+const Ranking = () => (
+  <Query query={GET_RANKING}>
+    {({ loading, data }) => {
+      return (
+        <div className={rankingContainerClass}>
+          <h2>Top messages</h2>
+          {loading || !data.ranking.length ? (
+            <EmptyRankingInfo />
+          ) : (
+            <RankingList messages={mapToModel(data)} />
+          )}
+        </div>
+      );
+    }}
+  </Query>
 );
 
-export default AppolloRanking;
+export default Ranking;
