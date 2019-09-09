@@ -44,7 +44,7 @@ You can see below what is done and what is planned.
 
 ## Other
 
-- [x] Deployment: https://messageboard.site
+- [ ] Deployment
 - [x] [Traefik](https://traefik.io/) as API Gateway
 - [x] Docker support (multistage build)
 - [x] [Kubernetes support](https://github.com/edsondewes/message-board/tree/master/k8s)
