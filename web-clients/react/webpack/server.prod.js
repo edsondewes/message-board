@@ -35,10 +35,13 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "css-loader/locals",
+            loader: "css-loader",
             options: {
-              camelCase: "only",
-              modules: true,
+              localsConvention: "camelCaseOnly",
+              modules: {
+                mode: "local",
+              },
+              onlyLocals: true,
             },
           },
         ],

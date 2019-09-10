@@ -1,4 +1,4 @@
-FROM node:10 AS build-env
+FROM node:12 AS build-env
 WORKDIR /app
 
 # install app dependencies
@@ -10,7 +10,7 @@ COPY . .
 RUN yarn build
 
 # build runtime image
-FROM node:10-alpine
+FROM node:12-alpine
 WORKDIR /app
 COPY --from=build-env /app/package.json /app/yarn.lock ./
 COPY --from=build-env /app/dist ./

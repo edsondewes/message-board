@@ -1,6 +1,7 @@
 import React from "react";
+import PropTypes from "prop-types";
 import style from "./_style.css";
-import Octicon from "../Octicon";
+import Octicon, { Paintcan, MarkGithub } from "@primer/octicons-react";
 
 const Header = ({ changeMobileView, toggleTheme }) => (
   <header className={style.topBar}>
@@ -20,17 +21,22 @@ const Header = ({ changeMobileView, toggleTheme }) => (
         onClick={toggleTheme}
         title="Toggle theme"
       >
-        <Octicon ico="paintcan" />
+        <Octicon icon={Paintcan} />
       </button>
       <a
         className={style.iconButton}
         href="https://github.com/edsondewes/message-board"
         title="Visit GitHub page"
       >
-        <Octicon ico="mark-github" />
+        <Octicon icon={MarkGithub} />
       </a>
     </div>
   </header>
 );
+
+Header.propTypes = {
+  changeMobileView: PropTypes.func.isRequired,
+  toggleTheme: PropTypes.func.isRequired,
+};
 
 export default Header;

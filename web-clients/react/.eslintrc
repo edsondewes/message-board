@@ -4,14 +4,21 @@
     "es6": true,
     "node": true
   },
-  "parser": "babel-eslint",
   "extends": ["eslint:recommended", "plugin:react/recommended"],
-  "rules": {
-    "react/prop-types": 0,
-    "no-console": 0
-  },
+  "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": ["react"]
+  "plugins": ["react", "react-hooks"],
+  "rules": {
+    "react/prop-types": "warn",
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-console": 0
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  }
 }

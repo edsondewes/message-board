@@ -1,86 +1,86 @@
-import React from "react";
+import React, { useReducer } from "react";
 import { post as postMessage } from "../../apis/messageApi";
 import style from "./_style.css";
 
 const TextLengthLimit = 250;
 
-class MessageForm extends React.Component {
-  constructor(props) {
-    super(props);
+const initialState = {
+  canSubmit: false,
+  expanded: false,
+  text: "",
+};
 
-    this.onBlur = this.onBlur.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
-    this.state = {
-      canSubmit: false,
-      expanded: false,
-      text: "",
-    };
-  }
-
-  onBlur() {
-    if (this.state.text.length === 0) this.setState({ expanded: false });
-  }
-
-  onChange(event) {
-    const currentLength = event.target.value.length;
-    if (currentLength <= TextLengthLimit) {
-      this.setState({
-        canSubmit: currentLength > 0,
-        text: event.target.value,
-      });
-    }
-  }
-
-  onFocus() {
-    this.setState({ expanded: true });
-  }
-
-  onSubmit(event) {
-    postMessage({
-      text: this.state.text,
-    }).then(() => this.resetForm());
-
-    event.preventDefault();
-  }
-
-  resetForm() {
-    this.setState({ canSubmit: false, expanded: false, text: "" });
-  }
-
-  render() {
-    return (
-      <form
-        onSubmit={this.onSubmit}
-        className={`${style.messageForm} ${
-          this.state.expanded ? style.expanded : ""
-        }`}
-      >
-        <textarea
-          aria-label="Write what's in your mind"
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          onFocus={this.onFocus}
-          value={this.state.text}
-          placeholder="What's in your mind?"
-          rows="1"
-        />
-        <div className={style.options}>
-          <span>
-            {this.state.text.length}/{TextLengthLimit}
-          </span>
-          <input
-            {...(!this.state.canSubmit ? { disabled: true } : {})}
-            className={style.btnSubmit}
-            type="submit"
-            value="Submit"
-          />
-        </div>
-      </form>
-    );
+function reducer(state, action) {
+  switch (action.type) {
+    case "write":
+      return { ...state, canSubmit: action.text.length > 0, text: action.text };
+    case "expand":
+      return { ...state, expanded: true };
+    case "retract":
+      return { ...state, expanded: false };
+    case "reset":
+      return { canSubmit: false, expanded: false, text: "" };
+    default:
+      throw new Error();
   }
 }
 
-export default MessageForm;
+function MessageForm() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  function onBlur() {
+    if (state.text.length === 0) {
+      dispatch({ type: "retract" });
+    }
+  }
+
+  function onChange(event) {
+    const currentLength = event.target.value.length;
+    if (currentLength <= TextLengthLimit) {
+      dispatch({ type: "write", text: event.target.value });
+    }
+  }
+
+  function onFocus() {
+    dispatch({ type: "expand" });
+  }
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    await postMessage({
+      text: state.text,
+    });
+
+    dispatch({ type: "reset" });
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      className={`${style.messageForm} ${state.expanded ? style.expanded : ""}`}
+    >
+      <textarea
+        aria-label="Write what's in your mind"
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        value={state.text}
+        placeholder="What's in your mind?"
+        rows="1"
+      />
+      <div className={style.options}>
+        <span>
+          {state.text.length}/{TextLengthLimit}
+        </span>
+        <input
+          {...(!state.canSubmit ? { disabled: true } : {})}
+          className={style.btnSubmit}
+          type="submit"
+          value="Submit"
+        />
+      </div>
+    </form>
+  );
+}
+
+export default React.memo(MessageForm);

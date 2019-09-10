@@ -2,8 +2,10 @@ const path = require("path");
 const webpack = require("webpack");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const StatsWebpackPlugin = require("stats-webpack-plugin");
-const SWPrecacheWebpackPlugin = require("sw-precache-webpack-plugin");
+const TerserJSPlugin = require("terser-webpack-plugin");
+const { GenerateSW } = require("workbox-webpack-plugin");
 
 module.exports = {
   mode: "production",
@@ -17,6 +19,9 @@ module.exports = {
     publicPath: "/",
   },
   devtool: "source-map",
+  optimization: {
+    minimizer: [new TerserJSPlugin(), new OptimizeCSSAssetsPlugin()],
+  },
   module: {
     rules: [
       {
@@ -37,9 +42,10 @@ module.exports = {
           {
             loader: "css-loader",
             options: {
-              camelCase: "only",
-              minimize: true,
-              modules: true,
+              localsConvention: "camelCaseOnly",
+              modules: {
+                mode: "local",
+              },
             },
           },
         ],
@@ -56,19 +62,18 @@ module.exports = {
     }),
     new CopyWebpackPlugin([{ from: "./public", to: "." }]),
     new StatsWebpackPlugin("../stats.json"),
-    new SWPrecacheWebpackPlugin({
+    new GenerateSW({
       cacheId: "message-board-react",
-      filename: "service-worker.js",
-      minify: false,
-      staticFileGlobsIgnorePatterns: [/\.map$/, /stats\.json$/],
+      swDest: "service-worker.js",
+      exclude: [/\.map$/, /\.LICENSE$/, /stats\.json$/],
       runtimeCaching: [
         {
           urlPattern: /^(http|https):\/\/\w+.\w+\/$/,
-          handler: "networkFirst",
+          handler: "NetworkFirst",
         },
         {
           urlPattern: /\/api\//,
-          handler: "networkFirst",
+          handler: "NetworkFirst",
         },
       ],
     }),

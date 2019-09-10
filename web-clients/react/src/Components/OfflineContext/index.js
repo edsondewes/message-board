@@ -1,61 +1,45 @@
-import React from "react";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 
-const DEFAULT_ONLINE_VALUE = true;
+const OfflineContext = React.createContext(null);
 
-const OfflineContext = React.createContext({
-  online: DEFAULT_ONLINE_VALUE,
-});
+function OfflineProvider({ children }) {
+  const [online, setOnline] = useState(
+    typeof navigator !== "undefined" ? navigator.onLine : true,
+  );
 
-const OfflineConsumer = OfflineContext.Consumer;
+  const updateOnlineStatus = useCallback(() => {
+    setOnline(navigator.onLine);
+  }, []);
 
-class OfflineProvider extends React.Component {
-  constructor(props) {
-    super(props);
+  useEffect(() => {
+    window.addEventListener("online", updateOnlineStatus);
+    window.addEventListener("offline", updateOnlineStatus);
 
-    this.state = {
-      online: DEFAULT_ONLINE_VALUE,
+    return () => {
+      window.removeEventListener("online", updateOnlineStatus);
+      window.removeEventListener("offline", updateOnlineStatus);
     };
+  }, [updateOnlineStatus]);
 
-    this.updateOnlineStatus = this.updateOnlineStatus.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.state.online !== navigator.onLine) {
-      this.updateOnlineStatus();
-    }
-
-    window.addEventListener("online", this.updateOnlineStatus);
-    window.addEventListener("offline", this.updateOnlineStatus);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("online", this.updateOnlineStatus);
-    window.removeEventListener("offline", this.updateOnlineStatus);
-  }
-
-  updateOnlineStatus() {
-    this.setState({
-      online: navigator.onLine,
-    });
-  }
-
-  render() {
-    return (
-      <OfflineContext.Provider value={this.state}>
-        {this.props.children}
-      </OfflineContext.Provider>
-    );
-  }
+  return (
+    <OfflineContext.Provider value={{ online }}>
+      {children}
+    </OfflineContext.Provider>
+  );
 }
 
-class OfflinePanel extends React.Component {
-  render() {
-    return (
-      <OfflineConsumer>
-        {context => !context.online && this.props.children}
-      </OfflineConsumer>
-    );
-  }
+OfflineProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+function OfflinePanel({ children }) {
+  const context = useContext(OfflineContext);
+  return context.online ? null : children;
 }
 
-export { OfflineConsumer, OfflinePanel, OfflineProvider };
+OfflinePanel.propTypes = {
+  children: PropTypes.node.isRequired,
+};
+
+export { OfflineContext, OfflinePanel, OfflineProvider };

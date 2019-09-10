@@ -1,66 +1,62 @@
-import React from "react";
-import Octicon from "../Octicon";
-import { OfflineConsumer } from "../OfflineContext";
+import React, { useCallback, useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
+import Octicon, { Thumbsdown, Thumbsup } from "@primer/octicons-react";
+import { OfflineContext } from "../OfflineContext";
 import { btnVote as btnVoteClass } from "./_style.css";
 import { get as getVotes, post } from "../../apis/voteApi";
 
-class VoteOptions extends React.Component {
-  constructor(props) {
-    super(props);
+function VoteContainer({ subjectId }) {
+  const offlineContext = useContext(OfflineContext);
+  const [votes, setVotes] = useState({
+    voted: false,
+  });
 
-    this.submitDislike = this.submitVote.bind(this, "Dislike");
-    this.submitLike = this.submitVote.bind(this, "Like");
+  useEffect(() => {
+    async function load() {
+      const response = await getVotes(subjectId);
+      setVotes(response);
+    }
 
-    this.state = {
-      dislike: 0,
-      like: 0,
-      voted: false,
-    };
-  }
+    load();
+  }, [subjectId]);
 
-  componentDidMount() {
-    getVotes(this.props.subjectId).then(response => {
-      this.setState(response);
-    });
-  }
+  const submitVote = useCallback(
+    async optionName => {
+      const response = await post(subjectId, optionName);
+      setVotes({ ...response, voted: true });
+    },
+    [subjectId],
+  );
 
-  submitVote(optionName) {
-    post(this.props.subjectId, optionName).then(response => {
-      this.setState({ ...response, voted: true });
-    });
-  }
+  const submitDislike = useCallback(() => submitVote("Dislike"), [submitVote]);
+  const submitLike = useCallback(() => submitVote("Like"), [submitVote]);
 
-  render() {
-    return (
-      <OfflineConsumer>
-        {context => {
-          const voteEnabled = !this.state.voted && context.online;
-          return (
-            <div>
-              <button
-                aria-label="Like this message"
-                className={btnVoteClass}
-                disabled={!voteEnabled}
-                onClick={this.submitLike}
-              >
-                <Octicon ico="thumbsup" />
-                {this.state.like}
-              </button>
-              <button
-                aria-label="Dislike this message"
-                className={btnVoteClass}
-                disabled={!voteEnabled}
-                onClick={this.submitDislike}
-              >
-                <Octicon ico="thumbsdown" />
-                {this.state.dislike}
-              </button>
-            </div>
-          );
-        }}
-      </OfflineConsumer>
-    );
-  }
+  const voteEnabled = !votes.voted && offlineContext.online;
+
+  return (
+    <div>
+      <button
+        aria-label="Like this message"
+        className={btnVoteClass}
+        disabled={!voteEnabled}
+        onClick={submitLike}
+      >
+        <Octicon icon={Thumbsup} /> {votes.like || 0}
+      </button>
+      <button
+        aria-label="Dislike this message"
+        className={btnVoteClass}
+        disabled={!voteEnabled}
+        onClick={submitDislike}
+      >
+        <Octicon icon={Thumbsdown} /> {votes.dislike || 0}
+      </button>
+    </div>
+  );
 }
 
-export default VoteOptions;
+VoteContainer.propTypes = {
+  subjectId: PropTypes.number.isRequired,
+};
+
+export default VoteContainer;

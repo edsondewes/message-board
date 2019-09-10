@@ -35,11 +35,14 @@ module.exports = {
         test: /\.css$/,
         use: [
           {
-            loader: "css-loader/locals",
+            loader: "css-loader",
             options: {
-              camelCase: "only",
-              localIdentName: "[local]--[hash:base64:5]",
-              modules: true,
+              localsConvention: "camelCaseOnly",
+              modules: {
+                localIdentName: "[local]--[hash:base64:5]",
+                mode: "local",
+              },
+              onlyLocals: true,
             },
           },
         ],

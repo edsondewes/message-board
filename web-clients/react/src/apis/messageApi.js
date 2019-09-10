@@ -7,20 +7,19 @@ const apiUrl = `${__API_URL__}/messages`;
 export const MESSAGE_CREATED = "message.created";
 export const eventBus = new EventEmitter();
 
-export function get(from) {
-  return axios
-    .get(apiUrl, {
-      params: {
-        from,
-      },
-    })
-    .then(response => response.data);
+export async function get(from) {
+  const response = await axios.get(apiUrl, {
+    params: {
+      from,
+    },
+  });
+
+  return response.data;
 }
 
-export function getById(id) {
-  return axios.get(`${apiUrl}/${id}`).then(function(response) {
-    return response.data;
-  });
+export async function getById(id) {
+  const response = await axios.get(`${apiUrl}/${id}`);
+  return response.data;
 }
 
 export async function post(obj) {
