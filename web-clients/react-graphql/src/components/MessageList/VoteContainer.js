@@ -1,7 +1,8 @@
-import React from "react";
-import gql from "graphql-tag";
-import { ApolloConsumer } from "react-apollo";
-import Octicon from "../Octicon";
+import React, { useCallback, useMemo } from "react";
+import PropTypes from "prop-types";
+import { useMutation } from "@apollo/react-hooks";
+import Octicon, { Thumbsdown, Thumbsup } from "@primer/octicons-react";
+import { gql } from "apollo-boost";
 import { btnVote as btnVoteClass } from "./_style.css";
 
 const DislikeOption = "Dislike";
@@ -16,77 +17,88 @@ const ADD_VOTE = gql`
   }
 `;
 
-class VoteOptions extends React.Component {
-  constructor(props) {
-    super(props);
+function VoteContainer({ subjectId, votes }) {
+  const [addVote, { data }] = useMutation(ADD_VOTE);
+  const voteState = useMemo(() => {
+    let dislikeCount = votes.find(v => v.optionName === DislikeOption).count;
+    let likeCount = votes.find(v => v.optionName === LikeOption).count;
+    let voted = false;
 
-    this.submitDislike = this.submitVote.bind(this, DislikeOption);
-    this.submitLike = this.submitVote.bind(this, LikeOption);
-
-    this.state = {
-      dislike: this.props.votes.find(v => v.optionName === DislikeOption).count,
-      like: this.props.votes.find(v => v.optionName === LikeOption).count,
-      voted: false,
-    };
-  }
-
-  async submitVote(optionName) {
-    const { data } = await this.props.apolloClient.mutate({
-      mutation: ADD_VOTE,
-      variables: {
-        vote: {
-          optionName: optionName,
-          subjectId: this.props.subjectId.toString(),
-        },
-      },
-    });
-
-    const newState = { voted: true };
-    const voteCount = data.addVote.count;
-    switch (optionName) {
-      case LikeOption:
-        newState.like = voteCount;
-        break;
-      case DislikeOption:
-        newState.dislike = voteCount;
-        break;
-      default:
-        throw "Invalid vote option";
+    // merge props data with the mutation
+    if (data) {
+      voted = true;
+      switch (data.addVote.optionName) {
+        case LikeOption:
+          likeCount = data.addVote.count;
+          break;
+        case DislikeOption:
+          dislikeCount = data.addVote.count;
+          break;
+        default:
+          throw "Invalid vote option";
+      }
     }
 
-    this.setState(newState);
-  }
+    return {
+      dislikeCount,
+      likeCount,
+      voted,
+    };
+  }, [data, votes]);
 
-  render() {
-    return (
-      <div>
-        <button
-          aria-label="Like this message"
-          className={btnVoteClass}
-          disabled={this.state.voted}
-          onClick={this.submitLike}
-        >
-          <Octicon ico="thumbsup" />
-          {this.state.like}
-        </button>
-        <button
-          aria-label="Dislike this message"
-          className={btnVoteClass}
-          disabled={this.state.voted}
-          onClick={this.submitDislike}
-        >
-          <Octicon ico="thumbsdown" />
-          {this.state.dislike}
-        </button>
-      </div>
-    );
-  }
+  const submitVote = useCallback(
+    async optionName => {
+      await addVote({
+        variables: {
+          vote: {
+            optionName,
+            subjectId: subjectId.toString(),
+          },
+        },
+      });
+    },
+    [addVote, subjectId],
+  );
+
+  const submitDislike = useCallback(
+    async event => {
+      event.preventDefault();
+      await submitVote("Dislike");
+    },
+    [submitVote],
+  );
+  const submitLike = useCallback(() => submitVote("Like"), [submitVote]);
+
+  return (
+    <div>
+      <button
+        aria-label="Like this message"
+        className={btnVoteClass}
+        disabled={voteState.voted}
+        onClick={submitLike}
+      >
+        <Octicon icon={Thumbsup} /> {voteState.likeCount}
+      </button>
+      <button
+        aria-label="Dislike this message"
+        className={btnVoteClass}
+        disabled={voteState.voted}
+        onClick={submitDislike}
+      >
+        <Octicon icon={Thumbsdown} /> {voteState.dislikeCount}
+      </button>
+    </div>
+  );
 }
 
-const AppolloVoteOptions = props => (
-  <ApolloConsumer>
-    {client => <VoteOptions {...props} apolloClient={client} />}
-  </ApolloConsumer>
-);
+VoteContainer.propTypes = {
+  subjectId: PropTypes.number.isRequired,
+  votes: PropTypes.arrayOf(
+    PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      optionName: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
 
-export default AppolloVoteOptions;
+export default VoteContainer;

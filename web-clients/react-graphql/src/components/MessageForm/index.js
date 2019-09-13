@@ -1,8 +1,8 @@
-import React from "react";
-import gql from "graphql-tag";
-import { ApolloConsumer } from "react-apollo";
-import style from "./_style.css";
+import React, { useEffect, useReducer } from "react";
+import { useMutation } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 import { eventBus, MESSAGE_CREATED } from "../../services/eventBus";
+import style from "./_style.css";
 
 const ADD_MESSAGE = gql`
   mutation newMessages($message: MessageInput!) {
@@ -16,96 +16,93 @@ const ADD_MESSAGE = gql`
 
 const TextLengthLimit = 250;
 
-class MessageForm extends React.Component {
-  constructor(props) {
-    super(props);
+const initialState = {
+  canSubmit: false,
+  expanded: false,
+  text: "",
+};
 
-    this.onBlur = this.onBlur.bind(this);
-    this.onChange = this.onChange.bind(this);
-    this.onFocus = this.onFocus.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-
-    this.state = {
-      canSubmit: false,
-      expanded: false,
-      text: "",
-    };
-  }
-
-  onBlur() {
-    if (this.state.text.length === 0) this.setState({ expanded: false });
-  }
-
-  onChange(event) {
-    const currentLength = event.target.value.length;
-    if (currentLength <= TextLengthLimit) {
-      this.setState({
-        canSubmit: currentLength > 0,
-        text: event.target.value,
-      });
-    }
-  }
-
-  onFocus() {
-    this.setState({ expanded: true });
-  }
-
-  async onSubmit(event) {
-    event.preventDefault();
-    const { data } = await this.props.apolloClient.mutate({
-      mutation: ADD_MESSAGE,
-      variables: {
-        message: {
-          text: this.state.text,
-        },
-      },
-    });
-
-    this.resetForm();
-    eventBus.emit(MESSAGE_CREATED, data.createMessage);
-  }
-
-  resetForm() {
-    this.setState({ canSubmit: false, expanded: false, text: "" });
-  }
-
-  render() {
-    return (
-      <form
-        onSubmit={this.onSubmit}
-        className={`${style.messageForm} ${
-          this.state.expanded ? style.expanded : ""
-        }`}
-      >
-        <textarea
-          aria-label="Write what's in your mind"
-          onBlur={this.onBlur}
-          onChange={this.onChange}
-          onFocus={this.onFocus}
-          value={this.state.text}
-          placeholder="What's in your mind?"
-          rows="1"
-        />
-        <div className={style.options}>
-          <span>
-            {this.state.text.length}/{TextLengthLimit}
-          </span>
-          <input
-            {...(!this.state.canSubmit ? { disabled: true } : {})}
-            className={style.btnSubmit}
-            type="submit"
-            value="Submit"
-          />
-        </div>
-      </form>
-    );
+function reducer(state, action) {
+  switch (action.type) {
+    case "write":
+      return { ...state, canSubmit: action.text.length > 0, text: action.text };
+    case "expand":
+      return { ...state, expanded: true };
+    case "retract":
+      return { ...state, expanded: false };
+    case "reset":
+      return { canSubmit: false, expanded: false, text: "" };
+    default:
+      throw new Error();
   }
 }
 
-const AppolloMessageForm = props => (
-  <ApolloConsumer>
-    {client => <MessageForm {...props} apolloClient={client} />}
-  </ApolloConsumer>
-);
+function MessageForm() {
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [addMessage, { data }] = useMutation(ADD_MESSAGE);
 
-export default AppolloMessageForm;
+  useEffect(() => {
+    if (data) {
+      eventBus.emit(MESSAGE_CREATED, data.createMessage);
+      dispatch({ type: "reset" });
+    }
+  }, [data]);
+
+  function onBlur() {
+    if (state.text.length === 0) {
+      dispatch({ type: "retract" });
+    }
+  }
+
+  function onChange(event) {
+    const currentLength = event.target.value.length;
+    if (currentLength <= TextLengthLimit) {
+      dispatch({ type: "write", text: event.target.value });
+    }
+  }
+
+  function onFocus() {
+    dispatch({ type: "expand" });
+  }
+
+  async function onSubmit(event) {
+    event.preventDefault();
+    await addMessage({
+      variables: {
+        message: {
+          text: state.text,
+        },
+      },
+    });
+  }
+
+  return (
+    <form
+      onSubmit={onSubmit}
+      className={`${style.messageForm} ${state.expanded ? style.expanded : ""}`}
+    >
+      <textarea
+        aria-label="Write what's in your mind"
+        onBlur={onBlur}
+        onChange={onChange}
+        onFocus={onFocus}
+        value={state.text}
+        placeholder="What's in your mind?"
+        rows="1"
+      />
+      <div className={style.options}>
+        <span>
+          {state.text.length}/{TextLengthLimit}
+        </span>
+        <input
+          {...(!state.canSubmit ? { disabled: true } : {})}
+          className={style.btnSubmit}
+          type="submit"
+          value="Submit"
+        />
+      </div>
+    </form>
+  );
+}
+
+export default React.memo(MessageForm);

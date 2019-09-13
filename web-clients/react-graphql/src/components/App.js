@@ -1,39 +1,14 @@
-import React from "react";
-import style from "./_style.css";
-
+import React, { useCallback, useState } from "react";
 import Header from "./Header";
 import MessageForm from "./MessageForm";
 import MessageList from "./MessageList";
 import Ranking from "./Ranking";
+import style from "./_style.css";
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
+function App() {
+  const [mobileView, setMobileView] = useState("messages");
 
-    this.changeMobileView = this.changeMobileView.bind(this);
-
-    this.state = {
-      mobileView: "messages",
-    };
-  }
-
-  changeMobileView(viewName) {
-    return () => {
-      if (viewName !== this.state.mobileView) {
-        this.setState({
-          mobileView: viewName,
-        });
-      }
-    };
-  }
-
-  getContainerClass(defaultClass, viewName) {
-    return this.state.mobileView === viewName
-      ? `${defaultClass} ${style.mobileVisible}`
-      : defaultClass;
-  }
-
-  toggleTheme() {
+  const toggleTheme = useCallback(() => {
     const root = document.documentElement;
     const themeAttribute = "data-theme";
     if (root.hasAttribute(themeAttribute)) {
@@ -41,31 +16,28 @@ class App extends React.Component {
     } else {
       root.setAttribute(themeAttribute, "dark");
     }
+  }, []);
+
+  function getContainerClass(defaultClass, viewName) {
+    return mobileView === viewName
+      ? `${defaultClass} ${style.mobileVisible}`
+      : defaultClass;
   }
 
-  render() {
-    return (
-      <>
-        <Header
-          changeMobileView={this.changeMobileView}
-          toggleTheme={this.toggleTheme}
-        />
-        <div className={style.contentContainer}>
-          <main
-            className={this.getContainerClass(style.mainContainer, "messages")}
-          >
-            <MessageForm />
-            <MessageList />
-          </main>
-          <aside
-            className={this.getContainerClass(style.rightContainer, "ranking")}
-          >
-            <Ranking />
-          </aside>
-        </div>
-      </>
-    );
-  }
+  return (
+    <>
+      <Header setMobileView={setMobileView} toggleTheme={toggleTheme} />
+      <div className={style.contentContainer}>
+        <main className={getContainerClass(style.mainContainer, "messages")}>
+          <MessageForm />
+          <MessageList />
+        </main>
+        <aside className={getContainerClass(style.rightContainer, "ranking")}>
+          <Ranking />
+        </aside>
+      </div>
+    </>
+  );
 }
 
 export default App;

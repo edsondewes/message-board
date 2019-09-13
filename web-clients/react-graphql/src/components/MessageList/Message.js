@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import VoteContainer from "./VoteContainer";
 import { message as messageClass } from "./_style.css";
 
@@ -16,4 +17,16 @@ const Message = ({ id, created, text, votes }) => {
   );
 };
 
-export default Message;
+Message.propTypes = {
+  id: PropTypes.number.isRequired,
+  created: PropTypes.string.isRequired,
+  text: PropTypes.string.isRequired,
+  votes: PropTypes.arrayOf(
+    PropTypes.shape({
+      count: PropTypes.number.isRequired,
+      optionName: PropTypes.string.isRequired,
+    }),
+  ).isRequired,
+};
+
+export default React.memo(Message);
