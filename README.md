@@ -31,11 +31,11 @@ You can see below what is done and what is planned.
 
 ## React GraphQL App
 
-- [ ] React 16.x client
+- [x] React 16.x client
 
 ## Vue App
 
-- [x] Vue 2.5.x client
+- [x] Vue 2.6.x client
 - [x] Server side rendering
 - [x] Offline support
 - [x] Responsive layout
