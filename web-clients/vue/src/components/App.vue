@@ -1,8 +1,9 @@
 <template>
   <div id="app">
-    <Header 
-      @change-mobile-view="mobileView = $event" 
-      @toggle-theme="toggleTheme" />
+    <Header
+      @change-mobile-view="mobileView = $event"
+      @toggle-theme="toggleTheme"
+    />
     <FloatingPanel v-if="offline">
       <h1>Offline mode</h1>
       <p>You are working offline. Some features may not be available</p>
@@ -15,7 +16,8 @@
       <aside :class="['right-container', { 'mobile-visible': mobileView === 'ranking' }]">
         <Ranking
           v-bind="ranking"
-          option-name="Like" />
+          option-name="Like"
+        />
       </aside>
     </div>
   </div>

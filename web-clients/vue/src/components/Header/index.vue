@@ -8,8 +8,8 @@
       >
         Messages
       </button>
-      <button 
-        class="nav-button" 
+      <button
+        class="nav-button"
         @click="$emit('change-mobile-view', 'ranking')"
       >
         Ranking
@@ -21,7 +21,7 @@
       >
         <Octicon ico="paintcan" />
       </button>
-      <a 
+      <a
         class="icon-button"
         href="https://github.com/edsondewes/message-board"
         title="Visit GitHub page"

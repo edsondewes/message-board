@@ -1,17 +1,19 @@
 <template>
   <div>
-    <button 
-      :disabled="voted || offline" 
+    <button
+      :disabled="voted || offline"
       aria-label="Like this message"
       class="btn-vote"
-      @click="submiteVote('Like')">
+      @click="submiteVote('Like')"
+    >
       <Octicon ico="thumbsup" /> {{ like }}
     </button>
-    <button 
-      :disabled="voted || offline" 
-      aria-label="Dislike this message" 
-      class="btn-vote" 
-      @click="submiteVote('Dislike')">
+    <button
+      :disabled="voted || offline"
+      aria-label="Dislike this message"
+      class="btn-vote"
+      @click="submiteVote('Dislike')"
+    >
       <Octicon ico="thumbsdown" /> {{ dislike }}
     </button>
   </div>

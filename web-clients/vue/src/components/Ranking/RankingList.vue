@@ -1,9 +1,10 @@
 <template>
   <ol class="ranking-list">
-    <li 
+    <li
       v-for="item in messages"
-      v-bind="item" 
-      :key="item.id">
+      :key="item.id"
+      v-bind="item"
+    >
       <span>{{ item.count }}</span>
       <p>{{ item.text }}</p>
     </li>

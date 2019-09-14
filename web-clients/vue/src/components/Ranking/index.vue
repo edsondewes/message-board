@@ -1,9 +1,10 @@
 <template>
   <div class="ranking-container">
     <h2>Top messages</h2>
-    <RankingList 
-      v-if="ranking.length" 
-      :messages="ranking" />
+    <RankingList
+      v-if="ranking.length"
+      :messages="ranking"
+    />
     <EmptyRankingInfo v-else />
   </div>
 </template>

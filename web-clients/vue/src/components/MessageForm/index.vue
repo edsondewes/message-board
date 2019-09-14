@@ -1,7 +1,8 @@
 <template>
   <form
     :class="['message-form', { expanded }]"
-    @submit.prevent="submitMessage">
+    @submit.prevent="submitMessage"
+  >
     <textarea
       v-model="text"
       aria-label="Write what's in your mind"

@@ -1,16 +1,19 @@
 <template>
   <div v-if="messages.length">
-    <Message 
+    <Message
       v-for="item in messages"
-      v-bind="item" 
-      :key="item.id" />
-      
+      :key="item.id"
+      v-bind="item"
+    />
     <InfiniteLoading
       v-if="canInfiniteLoad"
-      @infinite="infiniteHandler">
-      <span slot="no-more">
-        There is no more messages :(
-      </span>
+      @infinite="infiniteHandler"
+    >
+      <template v-slot:no-more>
+        <span>
+          There is no more messages :(
+        </span>
+      </template>
     </InfiniteLoading>
   </div>
   <EmptyListInfo v-else />

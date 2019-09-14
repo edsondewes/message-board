@@ -1,11 +1,13 @@
 <template>
+  <!-- eslint-disable vue/no-v-html -->
   <span
     class="octicon"
-    v-html="icoSvg" />
+    v-html="icoSvg"
+  />
 </template>
 
 <script>
-import octicons from 'octicons';
+import octicons from '@primer/octicons';
 
 export default {
   name: 'Octicon',
