@@ -4,7 +4,7 @@
       :disabled="voted || offline"
       aria-label="Like this message"
       class="btn-vote"
-      @click="submiteVote('Like')"
+      @click="submiteVote('like')"
     >
       <Octicon ico="thumbsup" /> {{ like }}
     </button>
@@ -12,7 +12,7 @@
       :disabled="voted || offline"
       aria-label="Dislike this message"
       class="btn-vote"
-      @click="submiteVote('Dislike')"
+      @click="submiteVote('dislike')"
     >
       <Octicon ico="thumbsdown" /> {{ dislike }}
     </button>

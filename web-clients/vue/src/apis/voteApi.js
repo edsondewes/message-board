@@ -3,17 +3,15 @@ import axios from 'axios';
 
 const apiUrl = `${__API_URL__}/votes`;
 
-export function get(subjectId) {
-  return axios.get(`${apiUrl}/${subjectId}`).then(function(response) {
-    return response.data;
-  });
+export async function get(subjectId) {
+  const response = await axios.get(`${apiUrl}/${subjectId}`);
+  return response.data;
 }
 
-export function post(subjectId, optionName) {
-  return axios
-    .post(`${apiUrl}`, {
-      subjectId,
-      optionName,
-    })
-    .then(response => response.data);
+export async function post(subjectId, optionName) {
+  const response = await axios.post(`${apiUrl}`, {
+    subjectId: subjectId.toString(),
+    optionName,
+  });
+  return response.data;
 }

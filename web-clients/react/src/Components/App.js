@@ -61,7 +61,7 @@ function App({ messageList, ranking }) {
 App.getInitialProps = async function() {
   const [messageList, ranking] = await Promise.all([
     MessageList.getInitialProps(),
-    Ranking.getInitialProps("Like"),
+    Ranking.getInitialProps("like"),
   ]);
 
   return {

@@ -1,4 +1,4 @@
-import React, { useCallback, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import Octicon, { Thumbsdown, Thumbsup } from "@primer/octicons-react";
 import { OfflineContext } from "../OfflineContext";
@@ -20,26 +20,19 @@ function VoteContainer({ subjectId }) {
     load();
   }, [subjectId]);
 
-  const submitVote = useCallback(
-    async optionName => {
-      const response = await post(subjectId, optionName);
-      setVotes({ ...response, voted: true });
-    },
-    [subjectId],
-  );
-
-  const submitDislike = useCallback(() => submitVote("Dislike"), [submitVote]);
-  const submitLike = useCallback(() => submitVote("Like"), [submitVote]);
+  async function submitVote(optionName) {
+    const response = await post(subjectId, optionName);
+    setVotes({ ...votes, ...response, voted: true });
+  }
 
   const voteEnabled = !votes.voted && offlineContext.online;
-
   return (
     <div>
       <button
         aria-label="Like this message"
         className={btnVoteClass}
         disabled={!voteEnabled}
-        onClick={submitLike}
+        onClick={() => submitVote("like")}
       >
         <Octicon icon={Thumbsup} /> {votes.like || 0}
       </button>
@@ -47,7 +40,7 @@ function VoteContainer({ subjectId }) {
         aria-label="Dislike this message"
         className={btnVoteClass}
         disabled={!voteEnabled}
-        onClick={submitDislike}
+        onClick={() => submitVote("dislike")}
       >
         <Octicon icon={Thumbsdown} /> {votes.dislike || 0}
       </button>
@@ -59,4 +52,4 @@ VoteContainer.propTypes = {
   subjectId: PropTypes.number.isRequired,
 };
 
-export default VoteContainer;
+export default React.memo(VoteContainer);

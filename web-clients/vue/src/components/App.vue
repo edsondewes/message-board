@@ -16,7 +16,7 @@
       <aside :class="['right-container', { 'mobile-visible': mobileView === 'ranking' }]">
         <Ranking
           v-bind="ranking"
-          option-name="Like"
+          option-name="like"
         />
       </aside>
     </div>

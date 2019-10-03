@@ -27,7 +27,7 @@ export default {
       required: true,
     },
   },
-  async asyncData(optionName = 'Like') {
+  async asyncData(optionName = 'like') {
     const ranking = await getRanking(optionName);
 
     const messageRequests = ranking.map(rankingItem =>

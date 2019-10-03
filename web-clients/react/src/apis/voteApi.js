@@ -10,7 +10,7 @@ export async function get(subjectId) {
 
 export async function post(subjectId, optionName) {
   const response = await axios.post(`${apiUrl}`, {
-    subjectId,
+    subjectId: subjectId.toString(),
     optionName,
   });
 
