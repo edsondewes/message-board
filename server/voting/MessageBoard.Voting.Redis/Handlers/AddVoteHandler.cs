@@ -23,12 +23,11 @@ namespace MessageBoard.Voting.Redis.Handlers
         public async Task<Vote> Handle(AddVoteCommand request, CancellationToken cancellationToken)
         {
             var count = await _db.HashIncrementAsync(MapKey(request.SubjectId), request.OptionName);
-            var vote = new Vote
-            {
-                Count = (uint)count,
-                OptionName = request.OptionName,
-                SubjectId = request.SubjectId
-            };
+            var vote = new Vote(
+                count: (uint)count,
+                optionName: request.OptionName,
+                subjectId: request.SubjectId
+                );
 
             await _mediator.Publish(VoteCreated.From(vote));
 

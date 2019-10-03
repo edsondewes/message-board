@@ -8,10 +8,12 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddRedis(this IServiceCollection services, string host)
         {
             if (string.IsNullOrEmpty(host))
+            {
                 throw new ArgumentNullException(nameof(host));
+            }
 
             services.AddSingleton<IConnectionMultiplexer>(ConnectionMultiplexer.Connect(host));
-            services.AddScoped<IDatabase>(provider => provider.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
+            services.AddScoped(provider => provider.GetRequiredService<IConnectionMultiplexer>().GetDatabase());
 
             return services;
         }

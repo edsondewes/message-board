@@ -1,4 +1,3 @@
-using System;
 using MediatR;
 
 namespace MessageBoard.Voting.Core.Events
@@ -9,11 +8,17 @@ namespace MessageBoard.Voting.Core.Events
         public string OptionName { get; set; }
         public string SubjectId { get; set; }
 
-        public static VoteCreated From(Vote obj) => new VoteCreated
+        public VoteCreated(string subjectId, string optionName, uint count)
         {
-            Count = obj.Count,
-            OptionName = obj.OptionName,
-            SubjectId = obj.SubjectId
-        };
+            SubjectId = subjectId;
+            OptionName = optionName;
+            Count = count;
+        }
+
+        public static VoteCreated From(Vote obj) => new VoteCreated(
+            count: obj.Count,
+            optionName: obj.OptionName,
+            subjectId: obj.SubjectId
+            );
     }
 }

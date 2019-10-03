@@ -17,19 +17,19 @@ namespace Microsoft.Extensions.DependencyInjection
             var rankingTarget = targets.GetValue<string>("RankingTarget");
             var votingTarget = targets.GetValue<string>("VotingTarget");
 
-            services.AddSingleton<MessageService.MessageServiceClient>((provider) =>
+            services.AddSingleton((provider) =>
             {
                 var channel = new Channel(messagingTarget, ChannelCredentials.Insecure);
                 return new MessageService.MessageServiceClient(channel);
             });
 
-            services.AddSingleton<RankingService.RankingServiceClient>((provider) =>
+            services.AddSingleton((provider) =>
             {
                 var channel = new Channel(rankingTarget, ChannelCredentials.Insecure);
                 return new RankingService.RankingServiceClient(channel);
             });
 
-            services.AddSingleton<VoteService.VoteServiceClient>((provider) =>
+            services.AddSingleton((provider) =>
             {
                 var channel = new Channel(votingTarget, ChannelCredentials.Insecure);
                 return new VoteService.VoteServiceClient(channel);

@@ -10,11 +10,15 @@ namespace MessageBoard.Messaging.Core.Commands
 
         public CreateMessageCommand(string text)
         {
-            if (text == null)
+            if (text is null)
+            {
                 throw new ArgumentNullException(nameof(text));
+            }
 
             if (text.Length > 250)
+            {
                 throw new ArgumentException("Text max length is 250 characteres", nameof(text));
+            }
 
             Created = DateTime.Now;
             Text = text;

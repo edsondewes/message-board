@@ -7,18 +7,22 @@ namespace MessageBoard.Voting.Core.Queries
 {
     public class VoteCountBatchQuery : IRequest<IEnumerable<Vote>>
     {
-        public string[] OptionNames { get; }
-        public string[] SubjectIds { get; }
+        public List<string>? OptionNames { get; }
+        public List<string> SubjectIds { get; }
 
-        public VoteCountBatchQuery(IEnumerable<string> subjectIds, IEnumerable<string> optionNames = null)
+        public VoteCountBatchQuery(IEnumerable<string> subjectIds, IEnumerable<string>? optionNames = null)
         {
-            if (subjectIds == null)
+            if (subjectIds is null)
+            {
                 throw new ArgumentNullException(nameof(subjectIds));
+            }
 
             if (optionNames != null)
-                OptionNames = optionNames.ToArray();
+            {
+                OptionNames = optionNames.ToList();
+            }
 
-            SubjectIds = subjectIds.ToArray();
+            SubjectIds = subjectIds.ToList();
         }
     }
 }

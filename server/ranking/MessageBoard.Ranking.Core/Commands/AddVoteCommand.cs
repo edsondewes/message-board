@@ -11,10 +11,14 @@ namespace MessageBoard.Ranking.Core.Commands
         public AddVoteCommand(string subjectId, string optionName)
         {
             if (string.IsNullOrEmpty(subjectId))
+            {
                 throw new ArgumentNullException(nameof(subjectId));
+            }
 
             if (string.IsNullOrEmpty(optionName))
+            {
                 throw new ArgumentNullException(nameof(optionName));
+            }
 
             OptionName = optionName;
             SubjectId = subjectId;

@@ -2,6 +2,6 @@ namespace MessageBoard.GraphQL.Model
 {
     public class CreateMessageModel
     {
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
     }
 }

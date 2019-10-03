@@ -10,7 +10,9 @@ namespace Microsoft.Extensions.DependencyInjection
         public static IServiceCollection AddNats(this IServiceCollection services, string url)
         {
             if (string.IsNullOrEmpty(url))
+            {
                 throw new ArgumentNullException(nameof(url));
+            }
 
             services.AddSingleton<IConnection>(new ConnectionFactory().CreateConnection(url));
             services.AddSingleton<IHostedService, SubscriptionsServiceNats>();

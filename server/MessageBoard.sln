@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.27130.2036
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29326.143
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.Core", "messaging\MessageBoard.Messaging.Core\MessageBoard.Messaging.Core.csproj", "{0A677F44-EC74-4AEE-9387-09177BA73616}"
 EndProject
@@ -16,6 +16,10 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Voting.Api", "voting\MessageBoard.Voting.Api\MessageBoard.Voting.Api.csproj", "{3CA058CD-A19B-4FFC-B9BC-021397AAC0D8}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ranking", "ranking", "{C7E9F561-5CC6-404B-A78F-2FA256A76571}"
+	ProjectSection(SolutionItems) = preProject
+		ranking\Api.Dockerfile = ranking\Api.Dockerfile
+		ranking\GRPC.Dockerfile = ranking\GRPC.Dockerfile
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Ranking.Api", "ranking\MessageBoard.Ranking.Api\MessageBoard.Ranking.Api.csproj", "{CD3407DA-0569-47C6-ACEE-16618322F0FC}"
 EndProject
@@ -26,10 +30,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Ranking.Nats", "ranking\MessageBoard.Ranking.Nats\MessageBoard.Ranking.Nats.csproj", "{F4A9F137-5522-4C31-A7B9-22CC91C0DBC7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "voting", "voting", "{DE250017-7820-4F80-85EE-1FBCB7A895D9}"
+	ProjectSection(SolutionItems) = preProject
+		voting\Api.Dockerfile = voting\Api.Dockerfile
+		voting\GRPC.Dockerfile = voting\GRPC.Dockerfile
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Voting.Nats", "voting\MessageBoard.Voting.Nats\MessageBoard.Voting.Nats.csproj", "{C1854E9F-ED93-4248-81F3-F0D34D77F9C1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "messaging", "messaging", "{2DC272F8-3FED-4971-9788-DAA81DF66045}"
+	ProjectSection(SolutionItems) = preProject
+		messaging\Api.Dockerfile = messaging\Api.Dockerfile
+		messaging\GRPC.Dockerfile = messaging\GRPC.Dockerfile
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Messaging.GRPC", "messaging\MessageBoard.Messaging.GRPC\MessageBoard.Messaging.GRPC.csproj", "{586AFD14-239E-4154-9EAB-ED468090AFE8}"
 EndProject
@@ -38,6 +50,11 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.Ranking.GRPC", "ranking\MessageBoard.Ranking.GRPC\MessageBoard.Ranking.GRPC.csproj", "{4A80DE81-A223-47D7-93E0-A3C3DC592E2E}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageBoard.GraphQL", "graphql\MessageBoard.GraphQL.csproj", "{C5FFBD4A-CAAB-4ADA-93B3-BF1097E329DF}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_shared", "_shared", "{C9E2CB3F-9D8C-46E3-B38F-BD9A8B010930}"
+	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

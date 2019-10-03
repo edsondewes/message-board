@@ -30,7 +30,7 @@ namespace MessageBoard.Messaging.Redis.Handlers
                 take: request.PageSize);
 
             var list = await Task.WhenAll(
-                    ids.Select(id => _mediator.Send(new MessageByIdQuery((long)id)))
+                ids.Select(id => _mediator.Send(new MessageByIdQuery((long)id)))
                 );
 
             return list;

@@ -6,6 +6,6 @@ namespace MessageBoard.Messaging.Api.Models
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Field 'text' is required")]
         [MaxLength(250, ErrorMessage = "Text max length is 250 characteres")]
-        public string Text { get; set; }
+        public string Text { get; set; } = null!;
     }
 }

@@ -29,12 +29,11 @@ namespace MessageBoard.Messaging.Redis.Handlers
 
             await _db.SortedSetAddAsync(MessageListKey, member: newId, score: newId);
 
-            return new Message
-            {
-                Created = request.Created,
-                Id = newId,
-                Text = request.Text
-            };
+            return new Message(
+                created: request.Created,
+                id: newId,
+                text: request.Text
+                );
         }
     }
 }

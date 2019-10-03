@@ -1,4 +1,4 @@
-FROM microsoft/dotnet:2.1-sdk-alpine AS build-env
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0-alpine AS build-env
 WORKDIR /app
 
 # copy csproj and restore as distinct layers
@@ -14,7 +14,7 @@ WORKDIR /app/MessageBoard.Voting.Api
 RUN dotnet publish -c Release -o out --no-restore
 
 # build runtime image
-FROM microsoft/dotnet:2.1-aspnetcore-runtime-alpine
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.0-alpine
 WORKDIR /app
 COPY --from=build-env /app/MessageBoard.Voting.Api/out ./
 

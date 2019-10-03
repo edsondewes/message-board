@@ -1,15 +1,16 @@
-using GraphQL;
+using System;
 using GraphQL.Types;
+using GraphQL.Utilities;
 
 namespace MessageBoard.GraphQL.Schemas
 {
     public class MessageBoardSchema : Schema
     {
-        public MessageBoardSchema(IDependencyResolver resolver)
-            : base(resolver)
+        public MessageBoardSchema(IServiceProvider provider)
+            : base(provider)
         {
-            Mutation = resolver.Resolve<RootMutation>();
-            Query = resolver.Resolve<RootQuery>();
+            Mutation = provider.GetRequiredService<RootMutation>();
+            Query = provider.GetRequiredService<RootQuery>();
         }
     }
 }

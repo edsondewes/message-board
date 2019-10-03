@@ -18,12 +18,11 @@ namespace MessageBoard.Messaging.Redis
         public static Message ToModel(long id, HashEntry[] entries)
         {
             var dictionary = entries.ToDictionary();
-            return new Message
-            {
-                Created = new DateTime((long)dictionary[CreatedEntry], DateTimeKind.Local),
-                Id = id,
-                Text = dictionary[TextEntry]
-            };
+            return new Message(
+                created: new DateTime((long)dictionary[CreatedEntry], DateTimeKind.Local),
+                id: id,
+                text: dictionary[TextEntry]
+                );
         }
     }
 }

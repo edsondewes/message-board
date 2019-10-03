@@ -25,11 +25,10 @@ namespace MessageBoard.Ranking.Redis.Handlers
                 order: Order.Descending,
                 take: request.Length);
 
-            return items.Select(i => new VoteCount
-            {
-                Count = (uint)i.Score,
-                SubjectId = i.Element
-            });
+            return items.Select(i => new VoteCount(
+                count: (uint)i.Score,
+                subjectId: i.Element
+                ));
         }
     }
 }

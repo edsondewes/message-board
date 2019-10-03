@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using MediatR;
 using MessageBoard.Messaging.Api.Models;
@@ -12,7 +13,7 @@ namespace MessageBoard.Messaging.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class MessagesController : Controller
+    public class MessagesController : ControllerBase
     {
         private readonly IMediator _mediator;
 
@@ -22,12 +23,12 @@ namespace MessageBoard.Messaging.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Get([FromQuery]long? from)
+        public async Task<ActionResult<List<Message>>> Get([FromQuery]long? from)
         {
             try
             {
                 var result = await _mediator.Send(new PaginatedMessagesQuery(from));
-                return Ok(result);
+                return result.ToList();
             }
             catch (ArgumentOutOfRangeException ex)
             {
@@ -41,8 +42,10 @@ namespace MessageBoard.Messaging.Api.Controllers
             try
             {
                 var result = await _mediator.Send(new MessageByIdQuery(id));
-                if (result == null)
+                if (result is null)
+                {
                     return NotFound("Id not fount");
+                }
 
                 return result;
             }

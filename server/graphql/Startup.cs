@@ -1,20 +1,21 @@
-﻿using GraphQL;
-using GraphQL.Server;
+﻿using GraphQL.Server;
 using GraphQL.Server.Ui.Playground;
 using MessageBoard.GraphQL.Schemas;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MessageBoard.GraphQL
 {
     public class Startup
     {
         private readonly IConfiguration _configuration;
-        private readonly IHostingEnvironment _environment;
+        private readonly IWebHostEnvironment _environment;
 
-        public Startup(IConfiguration configuration, IHostingEnvironment environment)
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             _configuration = configuration;
             _environment = environment;
@@ -22,8 +23,13 @@ namespace MessageBoard.GraphQL
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // GraphQL lib is doing synchronous io :(
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
             services.AddCors();
-            services.AddSingleton<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
             services.AddGraphQL(options =>
             {
                 options.EnableMetrics = true;

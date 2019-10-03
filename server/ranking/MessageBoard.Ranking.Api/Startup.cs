@@ -1,11 +1,12 @@
-﻿using App.Metrics.Health;
+﻿using System;
+using System.Linq;
+using App.Metrics.Health;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json.Serialization;
+using Microsoft.Extensions.Hosting;
 
 namespace MessageBoard.Ranking.Api
 {
@@ -20,14 +21,15 @@ namespace MessageBoard.Ranking.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services
-                .AddMvc()
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-                .AddJsonOptions(o => o.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver());
+            services.AddControllers();
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
             services.AddNats(Configuration.GetValue<string>("Nats"));
-            services.AddMediatR();
+            services.AddMediatR(
+                AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName != null && a.FullName.StartsWith("MessageBoard"))
+                .ToArray()
+                );
 
             services.AddHealth(
                 AppMetricsHealth.CreateDefaultBuilder()
@@ -36,7 +38,7 @@ namespace MessageBoard.Ranking.Api
             services.AddHealthEndpoints();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -48,7 +50,11 @@ namespace MessageBoard.Ranking.Api
             }
 
             app.UseHealthEndpoint();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

@@ -5,7 +5,7 @@ using MessageBoard.GraphQL.Model;
 
 namespace MessageBoard.GraphQL.Schemas
 {
-    public class MessageRankingType : ObjectGraphType<MessageBoard.GraphQL.Model.MessageRanking>
+    public class MessageRankingType : ObjectGraphType<MessageRanking>
     {
         public MessageRankingType(IDataLoaderContextAccessor accessor, IRepository repository)
         {

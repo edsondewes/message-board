@@ -18,7 +18,8 @@ namespace MessageBoard.GraphQL.GRPC
         public RepositoryGrpc(
             MessageService.MessageServiceClient messageClient,
             RankingService.RankingServiceClient rankingClient,
-            VoteService.VoteServiceClient voteClient)
+            VoteService.VoteServiceClient voteClient
+            )
         {
             _messageClient = messageClient;
             _rankingClient = rankingClient;
@@ -62,7 +63,7 @@ namespace MessageBoard.GraphQL.GRPC
 
         public async Task<IEnumerable<MessageRanking>> ListMessagesByRanking(string optionName)
         {
-            var request = new Ranking.GRPC.ListRequest
+            var request = new ListRequest
             {
                 OptionName = optionName
             };
@@ -71,7 +72,7 @@ namespace MessageBoard.GraphQL.GRPC
             return ranking.Votes.Select(ToModel);
         }
 
-        public Func<IEnumerable<string>, Task<IDictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string> optionNames = null)
+        public Func<IEnumerable<string>, Task<IDictionary<string, IEnumerable<Vote>>>> ListVotes(IEnumerable<string>? optionNames = null)
         {
             return async (subjectIds) =>
             {
@@ -91,7 +92,7 @@ namespace MessageBoard.GraphQL.GRPC
 
         public async Task<IEnumerable<Message>> PaginateMessages(long? from)
         {
-            var request = new Messaging.GRPC.PaginateRequest
+            var request = new PaginateRequest
             {
                 From = from ?? 0
             };
@@ -100,23 +101,20 @@ namespace MessageBoard.GraphQL.GRPC
             return list.Messages.Select(ToModel);
         }
 
-        private Message ToModel(MessageResponse obj) => new Message
-        {
-            Created = obj.Created.ToDateTime().ToLocalTime(),
-            Id = obj.Id,
-            Text = obj.Text
-        };
+        private Message ToModel(MessageResponse obj) => new Message(
+            created: obj.Created.ToDateTime().ToLocalTime(),
+            id: obj.Id,
+            text: obj.Text
+            );
 
-        private MessageRanking ToModel(RankingResponse.Types.VoteCountResponse obj) => new MessageRanking
-        {
-            SubjectId = obj.SubjectId,
-            VoteCount = obj.Count
-        };
+        private MessageRanking ToModel(RankingResponse.Types.VoteCountResponse obj) => new MessageRanking(
+            subjectId: obj.SubjectId,
+            voteCount: obj.Count
+            );
 
-        private Vote ToModel(VoteResponse obj) => new Vote
-        {
-            Count = obj.Count,
-            OptionName = obj.OptionName
-        };
+        private Vote ToModel(VoteResponse obj) => new Vote(
+            count: obj.Count,
+            optionName: obj.OptionName
+            );
     }
 }

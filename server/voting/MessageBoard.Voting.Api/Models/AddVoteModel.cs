@@ -5,9 +5,9 @@ namespace MessageBoard.Voting.Api.Models
     public class AddVoteModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Field 'optionName' is required")]
-        public string OptionName { get; set; }
+        public string OptionName { get; set; } = null!;
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Field 'subjectId' is required")]
-        public string SubjectId { get; set; }
+        public string SubjectId { get; set; } = null!;
     }
 }

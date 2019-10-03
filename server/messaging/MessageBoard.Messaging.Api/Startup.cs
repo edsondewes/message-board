@@ -1,10 +1,12 @@
-﻿using App.Metrics.Health;
+﻿using System;
+using System.Linq;
+using App.Metrics.Health;
 using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace MessageBoard.Messaging.Api
 {
@@ -19,11 +21,14 @@ namespace MessageBoard.Messaging.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc()
-                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddControllers();
 
             services.AddRedis(Configuration.GetValue<string>("Redis"));
-            services.AddMediatR();
+            services.AddMediatR(
+                AppDomain.CurrentDomain.GetAssemblies()
+                .Where(a => a.FullName != null && a.FullName.StartsWith("MessageBoard"))
+                .ToArray()
+                );
 
             services.AddHealth(
                 AppMetricsHealth.CreateDefaultBuilder()
@@ -32,7 +37,7 @@ namespace MessageBoard.Messaging.Api
             services.AddHealthEndpoints();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -44,7 +49,11 @@ namespace MessageBoard.Messaging.Api
             }
 
             app.UseHealthEndpoint();
-            app.UseMvc();
+            app.UseRouting();
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+            });
         }
     }
 }

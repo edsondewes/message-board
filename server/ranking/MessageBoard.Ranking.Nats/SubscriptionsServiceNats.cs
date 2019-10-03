@@ -15,7 +15,7 @@ namespace MessageBoard.Ranking.Nats
     {
         private readonly IConnection _connection;
         private readonly IServiceScopeFactory _scopeFactory;
-        private IAsyncSubscription _subscription;
+        private IAsyncSubscription? _subscription;
 
         public SubscriptionsServiceNats(IConnection connection, IServiceScopeFactory scopeFactory)
         {

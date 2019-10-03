@@ -10,7 +10,7 @@ using static MessageBoard.Messaging.Redis.Mappings;
 
 namespace MessageBoard.Messaging.Redis.Handlers
 {
-    public class MessageByIdHandler : IRequestHandler<MessageByIdQuery, Message>
+    public class MessageByIdHandler : IRequestHandler<MessageByIdQuery, Message?>
     {
         private readonly IDatabase _db;
 
@@ -19,11 +19,13 @@ namespace MessageBoard.Messaging.Redis.Handlers
             _db = db;
         }
 
-        public async Task<Message> Handle(MessageByIdQuery request, CancellationToken cancellationToken)
+        public async Task<Message?> Handle(MessageByIdQuery request, CancellationToken cancellationToken)
         {
             var entries = await _db.HashGetAllAsync(MapKey(request.Id));
-            if (!entries.Any())
+            if (entries.Length == 0)
+            {
                 return null;
+            }
 
             return ToModel(request.Id, entries);
         }

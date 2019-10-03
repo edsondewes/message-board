@@ -7,14 +7,16 @@ namespace MessageBoard.Messaging.Core.Queries
 {
     public class MessageByIdBatchQuery : IRequest<IEnumerable<Message>>
     {
-        public long[] Ids { get; }
+        public List<long> Ids { get; }
 
         public MessageByIdBatchQuery(IEnumerable<long> ids)
         {
-            if (ids == null)
+            if (ids is null)
+            {
                 throw new ArgumentNullException(nameof(ids));
+            }
 
-            Ids = ids.ToArray();
+            Ids = ids.ToList();
         }
     }
 }

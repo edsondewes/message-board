@@ -9,7 +9,7 @@ namespace MessageBoard.Ranking.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class RankingController : Controller
+    public class RankingController : ControllerBase
     {
         private readonly IMediator _mediator;
 
