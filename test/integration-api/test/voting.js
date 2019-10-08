@@ -20,7 +20,7 @@ describe("Voting API", function() {
     it("should add a vote to the given option name", async function() {
       const response = await axios.post(process.env.URL_VOTING_API, {
         optionName: "like",
-        subjectId: this.message.id,
+        subjectId: this.message.id.toString(),
       });
 
       expect(response.status).to.equal(200);
@@ -31,7 +31,7 @@ describe("Voting API", function() {
 
     it("should reject empty option name", async function() {
       const body = {
-        subjectId: this.message.id,
+        subjectId: this.message.id.toString(),
       };
 
       const response = await axios.post(
@@ -62,11 +62,11 @@ describe("Voting API", function() {
       return Promise.all([
         axios.post(process.env.URL_VOTING_API, {
           optionName: "like",
-          subjectId: this.message.id,
+          subjectId: this.message.id.toString(),
         }),
         axios.post(process.env.URL_VOTING_API, {
           optionName: "dislike",
-          subjectId: this.message.id,
+          subjectId: this.message.id.toString(),
         }),
       ]);
     });
