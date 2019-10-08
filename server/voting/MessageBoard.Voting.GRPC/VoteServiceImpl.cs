@@ -4,76 +4,62 @@ using Grpc.Core;
 using MediatR;
 using MessageBoard.Voting.Core;
 using MessageBoard.Voting.Core.Commands;
-using MessageBoard.Voting.Core.Events;
 using MessageBoard.Voting.Core.Queries;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MessageBoard.Voting.GRPC
 {
     public class VoteServiceImpl : VoteService.VoteServiceBase
     {
-        private readonly IServiceScopeFactory _scopeFactory;
+        private readonly IMediator _mediator;
 
-        public VoteServiceImpl(IServiceScopeFactory scopeFactory)
+        public VoteServiceImpl(IMediator mediator)
         {
-            _scopeFactory = scopeFactory;
+            _mediator = mediator;
         }
 
         public override async Task<VoteResponse> Add(AddRequest request, ServerCallContext context)
         {
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var vote = await mediator.Send(new AddVoteCommand(request.SubjectId, request.OptionName));
+            var vote = await _mediator.Send(new AddVoteCommand(request.SubjectId, request.OptionName));
 
-                return new VoteResponse
-                {
-                    Count = vote.Count,
-                    OptionName = vote.OptionName,
-                };
-            }
+            return new VoteResponse
+            {
+                Count = vote.Count,
+                OptionName = vote.OptionName,
+            };
         }
 
         public override async Task<LoadResponse> Load(LoadRequest request, ServerCallContext context)
         {
-            using (var scope = _scopeFactory.CreateScope())
-            {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var votes = await mediator.Send(new VoteCountQuery(request.SubjectId));
+            var votes = await _mediator.Send(new VoteCountQuery(request.SubjectId));
 
-                var response = new LoadResponse();
-                response.Votes.AddRange(votes.Select(ToResponse));
-                return response;
-            }
+            var response = new LoadResponse();
+            response.Votes.AddRange(votes.Select(ToResponse));
+            return response;
         }
 
         public override async Task<LoadBatchResponse> LoadBatch(LoadBatchRequest request, ServerCallContext context)
         {
-            using (var scope = _scopeFactory.CreateScope())
+            var votes = await _mediator.Send(new VoteCountBatchQuery(request.SubjectId, request.OptionNames));
+
+            var batchResponse = new LoadBatchResponse();
+            foreach (var subjectId in request.SubjectId)
             {
-                var mediator = scope.ServiceProvider.GetRequiredService<IMediator>();
-                var votes = await mediator.Send(new VoteCountBatchQuery(request.SubjectId, request.OptionNames));
+                var subjectVotes = votes
+                    .Where(v => v.SubjectId == subjectId)
+                    .Select(vote => new VoteResponse
+                    {
+                        Count = vote.Count,
+                        OptionName = vote.OptionName
+                    });
 
-                var batchResponse = new LoadBatchResponse();
-                foreach (var subjectId in request.SubjectId)
-                {
-                    var subjectVotes = votes
-                        .Where(v => v.SubjectId == subjectId)
-                        .Select(vote => new VoteResponse
-                        {
-                            Count = vote.Count,
-                            OptionName = vote.OptionName
-                        });
+                var list = new LoadBatchResponse.Types.SubjectListResponse();
+                list.SubjectId = subjectId;
+                list.Votes.Add(subjectVotes);
 
-                    var list = new LoadBatchResponse.Types.SubjectListResponse();
-                    list.SubjectId = subjectId;
-                    list.Votes.Add(subjectVotes);
-
-                    batchResponse.Votes.Add(list);
-                }
-
-                return batchResponse;
+                batchResponse.Votes.Add(list);
             }
+
+            return batchResponse;
         }
 
         private VoteResponse ToResponse(Vote vote) => new VoteResponse

@@ -1,4 +1,4 @@
-using Grpc.Core;
+using Grpc.Net.Client;
 using MessageBoard.GraphQL.GRPC;
 using MessageBoard.GraphQL.Model;
 using MessageBoard.Messaging.GRPC;
@@ -19,19 +19,19 @@ namespace Microsoft.Extensions.DependencyInjection
 
             services.AddSingleton((provider) =>
             {
-                var channel = new Channel(messagingTarget, ChannelCredentials.Insecure);
+                var channel = GrpcChannel.ForAddress(messagingTarget);
                 return new MessageService.MessageServiceClient(channel);
             });
 
             services.AddSingleton((provider) =>
             {
-                var channel = new Channel(rankingTarget, ChannelCredentials.Insecure);
+                var channel = GrpcChannel.ForAddress(rankingTarget);
                 return new RankingService.RankingServiceClient(channel);
             });
 
             services.AddSingleton((provider) =>
             {
-                var channel = new Channel(votingTarget, ChannelCredentials.Insecure);
+                var channel = GrpcChannel.ForAddress(votingTarget);
                 return new VoteService.VoteServiceClient(channel);
             });
 

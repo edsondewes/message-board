@@ -5,11 +5,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\messageService.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\rankingService.proto" GrpcServices="Client" />
+    <Protobuf Include="Protos\voteService.proto" GrpcServices="Client" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.10.0" />
-    <PackageReference Include="GraphQL" Version="3.0.0-preview-1268" />
+    <PackageReference Include="GraphQL" Version="3.0.0-preview-1271" />
     <PackageReference Include="GraphQL.Server.Transports.AspNetCore" Version="3.5.0-alpha0027" />
     <PackageReference Include="GraphQL.Server.Ui.Playground" Version="3.5.0-alpha0027" />
-    <PackageReference Include="Grpc" Version="2.24.0" />
+    <PackageReference Include="Grpc.Net.Client" Version="2.23.2" />
+    <PackageReference Include="Grpc.Tools" Version="2.24.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
 </Project>

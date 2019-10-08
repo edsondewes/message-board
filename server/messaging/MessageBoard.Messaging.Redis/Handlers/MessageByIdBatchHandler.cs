@@ -22,7 +22,7 @@ namespace MessageBoard.Messaging.Redis.Handlers
         public async Task<IEnumerable<Message>> Handle(MessageByIdBatchQuery request, CancellationToken cancellationToken)
         {
             var batch = _db.CreateBatch();
-            var hashTasks = request.Ids.Select(id => batch.HashGetAllAsync(MapKey(id)));
+            var hashTasks = request.Ids.Select(id => batch.HashGetAllAsync(MapKey(id))).ToArray();
             batch.Execute();
 
             var results = await Task.WhenAll(hashTasks);
