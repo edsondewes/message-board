@@ -21,7 +21,7 @@ services:
       Environment: Development
       Redis: redis
     ports:
-      - "50051:50051"
+      - "50051:80"
 
   ranking-grpc:
     depends_on:
@@ -36,7 +36,7 @@ services:
       Nats: nats://nats:4222
       Redis: redis
     ports:
-      - "50052:50051"
+      - "50052:80"
 
   voting-grpc:
     depends_on:
@@ -51,7 +51,7 @@ services:
       Nats: nats://nats:4222
       Redis: redis
     ports:
-      - "50053:50051"
+      - "50053:80"
 
 volumes:
   redis-data:

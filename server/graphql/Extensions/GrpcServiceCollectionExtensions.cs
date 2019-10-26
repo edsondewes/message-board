@@ -1,3 +1,4 @@
+using System;
 using Grpc.Net.Client;
 using MessageBoard.GraphQL.GRPC;
 using MessageBoard.GraphQL.Model;
@@ -12,6 +13,10 @@ namespace Microsoft.Extensions.DependencyInjection
     {
         public static IServiceCollection AddGRPC(this IServiceCollection services, IConfiguration configuration)
         {
+            // Enable insecure Http2
+            // https://docs.microsoft.com/en-us/aspnet/core/grpc/troubleshoot?view=aspnetcore-3.0#call-insecure-grpc-services-with-net-core-client
+            AppContext.SetSwitch("System.Net.Http.SocketsHttpHandler.Http2UnencryptedSupport", true);
+
             var targets = configuration.GetSection("GRPC");
             var messagingTarget = targets.GetValue<string>("MessagingTarget");
             var rankingTarget = targets.GetValue<string>("RankingTarget");

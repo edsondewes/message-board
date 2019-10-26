@@ -52,9 +52,9 @@ services:
     build: ./server/graphql/
     image: edsondewes/message-board:graphql-latest
     environment:
-      GRPC__MessagingTarget: "messaging-grpc:50051"
-      GRPC__RankingTarget: "ranking-grpc:50051"
-      GRPC__VotingTarget: "voting-grpc:50051"
+      GRPC__MessagingTarget: "http://messaging-grpc"
+      GRPC__RankingTarget: "http://ranking-grpc"
+      GRPC__VotingTarget: "http://voting-grpc"
     ports:
       - "8181:80"
 
