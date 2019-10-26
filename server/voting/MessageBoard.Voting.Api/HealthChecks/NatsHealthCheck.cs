@@ -1,27 +1,26 @@
 using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Health;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using NATS.Client;
 
 namespace MessageBoard.Voting.Api.HealthChecks
 {
-    public class NatsHealthCheck : HealthCheck
+    public class NatsHealthCheck : IHealthCheck
     {
         private readonly IConnection _connection;
 
         public NatsHealthCheck(IConnection connection)
-            : base("NATS")
         {
             _connection = connection;
         }
 
-        protected override ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken = default)
+        public Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             var result = _connection.State == ConnState.CONNECTED
                 ? HealthCheckResult.Healthy()
                 : HealthCheckResult.Unhealthy();
 
-            return new ValueTask<HealthCheckResult>(result);
+            return Task.FromResult(result);
         }
     }
 }

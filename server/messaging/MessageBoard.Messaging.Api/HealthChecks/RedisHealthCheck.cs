@@ -1,30 +1,30 @@
+using System;
 using System.Threading;
 using System.Threading.Tasks;
-using App.Metrics.Health;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using StackExchange.Redis;
 
 namespace MessageBoard.Messaging.Api.HealthChecks
 {
-    public class RedisHealthCheck : HealthCheck
+    public class RedisHealthCheck : IHealthCheck
     {
         private readonly IConnectionMultiplexer _connection;
 
         public RedisHealthCheck(IConnectionMultiplexer connection)
-            : base("Redis")
         {
             _connection = connection;
         }
 
-        protected override async ValueTask<HealthCheckResult> CheckAsync(CancellationToken cancellationToken = default)
+        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = default)
         {
             try
             {
                 await _connection.GetDatabase().PingAsync();
                 return HealthCheckResult.Healthy();
             }
-            catch
+            catch (Exception ex)
             {
-                return HealthCheckResult.Unhealthy();
+                return HealthCheckResult.Unhealthy(exception: ex);
             }
         }
     }
