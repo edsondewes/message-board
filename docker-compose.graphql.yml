@@ -1,19 +1,15 @@
-version: '3'
+version: "3.7"
 
 services:
   nats:
     image: nats
-    labels:
-      - "traefik.enable=false"
 
   redis:
     image: redis:alpine
     command: redis-server --appendonly yes
-    labels:
-      - "traefik.enable=false"
     volumes:
       - redis-data:/data
-  
+
   messaging-grpc:
     depends_on:
       - redis
@@ -61,6 +57,6 @@ services:
       GRPC__VotingTarget: "voting-grpc:50051"
     ports:
       - "8181:80"
-      
+
 volumes:
   redis-data:

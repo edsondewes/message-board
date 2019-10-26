@@ -1,19 +1,15 @@
-version: '3'
+version: "3.7"
 
 services:
   nats:
     image: nats
-    labels:
-      - "traefik.enable=false"
 
   redis:
     image: redis:alpine
     command: redis-server --appendonly yes
-    labels:
-      - "traefik.enable=false"
     volumes:
       - redis-data:/data
-  
+
   messaging-api:
     depends_on:
       - redis
@@ -24,9 +20,9 @@ services:
     environment:
       Redis: redis
     labels:
-      - "traefik.backend=messaging-api"
-      - "traefik.frontend.rule=PathPrefix:/api/messages"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.messaging-api.rule=PathPrefix(`/api/messages`)"
+      - "traefik.http.services.messaging-api.loadbalancer.server.port=80"
 
   ranking-api:
     depends_on:
@@ -40,9 +36,9 @@ services:
       Nats: nats://nats:4222
       Redis: redis
     labels:
-      - "traefik.backend=ranking-api"
-      - "traefik.frontend.rule=PathPrefix:/api/ranking"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.ranking-api.rule=PathPrefix(`/api/ranking`)"
+      - "traefik.http.services.ranking-api.loadbalancer.server.port=80"
 
   voting-api:
     depends_on:
@@ -56,9 +52,9 @@ services:
       Nats: nats://nats:4222
       Redis: redis
     labels:
-      - "traefik.backend=voting-api"
-      - "traefik.frontend.rule=PathPrefix:/api/votes"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.voting-api.rule=PathPrefix(`/api/votes`)"
+      - "traefik.http.services.voting-api.loadbalancer.server.port=80"
 
   web:
     build: ./web-clients/react/
@@ -68,20 +64,18 @@ services:
       INTERNAL_API_URL: http://proxy/api
       PUBLIC_API_URL: http://localhost:8080/api
     labels:
-      - "traefik.backend=react-web"
-      - "traefik.frontend.rule=PathPrefix:/"
-      - "traefik.port=80"
-    
+      - "traefik.enable=true"
+      - "traefik.http.routers.web.rule=PathPrefix(`/`)"
+      - "traefik.http.services.web.loadbalancer.server.port=80"
+
   proxy:
-    image: traefik:1.6-alpine
-    labels:
-      - "traefik.enable=false"
+    image: traefik:2.0
     ports:
       - "8080:80"
       - "8081:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/traefik.toml:/etc/traefik/traefik.toml
-      
+      - ./traefik.toml:/etc/traefik/traefik.toml
+
 volumes:
   redis-data:

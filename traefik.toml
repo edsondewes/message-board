@@ -1,7 +1,7 @@
-[docker]
-endpoint = "unix:///var/run/docker.sock"
-domain = "docker.localhost"
-watch = true
+[api]
+  dashboard = true
+  insecure = true
 
-[web]
-address = ":8080"
+[providers.docker]
+  endpoint = "unix:///var/run/docker.sock"
+  exposedByDefault = false

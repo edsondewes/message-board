@@ -1,19 +1,15 @@
-version: '3'
+version: "3.7"
 
 services:
   nats:
     image: nats
-    labels:
-      - "traefik.enable=false"
 
   redis:
     image: redis:alpine
     command: redis-server --appendonly yes
-    labels:
-      - "traefik.enable=false"
     volumes:
       - redis-data:/data
-  
+
   messaging-grpc:
     depends_on:
       - redis
@@ -56,6 +52,6 @@ services:
       Redis: redis
     ports:
       - "50053:50051"
-      
+
 volumes:
   redis-data:

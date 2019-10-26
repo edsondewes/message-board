@@ -1,19 +1,15 @@
-version: '3'
+version: "3.7"
 
 services:
   nats:
     image: nats
-    labels:
-      - "traefik.enable=false"
 
   redis:
     image: redis:alpine
     command: redis-server --appendonly yes
-    labels:
-      - "traefik.enable=false"
     volumes:
       - redis-data:/data
-  
+
   messaging-api:
     depends_on:
       - redis
@@ -27,9 +23,9 @@ services:
     healthcheck:
       disable: true
     labels:
-      - "traefik.backend=messaging-api"
-      - "traefik.frontend.rule=PathPrefix:/api/messages"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.messaging-api.rule=PathPrefix(`/api/messages`)"
+      - "traefik.http.services.messaging-api.loadbalancer.server.port=80"
 
   ranking-api:
     depends_on:
@@ -46,9 +42,9 @@ services:
     healthcheck:
       disable: true
     labels:
-      - "traefik.backend=ranking-api"
-      - "traefik.frontend.rule=PathPrefix:/api/ranking"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.ranking-api.rule=PathPrefix(`/api/ranking`)"
+      - "traefik.http.services.ranking-api.loadbalancer.server.port=80"
 
   voting-api:
     depends_on:
@@ -65,20 +61,18 @@ services:
     healthcheck:
       disable: true
     labels:
-      - "traefik.backend=voting-api"
-      - "traefik.frontend.rule=PathPrefix:/api/votes"
-      - "traefik.port=80"
+      - "traefik.enable=true"
+      - "traefik.http.routers.voting-api.rule=PathPrefix(`/api/votes`)"
+      - "traefik.http.services.voting-api.loadbalancer.server.port=80"
 
   proxy:
-    image: traefik:1.6-alpine
-    labels:
-      - "traefik.enable=false"
+    image: traefik:2.0
     ports:
       - "9090:80"
       - "9091:8080"
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - $PWD/traefik.toml:/etc/traefik/traefik.toml
+      - ./traefik.toml:/etc/traefik/traefik.toml
 
 volumes:
   redis-data:
